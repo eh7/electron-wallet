@@ -1,0 +1,14 @@
+{
+  "name": "electron-wallet",
+  "version": "0.0.1",
+  "description": "electron based crypto wallet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gavin Francis <gav@eh7.co.uk>",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^24.1.3"
+  }
+}
