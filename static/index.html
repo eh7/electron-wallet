@@ -13,6 +13,7 @@
 	'sha256-lXzIe2rgd/kOxs/X84W9nLtHgCEa5ZR05VYlJHR6K/8='
 	'sha256-YfBu6lPCzLsxx4lH1LR0Z0D8xCs9OHbcWTZ4RL8Ig58='
 	'sha256-d/afrbVyBi0SHqoOnAikyOZ7tIbfTZRZ6SkhTTevvtg='
+	'sha256-iUuhESvdMkCqkeS/Qi/Xrzx1uyQFSpxNF2YS3MCXkBw='
 	"
     />
     <meta
@@ -40,7 +41,7 @@
     <script>alert('1');</script>
     <script>alert('2');</script>
     <script type="module">
-      import init, { greet, greet2 } from "../wasmExample/hello-wasm/pkg/hello_wasm.js";
+      import init, { greet, greet2 } from "./pkg/hello_wasm.js";
       init().then(() => {
         greet("WebAssembly GAV");
         greet2("WebAssembly");
