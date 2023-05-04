@@ -8,11 +8,7 @@
     //-->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'
-        'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
-	'sha256-lXzIe2rgd/kOxs/X84W9nLtHgCEa5ZR05VYlJHR6K/8='
-	'sha256-YfBu6lPCzLsxx4lH1LR0Z0D8xCs9OHbcWTZ4RL8Ig58='
-	"
+      content="default-src 'self'; script-src 'self'"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
@@ -29,15 +25,6 @@
     //-->
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>, Chromium
-    <span id="chrome-version"></span>, and Electron
-    <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
-    <script src="../dist/renderer.js"></script>
-    <script>alert('1');</script>
-    <script>alert('2');</script>
     <script type="module">
       import init, { greet, greet2 } from "../wasmExample/hello-wasm/pkg/hello_wasm.js";
       init().then(() => {
@@ -45,5 +32,14 @@
         greet2("WebAssembly");
       });
     </script>
+    <h1>Hello World!</h1>
+    We are using Node.js <span id="node-version"></span>, Chromium
+    <span id="chrome-version"></span>, and Electron
+    <span id="electron-version"></span>.
+    <script>alert('1');</script>
+    <script>alert('1');</script>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./dist/renderer.js"></script>
   </body>
 </html>
