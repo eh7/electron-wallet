@@ -4,3 +4,38 @@
 // nodeIntegration is set to true in webPreferences.
 // Use preload.js to selectively enable features
 // needed in the renderer process.
+
+//const OBJ = require('electron');
+//console.log(OBJ)
+//const OBJ = require('electron');
+//console.log(OBJ)
+
+//import { remote } from 'electron';
+//const mainProcess = remote.require('./index.js');
+//mainProcess.test();
+
+//declare const window: any;
+
+//declare global {
+//  interface Window {
+//    api?: any;
+//  }
+//}
+
+const ping = async () => {
+  const response = await (window as any).versions.ping();
+  console.log('XXXXXXXXXXXXXXXXXX', response); // prints out 'pong'
+}
+
+ping();
+
+console.log((window as any).myAPI);
+
+const setButton = document.getElementById('btn') as HTMLInputElement | null;
+const titleInput = document.getElementById('title') as HTMLInputElement | null;
+setButton.addEventListener('click', () => {
+  if (titleInput != null) {
+    const title = titleInput.value;
+    (window as any).electronAPI.setTitle(title);
+  }
+});

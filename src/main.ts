@@ -1,4 +1,8 @@
-import { app, BrowserWindow } from "electron";
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+} from "electron";
 import * as path from "path";
 
 function createWindow() {
@@ -9,6 +13,14 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
     width: 800,
+  });
+
+  ipcMain.handle('ping', () => 'pong');
+
+  ipcMain.on('set-title', (event, title) => {
+    const webContents = event.sender
+    const win = BrowserWindow.fromWebContents(webContents)
+    win.setTitle(title)
   });
 
   // and load the index.html of the app.
@@ -42,3 +54,15 @@ app.on("window-all-closed", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+// Attach listener in the main process with the given ID
+ipcMain.on('request-mainprocess-action', (event, arg) => {
+  // Displays the object sent from the renderer process:
+  //{
+  //    message: "Hi",
+  //    someData: "Let's go"
+  //}
+  console.log(
+    arg
+  );
+});

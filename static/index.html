@@ -14,6 +14,8 @@
 	'sha256-YfBu6lPCzLsxx4lH1LR0Z0D8xCs9OHbcWTZ4RL8Ig58='
 	'sha256-d/afrbVyBi0SHqoOnAikyOZ7tIbfTZRZ6SkhTTevvtg='
 	'sha256-iUuhESvdMkCqkeS/Qi/Xrzx1uyQFSpxNF2YS3MCXkBw='
+	'sha256-Mwxna25RBhzEABV+9EeO8wS3UV19RgQQNSOcElrHAFg='
+	'sha256-Sa6fQ0cN0NXKbOPEnms+Pe4AgwDC7QJ9yg9HpsD6FFA='
 	"
     />
     <meta
@@ -37,9 +39,17 @@
     <span id="electron-version"></span>.
 
     <!-- You can also require other files to run in this process -->
+    <div id="app"></div>
+
+    Title: <input id="title"/>
+    <button id="btn" type="button">Set</button>
+
     <script src="../dist/renderer.js"></script>
+
+    <a onclick="ping();">click</a>
     <script>alert('1');</script>
     <script>alert('2');</script>
+    <!--
     <script type="module">
       import init, { greet, greet2 } from "./pkg/hello_wasm.js";
       init().then(() => {
@@ -47,5 +57,6 @@
         greet2("WebAssembly");
       });
     </script>
+    //-->
   </body>
 </html>
