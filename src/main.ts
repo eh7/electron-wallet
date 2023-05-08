@@ -5,6 +5,9 @@ import {
 } from "electron";
 import * as path from "path";
 
+//const elec = require('electron')
+//console.log(elec);
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -21,6 +24,19 @@ function createWindow() {
     const webContents = event.sender
     const win = BrowserWindow.fromWebContents(webContents)
     win.setTitle(title)
+  });
+
+  
+  ipcMain.on('call-hello-alert-wasm', () => {
+    console.log('call-hello-alert-wasm');
+    //let imp = import('../static/pkg/hello_wasm.js');
+    //alert('call-hello-alert-wasm');
+    //import('../static/pkg/hello_wasm')
+    //.then((hello_wasm) => {
+    //  console.log('then');
+    //}).catch((error) => {
+    //  console.log('then', error);
+    //});
   });
 
   // and load the index.html of the app.

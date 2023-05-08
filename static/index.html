@@ -8,6 +8,15 @@
     //-->
     <meta
       http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-eval'
+        'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
+        "
+    />
+    <!--
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' app: 'unsafe-eval'; default-src 'self'; ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' app: 'unsafe-eval'; object-src 'self' app:;">
+    <meta
+      http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'
         'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
 	'sha256-lXzIe2rgd/kOxs/X84W9nLtHgCEa5ZR05VYlJHR6K/8='
@@ -16,12 +25,14 @@
 	'sha256-iUuhESvdMkCqkeS/Qi/Xrzx1uyQFSpxNF2YS3MCXkBw='
 	'sha256-Mwxna25RBhzEABV+9EeO8wS3UV19RgQQNSOcElrHAFg='
 	'sha256-Sa6fQ0cN0NXKbOPEnms+Pe4AgwDC7QJ9yg9HpsD6FFA='
+	'sha256-xfs3wFDMsuI2n0lKyMq9cctXibydXlGu6UBCeVVyGTg='
 	"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    //-->
     <!--
     <meta
       http-equiv="Content-Security-Policy"
@@ -44,11 +55,15 @@
     Title: <input id="title"/>
     <button id="btn" type="button">Set</button>
 
-    <script src="../dist/renderer.js"></script>
+    <button id="hwa" type="button">call hello wasm alert</button>
+
+    <script type="module" src="../dist/renderer.js"></script>
 
     <a onclick="ping();">click</a>
+    <!--
     <script>alert('1');</script>
     <script>alert('2');</script>
+    //-->
     <!--
     <script type="module">
       import init, { greet, greet2 } from "./pkg/hello_wasm.js";

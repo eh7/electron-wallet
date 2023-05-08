@@ -27,6 +27,9 @@ contextBridge.exposeInMainWorld('myAPI', {
   desktop: true,
 })
 
+//import { remote } from 'electron';
+
 contextBridge.exposeInMainWorld('electronAPI', {
-  setTitle: (title) => ipcRenderer.send('set-title', title)
+  setTitle: (title) => ipcRenderer.send('set-title', title),
+  wasmHelloAlert: (title) => ipcRenderer.send('call-hello-alert-wasm'),
 });

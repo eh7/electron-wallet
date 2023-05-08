@@ -39,3 +39,17 @@ setButton.addEventListener('click', () => {
     (window as any).electronAPI.setTitle(title);
   }
 });
+
+//import {
+//        greet,
+//        default as init
+//} from '../static/pkg/hello_wasm';
+
+//import { remote } from 'electron';
+import init, { greet, greet2 } from "../static/pkg/hello_wasm.js";
+//require('../static/pkg/hello_wasm.js');
+const setButtonHWA = document.getElementById('hwa') as HTMLInputElement | null;
+setButtonHWA.addEventListener('click', () => {
+  (window as any).electronAPI.wasmHelloAlert();
+  alert('call-hello-alert-wasm in renderer');
+});
