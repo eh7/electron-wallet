@@ -29,7 +29,15 @@ contextBridge.exposeInMainWorld('myAPI', {
 
 //import { remote } from 'electron';
 
+// IPC 1 way example - setTitle, wasmHelloAlert
+// IPC 2 way example - openFile
 contextBridge.exposeInMainWorld('electronAPI', {
   setTitle: (title) => ipcRenderer.send('set-title', title),
   wasmHelloAlert: (title) => ipcRenderer.send('call-hello-alert-wasm'),
 });
+
+/*
+contextBridge.exposeInMainWorld('electronAPI', {
+  openFile: () => ipcRenderer.invoke('dialog:openFile')
+})
+*/

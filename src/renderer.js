@@ -42,23 +42,8 @@ setButton.addEventListener('click', () => {
         window.electronAPI.setTitle(title);
     }
 });
-//import {
-//        greet,
-//        default as init
-//} from '../static/pkg/hello_wasm.js';
-//import { remote } from 'electron';
-/*
-async function run() {
-  //await init('./static/pkg/wasm_bindgen_minimal_example_bg.wasm');
-  await init('../static/pkg/hello_wasm_bg.wasm');
-//console.log('ddddddddddddddddddddddddddddddd');
-//  const result = greet('test 321 from run function');
-  //console.log(`greet = ${result}`);
-  //if (result !== 3) {
-  //  throw new Error("wasm addition doesn't work!");
-  //}
-}
-*/
+
+// IPC 1 way example with wasm call
 import init, { greet, greet2 } from "../static/pkg/hello_wasm.js";
 //require('../static/pkg/hello_wasm.js');
 const setButtonHWA = document.getElementById('hwa');
@@ -68,4 +53,18 @@ setButtonHWA.addEventListener('click', async () => {
     await init('../static/pkg/hello_wasm_bg.wasm');
     greet('xyz');
 });
+
+// IPC 2 way example
+console.log('btn2 setup');
+const btn2 = document.getElementById('btn2')
+console.log('btn2 setup');
+const filePathElement = document.getElementById('filePath')
+console.log('btn2 setup');
+btn2.addEventListener('click', () => {
+  console.log('btn2 clicked');
+  //const filePath = await window.electronAPI.openFile()
+  //filePathElement.innerText = filePath
+})
+console.log('btn2 setup');
+
 //# sourceMappingURL=renderer.js.map

@@ -2,11 +2,23 @@ import {
   app,
   BrowserWindow,
   ipcMain,
+  dialog,
 } from "electron";
 import * as path from "path";
 
 //const elec = require('electron')
 //console.log(elec);
+
+// IPC 2 way example function
+async function handleFileOpen () {
+  console.log('handleFileOpen');
+  const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
+  if (canceled) {
+
+  } else {
+    return filePaths[0]
+  }
+}
 
 function createWindow() {
   // Create the browser window.
@@ -20,12 +32,12 @@ function createWindow() {
 
   ipcMain.handle('ping', () => 'pong');
 
+  // IPC 1 way example
   ipcMain.on('set-title', (event, title) => {
     const webContents = event.sender
     const win = BrowserWindow.fromWebContents(webContents)
     win.setTitle(title)
   });
-
   
   ipcMain.on('call-hello-alert-wasm', () => {
     console.log('call-hello-alert-wasm');
@@ -50,6 +62,9 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  // IPC 2 way example
+  // ipcMain.handle('dialog:openFile', handleFileOpen);
+
   createWindow();
 
   app.on("activate", function () {
