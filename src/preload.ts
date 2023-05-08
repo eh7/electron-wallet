@@ -34,6 +34,8 @@ contextBridge.exposeInMainWorld('myAPI', {
 contextBridge.exposeInMainWorld('electronAPI', {
   setTitle: (title) => ipcRenderer.send('set-title', title),
   wasmHelloAlert: (title) => ipcRenderer.send('call-hello-alert-wasm'),
+  openFile: () => ipcRenderer.invoke('dialog:openFile'),
+  sendMessageToMain: (message) => ipcRenderer.invoke('messageFromUser', message),
 });
 
 /*

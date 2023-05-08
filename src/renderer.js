@@ -56,12 +56,15 @@ setButtonHWA.addEventListener('click', async () => {
 
 // IPC 2 way example
 console.log('btn2 setup');
+const message = document.getElementById('message')
 const btn2 = document.getElementById('btn2')
 console.log('btn2 setup');
 const filePathElement = document.getElementById('filePath')
 console.log('btn2 setup');
-btn2.addEventListener('click', () => {
+btn2.addEventListener('click', async () => {
   console.log('btn2 clicked');
+  window.electronAPI.sendMessageToMain(message.value);
+
   //const filePath = await window.electronAPI.openFile()
   //filePathElement.innerText = filePath
 })

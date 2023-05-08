@@ -32,6 +32,10 @@ function createWindow() {
 
   ipcMain.handle('ping', () => 'pong');
 
+  ipcMain.handle('messageFromUser', (event, message) => {
+    console.log(message);
+  });
+
   // IPC 1 way example
   ipcMain.on('set-title', (event, title) => {
     const webContents = event.sender
@@ -63,7 +67,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // IPC 2 way example
-  // ipcMain.handle('dialog:openFile', handleFileOpen);
+  ipcMain.handle('dialog:openFile', handleFileOpen);
 
   createWindow();
 
