@@ -64,10 +64,41 @@ console.log('btn2 setup');
 btn2.addEventListener('click', async () => {
   console.log('btn2 clicked');
   window.electronAPI.sendMessageToMain(message.value);
+  window.walletAPI.walletUpdate({
+    pubKey: 'pubKeyData',
+  });
+
+  window.walletAPI.walletPubKeyOkay({
+    pubkey: 'walletPubKeyOkay',
+  });
 
   //const filePath = await window.electronAPI.openFile()
   //filePathElement.innerText = filePath
 })
 console.log('btn2 setup');
+
+//import * as OBJ from 'electron';
+//import { ipcRenderer } from "electron";
+//console.log('require ipcRender', require('electron'));
+//console.log('require ipcRender', require('electron').ipcRenderer);
+//
+Object.defineProperty(exports, "__esModule", { value: true });
+var electron_1 = require("electron");
+//console.log(electron_1.ipcRenderer);
+
+/*
+console.log('1 walletAPI.handleWalletPubKey event setup');
+window.walletAPI.walletPubKey((event, value) => {
+  console.log('2 walletAPI.handleWalletPubKey event setup');
+  console.log('handleWalletPubKey');
+  //console.log('handleWalletPubKey', value);
+  //event.sender.send('walletPubKeyOkay', value);
+  //const oldValue = message.innerText; 
+  //const newValue = oldValue + value
+  //counter.innerText = newValue
+  //event.sender.send('counter-value', newValue)
+})
+console.log('walletAPI.handleWalletPubKey event setup');
+*/
 
 //# sourceMappingURL=renderer.js.map

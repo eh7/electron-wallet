@@ -3,6 +3,7 @@ import {
   BrowserWindow,
   ipcMain,
   dialog,
+  Menu,
 } from "electron";
 import * as path from "path";
 
@@ -20,6 +21,10 @@ async function handleFileOpen () {
   }
 }
 
+async function handleWalletData (event, data) {
+  console.log('handleWalletData', data);
+}
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -30,7 +35,22 @@ function createWindow() {
     width: 800,
   });
 
+  const menu = Menu.buildFromTemplate([
+    {
+      label: app.name,
+      submenu: [
+        {
+          click: () => mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }),
+          label: 'PubKey',
+        }
+      ]
+    }
+  ]);
+  Menu.setApplicationMenu(menu);
+
   ipcMain.handle('ping', () => 'pong');
+
+  ipcMain.handle('walletData:update', handleWalletData);
 
   ipcMain.handle('messageFromUser', (event, message) => {
     console.log(message);
@@ -60,6 +80,15 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  ipcMain.on('walletPubKeyOkay', (_event, value) => {
+    // console.log('walletPubKeyOkay', value) // will print value to Node console
+  })
+
+
+  console.log(1);
+  console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
+  console.log(2);
 }
 
 // This method will be called when Electron has finished

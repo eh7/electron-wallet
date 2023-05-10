@@ -38,6 +38,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
   sendMessageToMain: (message) => ipcRenderer.invoke('messageFromUser', message),
 });
 
+contextBridge.exposeInMainWorld('walletAPI', {
+  walletUpdate: (data) => ipcRenderer.invoke('walletData:update', data),
+  //handleWalletPubKey: (callback) => ipcRenderer.on('walletPubKey', callback),
+  //walletPubKey: (message) => ipcRenderer.invoke('walletPubKeyOkay', message),
+});
+
 /*
 contextBridge.exposeInMainWorld('electronAPI', {
   openFile: () => ipcRenderer.invoke('dialog:openFile')
