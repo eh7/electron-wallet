@@ -14,7 +14,7 @@ results
 tmp
 
 # wasm example ignores
-pkg
+wasmExample/*/pkg
 target
 
 # Build
