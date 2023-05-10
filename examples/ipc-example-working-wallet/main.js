@@ -8,7 +8,7 @@ let mainWindow;
 var bip39 = require('bip39-light');
 //var ethers = require('ethers');
 //require('ethers');
-const Wallet = require('ethereumjs-wallet').default;
+//const Wallet = require('ethereumjs-wallet').default;
 //const etherHDkey = require('ethereumjs-wallet/hdkey').hdkey;
 const etherHDkey = require('ethereumjs-wallet').hdkey;
 const ethUtil = require('ethereumjs-util');
