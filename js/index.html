@@ -8,8 +8,7 @@
     //-->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-eval'
-        'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
+      content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'
         "
     />
     <!--
@@ -58,7 +57,8 @@
     </p>
 
     <p>
-      <button id="hwa" type="button">call hello wasm alert</button>
+      <button id="wasm1" type="button">wasm greet call</button>
+      <button id="wasm2" type="button">wasm greet2 call</button>
     </p>
 
     <p>
@@ -67,7 +67,19 @@
       File path: <strong id="filePath"></strong>
     </p>
 
+    <!--
     <script type="module" src="../dist/renderer.js"></script>
+    //-->
+    <script type="module" src="./src/renderer.js"></script>
+
+    <script type="module">
+      import init, { greet, greet2 } from "./src/pkg/hello_wasm.js";
+      init().then(() => {
+         console.log('hello_wasm init okay');
+        //greet("WebAssembly GAV");
+        //greet2("WebAssembly");
+      });
+    </script>
 
     <a onclick="ping();">click</a>
     <!--
