@@ -70,7 +70,6 @@
     <!--
     <script type="module" src="../dist/renderer.js"></script>
     //-->
-    <script type="module" src="./src/renderer.js"></script>
 
     <script type="module">
       import init, { greet, greet2 } from "./src/pkg/hello_wasm.js";
@@ -80,6 +79,8 @@
         //greet2("WebAssembly");
       });
     </script>
+
+    <script type="module" src="./src/renderer.js"></script>
 
     <a onclick="ping();">click</a>
     <!--

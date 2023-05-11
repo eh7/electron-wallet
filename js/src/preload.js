@@ -12,3 +12,13 @@ contextBridge.exposeInMainWorld('walletAPI', {
   //require('./pkg/hello_wasm'),
   walletInit: (message) => ipcRenderer.send('walletInitMain', message),
 });
+
+
+/*
+import init, { greet, greet2 } from "./src/pkg/hello_wasm.js";
+init().then(() => {
+  console.log('hello_wasm init okay');
+  //greet("WebAssembly GAV");
+  //greet2("WebAssembly");
+});
+*/
