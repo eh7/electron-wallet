@@ -4,6 +4,8 @@
   "description": "electron based crypto wallet",
   "main": "./dist/main.js",
   "scripts": {
+    "buildRunTmp": "npx tsc src/testing.ts && sed -i 's/bip39_light_1\\.default/bip39_light_1/g' src/testing.js && node src/testing.js",
+    "serve": "webpack-dev-server",
     "efstart": "electron-forge start",
     "efpackage": "electron-forge package",
     "efmake": "electron-forge make",
@@ -27,7 +29,12 @@
     "bip39-light": "^1.0.7",
     "electron-squirrel-startup": "^1.0.0",
     "ethereumjs-util": "^7.1.5",
-    "ethereumjs-wallet": "^1.0.2"
+    "ethereumjs-wallet": "^1.0.2",
+    "fs": "^0.0.1-security",
+    "hello-wasm": "^6.6.6",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",

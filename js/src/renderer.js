@@ -46,7 +46,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.walletAPI.walletInit(phrase);
   console.log('onLoad');
 
+//  await initWasm();
+  //  //(obj) => obj.instance.exports.exported_func()
+  //);
+  //console.log(WebAssembly)
   //import('./pkg/hello_wasm.js');
   //const hello_wasm = await import('./pkg/hello_wasm.js');
   //console.log(hello_wasm);
 });
+
+async function initWasm() {
+  const importObject = {
+    imports: { imported_func: (arg) => console.log(arg) },
+  };
+  const wasmResponse = await fetch("./src/pkg/hello_wasm_bg.wasm");
+  const wasmBytes = await wasmResponse.arrayBuffer();
+  const wasmResults = await WebAssembly.instantiate(wasmBytes, importObject);
+console.log(wasmResults);
+  //await WebAssembly.instantiateStreaming(fetch("./src/pkg/hello_wasm_bg.wasm"), importObject);
+  //.then(
+}
