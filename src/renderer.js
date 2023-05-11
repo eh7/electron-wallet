@@ -82,9 +82,18 @@ console.log('btn2 setup');
 //console.log('require ipcRender', require('electron'));
 //console.log('require ipcRender', require('electron').ipcRenderer);
 //
-Object.defineProperty(exports, "__esModule", { value: true });
-var electron_1 = require("electron");
+//Object.defineProperty(exports, "__esModule", { value: true });
+//var electron_1 = require("electron");
 //console.log(electron_1.ipcRenderer);
+//
+///const ipc = require('electron').ipcRenderer;
+//const { app, BrowserWindow } = require('electron')
+
+async function walletInit() {
+  // window.walletAPI.walletInit();
+  console.log('sentWalletInit', window.walletAPI.walletInit());
+}
+walletInit();
 
 /*
 console.log('1 walletAPI.handleWalletPubKey event setup');
