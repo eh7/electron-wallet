@@ -97,7 +97,6 @@ walletInit();
 
 window.walletAPI.handleWalletData((event, data) => {
   console.log('walletData from main:', data);
-  //event.sender.send('counter-value', newValue)
 })
 
 /*

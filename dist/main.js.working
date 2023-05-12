@@ -80,28 +80,36 @@ function createWindow() {
     });
     //ipcMain.on('walletInitMain', (event, message) => {
     electron_1.ipcMain.on('walletInitMain', (event, message) => __awaiter(this, void 0, void 0, function* () {
+        /*
+        const mnemonic = bip39.generateMnemonic();
+        const seedHex = bip39.mnemonicToSeedHex(mnemonic);
+        //console.log(etherHDkey);
+        const HDwallet = etherHDkey.fromMasterSeed(seedHex);
+        const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+        const data = {
+          address: zeroWallet.getAddressString(),
+          publicKey: zeroWallet.getAddressString(),
+        };
+        */
         //console.log('walletInitMain recieved:', event, message);
         console.log('walletInitMain recieved:', message);
         const mnemonic = yield bip39_light_1.generateMnemonic();
         const seedHex = bip39_light_1.mnemonicToSeedHex(mnemonic);
-        //const HDwallet = etherHDkey.fromMasterSeed(seedHex);
         const HDwallet = ethereumjs_wallet_1.hdkey.fromMasterSeed(seedHex);
         const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
         const data = {
-          address: zeroWallet.getAddressString(),
-          mnemonic: mnemonic,
-          privateKey: zeroWallet.getPrivateKeyString(),
-          publicKey: zeroWallet.getPublicKeyString(),
+            address: zeroWallet.getAddressString(),
+            mnemonic: mnemonic,
+            privateKey: zeroWallet.getPrivateKeyString(),
+            publicKey: zeroWallet.getPublicKeyString(),
         };
-        //const ethWallet = new ethereumjs_wallet_1.hdkey();
-        //console.log(ethWallet.fromMasterSeed(seedHex));
-        console.log('mnemonic', mnemonic);
-        console.log('seedHex', seedHex);
-        console.log('HDwallet', HDwallet);
-        console.log('zeroWallet', zeroWallet);
-        console.log('data', data);
-        mainWindow.webContents.send('walletData', data);
-        return data;
+        event.sender.send('walletData', data);
+        console.log(data);
+        /*
+            //console.log(etherHDkey);
+            //console.log('mnemonic', mnemonic);
+            //console.log('seedHex', seedHex);
+        */
     }));
     // and load the index.html of the app.
     mainWindow.loadFile(path.join(__dirname, "../static/index.html"));
