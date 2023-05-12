@@ -95,6 +95,10 @@ async function walletInit() {
 }
 walletInit();
 
+window.walletAPI.handleWalletData((event, data) => {
+  console.log('walletData from main:', data);
+})
+
 /*
 console.log('1 walletAPI.handleWalletPubKey event setup');
 window.walletAPI.walletPubKey((event, value) => {

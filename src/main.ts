@@ -8,7 +8,7 @@ import {
 import * as path from "path";
 
 import bip39 from 'bip39-light';
-import etherHDkey from 'ethereumjs-wallet';
+import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 //import ethUtil from 'ethereumjs-util';
 
 //const elec = require('electron')
@@ -99,11 +99,21 @@ function createWindow() {
     console.log('walletInitMain recieved:', message);
     const mnemonic = await bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
-    //const HDwallet = etherHDkey.fromMasterSeed(seedHex);
-    console.log(etherHDkey);
-    console.log('mnemonic', mnemonic);
-    console.log('seedHex', seedHex);
-    event.sender.send('walletData', walletData)
+    const HDwallet = etherHDkey.fromMasterSeed(seedHex);
+    const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+    const data = {
+      address: zeroWallet.getAddressString(),
+      mnemonic: mnemonic,
+      privateKey: zeroWallet.getPrivateKeyString(),
+      publicKey: zeroWallet.getPublicKeyString(),
+    };
+    event.sender.send('walletData', data)
+    console.log(data);
+/*
+    //console.log(etherHDkey);
+    //console.log('mnemonic', mnemonic);
+    //console.log('seedHex', seedHex);
+*/
   });
 
   // and load the index.html of the app.
