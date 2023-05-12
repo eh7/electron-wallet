@@ -101,7 +101,7 @@ const showDevToolsButton = document.getElementById('showDevTools');
 
 window.walletAPI.handleWalletData((event, data) => {
   console.log('walletData from main:', data);
-  walletAddressDiv.innerHTML = "<h1>Wallet Address: <b>" + data.address + "</b></h1>";
+  walletAddressDiv.innerHTML = "<h3>Wallet Address: <b>" + data.address + "</b></h3>";
 });
 
 showDevToolsButton.addEventListener('click', (event) => {

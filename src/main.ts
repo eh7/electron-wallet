@@ -35,6 +35,28 @@ async function handleWalletData (event, data) {
   console.log('handleWalletData', data);
 }
 
+function openDevTools (mainWindow) {
+  mainWindow.webContents.openDevTools();
+  devTools = true;
+}
+
+function closeDevTools (mainWindow) {
+  mainWindow.webContents.closeDevTools();
+  devTools = false;
+}
+
+function toggleDevTools (mainWindow) {
+  mainWindow.webContents.toggleDevTools();
+  (devTools) ? devTools = false : devTools = true;
+  /*
+  if (devTools) {
+    devTools = false;
+  } else {
+    devTools = true;
+  }
+  */
+}
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -49,47 +71,28 @@ function createWindow() {
 
   // create bepoke menu options
   let defaultMenu = Menu.getApplicationMenu();
-  console.log('currentApp defaultMenu', defaultMenu);
-
-  /*
-  let newMenu = new Menu();
-  defaultMenu.items
-    .filter(x => x.role != 'help')
-    .forEach(x => {
-      if(x.role == 'viewmenu' && process.env.NODE_ENV == 'production') {
-        let newSubmenu = new Menu();
-
-        x.submenu.items.filter(y => y.role != 'toggledevtools').forEach(y => newSubmenu.append(y));
-
-        x.submenu = newSubmenu;
-
-        newMenu.append(
-          new MenuItem({
-            type: x.type,
-            label: x.label,
-            submenu: newSubmenu
-          })
-        );
-      } else {
-        newMenu.append(x);
-      }
-    })
-  Menu.setApplicationMenu(newMenu);
-
-  menu.append(new MenuItem({
+  defaultMenu.append(new MenuItem({
     label: 'Dev Tools',
     submenu: [
       {
-        label: 'toggle',
+        label: 'open',
         accelerator: 'CommandOrControl+Shift+I',
-        //click: () => BrowserWindow.getFocusedWindow().toggleDevTools()
-        click: () => mainWindow.webContents.toggleDevTools(),
+        click: () => openDevTools(mainWindow),
+      },
+      {
+        label: 'close',
+        accelerator: 'CommandOrControl+Shift+O',
+        click: () => closeDevTools(mainWindow),
+      },
+      {
+        label: 'toggle',
+        accelerator: 'CommandOrControl+Shift+T',
+        click: () => toggleDevTools(mainWindow),
       },
     ]
   }));
-  console.log(menu.items);
-  Menu.setApplicationMenu(menu);
-  */
+  Menu.setApplicationMenu(defaultMenu);
+  // console.log('currentApp defaultMenu', defaultMenu);
 
   ipcMain.handle('ping', () => 'pong');
 
