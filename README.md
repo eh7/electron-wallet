@@ -16,5 +16,5 @@
 TODOs
 
 * DEFINE walletAPI functions between render and main, see preloaded script
-* create interface to is based on this repo.... ---> ABI UI functionality --> in ~/repos/dapp-dao-mono/apps/ui/nft-admin
+* create abi contract interface based on this repo --->--> in ~/repos/dapp-dao-mono/apps/ui/nft-admin
 * create basic wallets smart contract - delploy goerli
