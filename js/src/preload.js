@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 contextBridge.exposeInMainWorld('walletAPI', {
   //require('./pkg/hello_wasm'),
   walletInit: (message) => ipcRenderer.send('walletInitMain', message),
+  handleWalletData: (callback) => ipcRenderer.on('walletData', callback),
 });
 
 

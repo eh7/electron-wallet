@@ -40,6 +40,11 @@ wasm2Button.addEventListener('click', () => {
   console.log('wasm button clicked');
 });
 
+window.walletAPI.handleWalletData((event, data) => {
+  console.log('walletData from main:', data);
+  //event.sender.send('counter-value', newValue)
+})
+
 document.addEventListener('DOMContentLoaded', async () => {
   window.walletAPI.walletInit(null);
   const phrase = 'message pair slush taste armor sunset hawk process moral twin sugar rifle';
@@ -54,6 +59,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   //const hello_wasm = await import('./pkg/hello_wasm.js');
   //console.log(hello_wasm);
 });
+
+//ipc.on('asynReply', (event, args) => {
+// replyDiv.innerHTML = args;
+//});
 
 async function initWasm() {
   const importObject = {

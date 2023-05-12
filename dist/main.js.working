@@ -1,0 +1,150 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const electron_1 = require("electron");
+const path = require("path");
+const bip39_light_1 = require("bip39-light");
+const ethereumjs_wallet_1 = require("ethereumjs-wallet");
+//import ethUtil from 'ethereumjs-util';
+//const elec = require('electron')
+//console.log(elec);
+// IPC 2 way example function
+function handleFileOpen() {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log('handleFileOpen');
+        const { canceled, filePaths } = yield electron_1.dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
+        if (canceled) {
+        }
+        else {
+            return filePaths[0];
+        }
+    });
+}
+function handleWalletData(event, data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log('handleWalletData', data);
+    });
+}
+function createWindow() {
+    // Create the browser window.
+    const mainWindow = new electron_1.BrowserWindow({
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true,
+            //contextIsolation: false,
+        },
+        width: 800,
+    });
+    const menu = electron_1.Menu.buildFromTemplate([
+        {
+            label: electron_1.app.name,
+            submenu: [
+                {
+                    click: () => mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }),
+                    label: 'PubKey',
+                }
+            ]
+        }
+    ]);
+    electron_1.Menu.setApplicationMenu(menu);
+    electron_1.ipcMain.handle('ping', () => 'pong');
+    electron_1.ipcMain.handle('walletData:update', handleWalletData);
+    electron_1.ipcMain.handle('messageFromUser', (event, message) => {
+        console.log(message);
+    });
+    // IPC 1 way example
+    electron_1.ipcMain.on('set-title', (event, title) => {
+        const webContents = event.sender;
+        const win = electron_1.BrowserWindow.fromWebContents(webContents);
+        win.setTitle(title);
+    });
+    electron_1.ipcMain.on('call-hello-alert-wasm', () => {
+        console.log('call-hello-alert-wasm');
+        //let imp = import('../static/pkg/hello_wasm.js');
+        //alert('call-hello-alert-wasm');
+        //import('../static/pkg/hello_wasm')
+        //.then((hello_wasm) => {
+        //  console.log('then');
+        //}).catch((error) => {
+        //  console.log('then', error);
+        //});
+    });
+    //ipcMain.on('walletInitMain', (event, message) => {
+    electron_1.ipcMain.on('walletInitMain', (event, message) => __awaiter(this, void 0, void 0, function* () {
+        //console.log('walletInitMain recieved:', event, message);
+        console.log('walletInitMain recieved:', message);
+        const mnemonic = yield bip39_light_1.generateMnemonic();
+        const seedHex = bip39_light_1.mnemonicToSeedHex(mnemonic);
+        //const HDwallet = etherHDkey.fromMasterSeed(seedHex);
+        const HDwallet = ethereumjs_wallet_1.hdkey.fromMasterSeed(seedHex);
+        const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+        const data = {
+          address: zeroWallet.getAddressString(),
+          mnemonic: mnemonic,
+          privateKey: zeroWallet.getPrivateKeyString(),
+          publicKey: zeroWallet.getPublicKeyString(),
+        };
+        //const ethWallet = new ethereumjs_wallet_1.hdkey();
+        //console.log(ethWallet.fromMasterSeed(seedHex));
+        console.log('mnemonic', mnemonic);
+        console.log('seedHex', seedHex);
+        console.log('HDwallet', HDwallet);
+        console.log('zeroWallet', zeroWallet);
+        console.log('data', data);
+        mainWindow.webContents.send('walletData', data);
+        return data;
+    }));
+    // and load the index.html of the app.
+    mainWindow.loadFile(path.join(__dirname, "../static/index.html"));
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools();
+    electron_1.ipcMain.on('walletPubKeyOkay', (_event, value) => {
+        // console.log('walletPubKeyOkay', value) // will print value to Node console
+    });
+    console.log(1);
+    console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
+    console.log(2);
+}
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+electron_1.app.whenReady().then(() => {
+    // IPC 2 way example
+    electron_1.ipcMain.handle('dialog:openFile', handleFileOpen);
+    createWindow();
+    electron_1.app.on("activate", function () {
+        // On macOS it's common to re-create a window in the app when the
+        // dock icon is clicked and there are no other windows open.
+        if (electron_1.BrowserWindow.getAllWindows().length === 0)
+            createWindow();
+    });
+});
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+electron_1.app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+        electron_1.app.quit();
+    }
+});
+// In this file you can include the rest of your app"s specific main process
+// code. You can also put them in separate files and require them here.
+// Attach listener in the main process with the given ID
+electron_1.ipcMain.on('request-mainprocess-action', (event, arg) => {
+    // Displays the object sent from the renderer process:
+    //{
+    //    message: "Hi",
+    //    someData: "Let's go"
+    //}
+    console.log(arg);
+});
+//# sourceMappingURL=main.js.map

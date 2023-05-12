@@ -14,7 +14,7 @@
     "devTake2": "npm run compile && electron ./dist/electron-app.js",
     "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc && cp src/renderer.js dist/",
+    "compile": "tsc && cp src/renderer.js dist/ && sed -i 's/\\.default//g' dist/main.js",
     "start": "electron ./dist/main.js",
     "startjs": "electron ./js/src/main.js",
     "watch": "tsc -w",

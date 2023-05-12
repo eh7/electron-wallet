@@ -82,19 +82,28 @@ function createWindow() {
   });
 
   //ipcMain.on('walletInitMain', (event, message) => {
-  ipcMain.on('walletInitMain', (event, message) => {
+  ipcMain.on('walletInitMain', async (event, message) => {
+    /*
     const mnemonic = bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
-    console.log(etherHDkey);
-    //const HDwallet = etherHDkey.fromMasterSeed(seedHex);
-    //const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-    //const data = {
-    //  address: zeroWallet.getAddressString(),
-    //  publicKey: zeroWallet.getAddressString(),
-    //};
+    //console.log(etherHDkey);
+    const HDwallet = etherHDkey.fromMasterSeed(seedHex);
+    const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+    const data = {
+      address: zeroWallet.getAddressString(),
+      publicKey: zeroWallet.getAddressString(),
+    };
+    */
 
     //console.log('walletInitMain recieved:', event, message);
     console.log('walletInitMain recieved:', message);
+    const mnemonic = await bip39.generateMnemonic();
+    const seedHex = bip39.mnemonicToSeedHex(mnemonic);
+    //const HDwallet = etherHDkey.fromMasterSeed(seedHex);
+    console.log(etherHDkey);
+    console.log('mnemonic', mnemonic);
+    console.log('seedHex', seedHex);
+    event.sender.send('walletData', walletData)
   });
 
   // and load the index.html of the app.

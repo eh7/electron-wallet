@@ -41,6 +41,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 contextBridge.exposeInMainWorld('walletAPI', {
   walletInit: () => ipcRenderer.send('walletInitMain', 'init from renderer'),
   walletUpdate: (data) => ipcRenderer.invoke('walletData:update', data),
+  handleWalletData: (callback) => ipcRenderer.on('walletData', callback),
   //handleWalletPubKey: (callback) => ipcRenderer.on('walletPubKey', callback),
   //walletPubKey: (message) => ipcRenderer.invoke('walletPubKeyOkay', message),
 });

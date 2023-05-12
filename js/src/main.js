@@ -43,7 +43,8 @@ function createWindow () {
 
   ipcMain.on('walletInitMain', (event, message) => {
     console.log('walletInitMain:', message);
-    console.log(wallet.getWalletData(message));
+    const walletData = wallet.getWalletData(message);
+    event.sender.send('walletData', walletData)
   });
 }
 
