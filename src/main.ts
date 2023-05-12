@@ -48,13 +48,6 @@ function closeDevTools (mainWindow) {
 function toggleDevTools (mainWindow) {
   mainWindow.webContents.toggleDevTools();
   (devTools) ? devTools = false : devTools = true;
-  /*
-  if (devTools) {
-    devTools = false;
-  } else {
-    devTools = true;
-  }
-  */
 }
 
 function createWindow() {
@@ -140,13 +133,13 @@ function createWindow() {
   });
 
   ipcMain.on('showDevTools', async (event, message) => {
-    console.log('showDevTools', devTools);
+    //console.log('showDevTools', devTools);
     if (devTools) {
-      console.log('closeDevTools');
+      //console.log('closeDevTools');
       mainWindow.webContents.closeDevTools();
       devTools = false;
     } else {
-      console.log('openDevTools');
+      //console.log('openDevTools');
       mainWindow.webContents.openDevTools();
       devTools = true;
     }
@@ -162,10 +155,7 @@ function createWindow() {
     // console.log('walletPubKeyOkay', value) // will print value to Node console
   })
 
-
-  console.log(1);
-  console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
-  console.log(2);
+  // console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
 }
 
 // This method will be called when Electron has finished
