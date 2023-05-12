@@ -95,9 +95,20 @@ async function walletInit() {
 }
 walletInit();
 
+
+const walletAddressDiv = document.getElementById('walletAddress');
+const showDevToolsButton = document.getElementById('showDevTools');
+
 window.walletAPI.handleWalletData((event, data) => {
   console.log('walletData from main:', data);
-})
+  walletAddressDiv.innerHTML = "<h1>Wallet Address: <b>" + data.address + "</b></h1>";
+});
+
+showDevToolsButton.addEventListener('click', (event) => {
+  //event.sender.send('', value);
+  window.walletAPI.showDevTools();
+  console.log('showDevToolsButton clicked');
+});
 
 /*
 console.log('1 walletAPI.handleWalletPubKey event setup');

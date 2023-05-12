@@ -4,12 +4,18 @@ import {
   ipcMain,
   dialog,
   Menu,
+  MenuItem,
 } from "electron";
 import * as path from "path";
 
 import bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 //import ethUtil from 'ethereumjs-util';
+
+const menu = new Menu();
+
+let data = {};
+let devTools = false;
 
 //const elec = require('electron')
 //console.log(elec);
@@ -41,18 +47,49 @@ function createWindow() {
     width: 800,
   });
 
-  const menu = Menu.buildFromTemplate([
-    {
-      label: app.name,
-      submenu: [
-        {
-          click: () => mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }),
-          label: 'PubKey',
-        }
-      ]
-    }
-  ]);
+  // create bepoke menu options
+  let defaultMenu = Menu.getApplicationMenu();
+  console.log('currentApp defaultMenu', defaultMenu);
+
+  /*
+  let newMenu = new Menu();
+  defaultMenu.items
+    .filter(x => x.role != 'help')
+    .forEach(x => {
+      if(x.role == 'viewmenu' && process.env.NODE_ENV == 'production') {
+        let newSubmenu = new Menu();
+
+        x.submenu.items.filter(y => y.role != 'toggledevtools').forEach(y => newSubmenu.append(y));
+
+        x.submenu = newSubmenu;
+
+        newMenu.append(
+          new MenuItem({
+            type: x.type,
+            label: x.label,
+            submenu: newSubmenu
+          })
+        );
+      } else {
+        newMenu.append(x);
+      }
+    })
+  Menu.setApplicationMenu(newMenu);
+
+  menu.append(new MenuItem({
+    label: 'Dev Tools',
+    submenu: [
+      {
+        label: 'toggle',
+        accelerator: 'CommandOrControl+Shift+I',
+        //click: () => BrowserWindow.getFocusedWindow().toggleDevTools()
+        click: () => mainWindow.webContents.toggleDevTools(),
+      },
+    ]
+  }));
+  console.log(menu.items);
   Menu.setApplicationMenu(menu);
+  */
 
   ipcMain.handle('ping', () => 'pong');
 
@@ -83,44 +120,40 @@ function createWindow() {
 
   //ipcMain.on('walletInitMain', (event, message) => {
   ipcMain.on('walletInitMain', async (event, message) => {
-    /*
-    const mnemonic = bip39.generateMnemonic();
-    const seedHex = bip39.mnemonicToSeedHex(mnemonic);
-    //console.log(etherHDkey);
-    const HDwallet = etherHDkey.fromMasterSeed(seedHex);
-    const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-    const data = {
-      address: zeroWallet.getAddressString(),
-      publicKey: zeroWallet.getAddressString(),
-    };
-    */
-
     //console.log('walletInitMain recieved:', event, message);
     console.log('walletInitMain recieved:', message);
     const mnemonic = await bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
     const HDwallet = etherHDkey.fromMasterSeed(seedHex);
     const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-    const data = {
+    data = {
       address: zeroWallet.getAddressString(),
       mnemonic: mnemonic,
       privateKey: zeroWallet.getPrivateKeyString(),
       publicKey: zeroWallet.getPublicKeyString(),
     };
     event.sender.send('walletData', data)
-    console.log(data);
-/*
-    //console.log(etherHDkey);
-    //console.log('mnemonic', mnemonic);
-    //console.log('seedHex', seedHex);
-*/
+    //console.log(data);
+  });
+
+  ipcMain.on('showDevTools', async (event, message) => {
+    console.log('showDevTools', devTools);
+    if (devTools) {
+      console.log('closeDevTools');
+      mainWindow.webContents.closeDevTools();
+      devTools = false;
+    } else {
+      console.log('openDevTools');
+      mainWindow.webContents.openDevTools();
+      devTools = true;
+    }
   });
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "../static/index.html"));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   ipcMain.on('walletPubKeyOkay', (_event, value) => {
     // console.log('walletPubKeyOkay', value) // will print value to Node console
