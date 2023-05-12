@@ -84,6 +84,7 @@ async function walletInit() {
 walletInit();
 
 const walletAddressDiv = document.getElementById('walletAddress');
+const blockNumberDiv = document.getElementById('blockNumber');
 const showDevToolsButton = document.getElementById('showDevTools');
 
 window.walletAPI.handleWalletData((event, data) => {
@@ -95,6 +96,18 @@ showDevToolsButton.addEventListener('click', (event) => {
   //event.sender.send('', value);
   window.walletAPI.showDevTools();
   console.log('showDevToolsButton clicked');
+});
+
+
+const blockNumberButton = document.getElementById('blockNumber');
+blockNumberButton.addEventListener('click', async (event) => {
+  //event.sender.send('walletBlockNumber', value);
+  const block = window.walletAPI.walletBlockNumber();
+  console.log('blockNumberButton clicked - blockNo.: ', block);
+});
+window.walletAPI.handleWalletBlockNumber((event, block) => {
+  console.log('handleWalletBlockNumber', block);
+  walletAddressDiv.innerHTML = "<h3>Block Number: <b>" + block + "</b></h3>";
 });
 
 //# sourceMappingURL=renderer.js.map

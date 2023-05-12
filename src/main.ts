@@ -12,6 +12,36 @@ import bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 //import ethUtil from 'ethereumjs-util';
 
+/*
+import { ethers } from 'ethers';
+*/
+let ethers = {};
+let ethersData = {};
+let provider;
+let wallet;
+const endPoint = 'https://mainnet.infura.io/v3/5ad16da394384a8ca868154e1ca744c0';
+
+async function ethersGetBlockNo (ethers) {
+   return await ethers.provider.getBlockNumber();
+}
+
+async function importEthers (data) {
+  const { ethers } = await import('ethers');
+  const provider = new ethers.providers.JsonRpcProvider(endPoint);
+  //console.log(provider);
+  //console.log(data);
+  const wallet = new ethers.Wallet(data.privateKey);
+  //console.log(wallet);
+  const currentBlock = await provider.getBlockNumber();
+  console.log('currentBlock', currentBlock);
+  return {
+    ethers,
+    latestBlock: currentBlock,
+    provider,
+    wallet,
+  };
+}
+
 const menu = new Menu();
 
 let data = {};
@@ -114,6 +144,13 @@ function createWindow() {
     //});
   });
 
+  ipcMain.on('walletBlockNumber', async (event, message) => {
+    console.log('getting latest block..:');
+    const blockNo = await ethersGetBlockNo(ethersData);
+    console.log('latest blockNo.:', blockNo);
+    event.sender.send('walletBlockNumber', blockNo)
+  });
+
   //ipcMain.on('walletInitMain', (event, message) => {
   ipcMain.on('walletInitMain', async (event, message) => {
     //console.log('walletInitMain recieved:', event, message);
@@ -129,7 +166,12 @@ function createWindow() {
       publicKey: zeroWallet.getPublicKeyString(),
     };
     event.sender.send('walletData', data)
-    //console.log(data);
+
+    ethersData = await importEthers(data);
+    console.log(
+      await ethersGetBlockNo(ethersData)
+    );
+    //const blockNo = await ethersGetBlockNo();
   });
 
   ipcMain.on('showDevTools', async (event, message) => {
