@@ -12,7 +12,9 @@
 
 * https://pspdfkit.com/blog/2018/running-native-code-in-electron-and-the-case-for-webassembly/
 
-TODO
-ABI UI functionality in ~/repos/dapp-dao-mono/apps/ui/nft-admin
-create wallet contrcat goerli
-create interface to is based on above repo....
+
+TODOs
+
+* DEFINE walletAPI functions between render and main, see preloaded script
+* create interface to is based on this repo.... ---> ABI UI functionality --> in ~/repos/dapp-dao-mono/apps/ui/nft-admin
+* create basic wallets smart contract - delploy goerli
