@@ -106,6 +106,10 @@ blockNumberButton.addEventListener('click', async (event) => {
   //event.sender.send('walletBlockNumber', value);
   const block = window.walletAPI.walletBlockNumber();
   console.log('blockNumberButton clicked - blockNo.: ', block);
+  let img = document.createElement("img");
+  img.src = './images/Loading_icon.gif'; 
+  // document.body.appendChild(img)
+  walletAddressDiv.innerHTML = "<h3>Block Number: <b>...</b></h3>";
 });
 window.walletAPI.handleWalletBlockNumber((event, block) => {
   console.log('handleWalletBlockNumber', block);
