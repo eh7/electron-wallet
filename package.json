@@ -3,8 +3,10 @@
   "name": "electron-wallet",
   "version": "0.0.1",
   "description": "electron based crypto wallet",
-  "main": "./dist/main.js",
+  "mainOld": "./dist/main.js",
   "scripts": {
+    "buildExampleReactApp": "rm -rf static/reactApp && parcel build --dist-dir static/reactApp apps/reactApp/index.html && npm run reactAppIndexAppFix",
+    "reactAppIndexAppFix": "sed -i 's/\\\/index/.\\\/index/' static/reactApp/index.html",
     "buildRunTmp": "npx tsc src/testing.ts && sed -i 's/bip39_light_1\\.default/bip39_light_1/g' src/testing.js && node src/testing.js",
     "serve": "webpack-dev-server",
     "efstart": "electron-forge start",
@@ -59,6 +61,7 @@
     "@types/node": "^14.11.2",
     "electron": "^24.2.0",
     "gts": "^3.1.1",
+    "process": "^0.11.10",
     "typescript": "^5.0.4"
   }
 }
