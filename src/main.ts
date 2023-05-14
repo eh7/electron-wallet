@@ -32,11 +32,11 @@ async function importEthers (data) {
   //console.log(data);
   const wallet = new ethers.Wallet(data.privateKey);
   //console.log(wallet);
-  const currentBlock = await provider.getBlockNumber();
-  console.log('currentBlock', currentBlock);
+  //const currentBlock = await provider.getBlockNumber();
+  //console.log('currentBlock', currentBlock);
   return {
     ethers,
-    latestBlock: currentBlock,
+    //latestBlock: currentBlock,
     provider,
     wallet,
   };
@@ -155,13 +155,17 @@ function createWindow() {
   ipcMain.on('walletInitMain', async (event, message) => {
     //console.log('walletInitMain recieved:', event, message);
     console.log('walletInitMain recieved:', message);
+    console.log('walletInitMain recieved:', '');
     const mnemonic = message ||  await bip39.generateMnemonic();
     //const mnemonic = await bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
     const HDwallet = etherHDkey.fromMasterSeed(seedHex);
     const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+    const address = zeroWallet.getAddressString();
+    const addressCheckSum = zeroWallet.getChecksumAddressString();
     data = {
       address: zeroWallet.getAddressString(),
+      addressCheckSum,
       mnemonic: mnemonic,
       privateKey: zeroWallet.getPrivateKeyString(),
       publicKey: zeroWallet.getPublicKeyString(),
