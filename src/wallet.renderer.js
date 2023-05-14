@@ -79,8 +79,8 @@ console.log('btn2 setup');
 
 async function walletInit() {
   // window.walletAPI.walletInit();
+  // 'huge mansion obscure weasel mix submit ripple attack then fade spoil picnic'
   console.log('sentWalletInit', window.walletAPI.walletInit(
-    'huge mansion obscure weasel mix submit ripple attack then fade spoil picnic'
   ));
 }
 walletInit();

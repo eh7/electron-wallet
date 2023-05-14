@@ -155,7 +155,8 @@ function createWindow() {
   ipcMain.on('walletInitMain', async (event, message) => {
     //console.log('walletInitMain recieved:', event, message);
     console.log('walletInitMain recieved:', message);
-    const mnemonic = await bip39.generateMnemonic();
+    const mnemonic = message ||  await bip39.generateMnemonic();
+    //const mnemonic = await bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
     const HDwallet = etherHDkey.fromMasterSeed(seedHex);
     const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
@@ -168,9 +169,11 @@ function createWindow() {
     event.sender.send('walletData', data)
 
     ethersData = await importEthers(data);
-    console.log(
-      await ethersGetBlockNo(ethersData)
-    );
+
+    // console.log(data);
+    //console.log(
+    //  await ethersGetBlockNo(ethersData)
+    //);
     //const blockNo = await ethersGetBlockNo();
   });
 
