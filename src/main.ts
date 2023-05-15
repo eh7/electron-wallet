@@ -21,6 +21,24 @@ let provider;
 let wallet;
 const endPoint = 'https://mainnet.infura.io/v3/5ad16da394384a8ca868154e1ca744c0';
 
+async function ethersGetBalance (ethers, address) {
+  const balance = await ethers.provider.getBalance(address);
+  console.log('provider.getBalance:', balance.toString())
+  let formatedBalance = 0;
+  try {
+    formatedBalance = ethers.ethers.utils.formatEther(balance.toString());
+  }
+  catch(err) {
+    console.log('ethers.utils.formatEther ERROR:', err);
+  }
+  return formatedBalance;
+  //return balance;
+  //return await ethers.provider.getBalance(address);
+  //return ethers.utils.formatEther(
+  //  await ethers.provider.getBalance(address),
+  //);
+}
+
 async function ethersGetBlockNo (ethers) {
    return await ethers.provider.getBlockNumber();
 }
@@ -144,6 +162,17 @@ function createWindow() {
     //});
   });
 
+  ipcMain.on('walletBalance', async (event, address) => {
+    console.log('getting walletBalance:', address);
+    const balance = await ethersGetBalance(
+      ethersData,
+      address,
+    );
+    console.log('Wallet Balance Address:', address);
+    console.log('walletBalance:', balance);
+    event.sender.send('walletBalance', balance)
+  });
+
   ipcMain.on('walletBlockNumber', async (event, message) => {
     console.log('getting latest block..:');
     const blockNo = await ethersGetBlockNo(ethersData);
@@ -154,7 +183,7 @@ function createWindow() {
   //ipcMain.on('walletInitMain', (event, message) => {
   ipcMain.on('walletInitMain', async (event, message) => {
     //console.log('walletInitMain recieved:', event, message);
-    console.log('walletInitMain recieved:', message);
+    //console.log('walletInitMain recieved:', message);
     console.log('walletInitMain recieved:', '');
     const mnemonic = message ||  await bip39.generateMnemonic();
     //const mnemonic = await bip39.generateMnemonic();

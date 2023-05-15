@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 
+let walletData = {};
+
 const ping = () => __awaiter(this, void 0, void 0, function* () {
     const response = yield window.versions.ping();
     console.log('XXXXXXXXXXXXXXXXXX', response); // prints out 'pong'
@@ -91,6 +93,7 @@ const showDevToolsButton = document.getElementById('showDevTools');
 
 window.walletAPI.handleWalletData((event, data) => {
   console.log('walletData from main:', data);
+  walletData = data;
   walletAddressDiv.innerHTML = "<h3>Wallet Address: <b>" + data.addressCheckSum + "</b></h3>";
 });
 
@@ -100,6 +103,33 @@ showDevToolsButton.addEventListener('click', (event) => {
   console.log('showDevToolsButton clicked');
 });
 
+const balanceButton = document.getElementById('balance');
+balanceButton.addEventListener('click', async (event) => {
+  const block = window.walletAPI.walletBalance(
+    walletData.addressCheckSum
+  );
+  console.log('balanceButton clicked - for address: ', walletData.addressCheckSum);
+  walletAddressDiv.innerHTML = "<h3>Wallet Address: <b>" + 
+    walletData.addressCheckSum +
+    "</b></h3>" +
+    "<h3>Block Number: <b>" +
+    walletData.block +
+    "</b></h3>" +
+    "<h3>Balance: <b>...</b>";
+});
+window.walletAPI.handleWalletBalance((event, balance) => {
+  console.log('handleWalletBalance', balance);
+  walletData.balance = balance;
+  walletAddressDiv.innerHTML = "<h3>Wallet Address: <b>" + 
+    walletData.addressCheckSum +
+    "</b></h3>" +
+    "<h3>Block Number: <b>" +
+    walletData.block +
+    "</b></h3>" +
+    "<h3>Balance: <b>" +
+    walletData.balance +
+    "</b>";
+});
 
 const blockNumberButton = document.getElementById('blockNumber');
 blockNumberButton.addEventListener('click', async (event) => {
@@ -109,11 +139,13 @@ blockNumberButton.addEventListener('click', async (event) => {
   let img = document.createElement("img");
   img.src = './images/Loading_icon.gif'; 
   // document.body.appendChild(img)
-  walletAddressDiv.innerHTML = "<h3>Block Number: <b>...</b></h3>";
+  walletAddressDiv.innerHTML = "<h3>Wallet Address: <b>" + walletData.addressCheckSum + "</b></h3>" + "<h3>Block Number: <b>...</b></h3>";
 });
 window.walletAPI.handleWalletBlockNumber((event, block) => {
   console.log('handleWalletBlockNumber', block);
-  walletAddressDiv.innerHTML = "<h3>Block Number: <b>" + block + "</b></h3>";
+  walletData.block = block;
+  // walletAddressDiv.innerHTML = "<h3>Block Number: <b>" + block + "</b></h3>";
+  walletAddressDiv.innerHTML = "<h3>Wallet Address: <b>" + walletData.addressCheckSum + "</b></h3>" + "<h3>Block Number: <b>" + block + "</b></h3>";
 });
 
 const appIndexButton = document.getElementById('appIndex');

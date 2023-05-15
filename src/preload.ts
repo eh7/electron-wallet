@@ -42,8 +42,10 @@ contextBridge.exposeInMainWorld('walletAPI', {
   walletInit: (data) => ipcRenderer.send('walletInitMain', data),
   walletUpdate: (data) => ipcRenderer.invoke('walletData:update', data),
   handleWalletData: (callback) => ipcRenderer.on('walletData', callback),
+  walletBalance: (address) => ipcRenderer.send('walletBalance', address),
   walletBlockNumber: () => ipcRenderer.send('walletBlockNumber'),
   handleWalletBlockNumber: (callback) => ipcRenderer.on('walletBlockNumber', callback),
+  handleWalletBalance: (callback) => ipcRenderer.on('walletBalance', callback),
   showDevTools: () => ipcRenderer.send('showDevTools'),
 });
 
