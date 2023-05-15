@@ -5,8 +5,8 @@
   "description": "electron based crypto wallet",
   "mainOld": "./dist/main.js",
   "scripts": {
-    "buildExampleReactApp": "rm -rf static/reactApp && parcel build --dist-dir static/reactApp apps/reactApp/index.html && npm run reactAppIndexAppFix",
-    "reactAppIndexAppFix": "sed -i 's/\\\/index/.\\\/index/' static/reactApp/index.html",
+    "buildExampleReactApp": "rm -rf static/apps/reactApp && parcel build --dist-dir static/apps/reactApp apps/reactApp/index.html && npm run reactAppIndexAppFix",
+    "reactAppIndexAppFix": "sed -i 's/\\\/index/.\\\/index/' static/apps/reactApp/index.html",
     "buildRunTmp": "npx tsc src/testing.ts && sed -i 's/bip39_light_1\\.default/bip39_light_1/g' src/testing.js && node src/testing.js",
     "serve": "webpack-dev-server",
     "efstart": "electron-forge start",
