@@ -4,7 +4,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <h1>Wallet Home</h1>
+        <h3>Wallet Home</h3>
         <ul>
           <li>
             <a href="../../index.html">root app</a>

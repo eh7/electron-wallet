@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-export default class Home extends React.Component {
+export default class Settings extends React.Component {
   render() {
     return (
       <div>
-        <h1>Wallet Settings Form</h1>
+        <h3>Wallet Settings Form</h3>
         <ul>
           <li>
             <a href="../../index.html">root app</a>
