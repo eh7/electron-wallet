@@ -22,31 +22,21 @@ export class App extends React.Component {
   render() {
     return (
       <div>
+        reactWallet
+      </div>
+    )
+    /*
+    return (
+      <div>
         <Router>
           <Navbar />
           <Routes>
             <Route path='/' component={<Home />} />
             <Route path='/settings' component={<Settings />} />
           </Routes>
-    
-        xxx
-          /*
-            //alert(this.props)
-            //let hash = 'hahs';//window.location.pathname.replace(/^.*#/);
-            {alert(window.location.pathname.search('#'))}
-            alert(window.location.pathname.replace(/.*#/, ''))
-          {
-          }
-          //{alert(window.location.href)}
-          //{alert(window.location.pathname)}
-          <Home />
-          <Settings />
-          <a href='/#test'>test</a>
-          */
-        xxx
-
         </Router>
       </div>
     )
+    */
   }
 }
