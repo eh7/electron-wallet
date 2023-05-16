@@ -1,5 +1,6 @@
 import * as React from 'react'
 //import { render } from 'react-dom';
+/*
 import {
   //BrowserRouter as Router,
   HashRouter as Router,
@@ -7,36 +8,120 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+*/
+import {
+  useNavigate,
+} from 'react-router-dom';
+
+import { Router, Route } from 'electron-router-dom';
 
 import Navbar from './components/Navbar';
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 
-//import path from 'path';
+const MainScreen = () => {
+  return (
+    <div>
+      MainScreen
+    </div>
+  );
+}
 
-//console.log(path.join(__dirname, 'index.html'));
+const SearchScreen = () => {
+  return (
+    <div>
+      SearchScreen
+    </div>
+  );
+}
 
-//const userAgent = navigator.userAgent.toLowerCase();
+const AboutScreen = () => {
+  return (
+    <div>
+      AboutScreen
+    </div>
+  );
+}
+
+function AppRoutes () {
+  return (
+    <div>
+      <Router
+        main={
+          <>
+            <Route path="/" element={<MainScreen />} />
+            <Route path="/search" element={<SearchScreen />} />
+          </>
+        }
+        about={<Route path="/" element={<AboutScreen />} />}
+      />
+    </div>
+  );
+}
+
+function ClickRouter(clickPath) {
+  if (clickPath === 'about') {
+    return (
+      <AboutScreen />      
+    );
+  } else if (clickPath === 'search') {
+    return (
+      <SearchScreen />      
+    );
+  } else {
+    return (
+      <MainScreen />      
+    );
+  }
+}
 
 export class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { clickedLink:'' };
+  }
+
+  componentDidMount() {
+    console.log('this.state', this.state);
+  }
+
+  routeLink = (data) => {
+    this.setState({
+      clickedLink: data,
+    });
+  }
+
   render() {
     return (
       <div>
-        reactWallet
+        <h4>reactWallet:</h4>
+        <p>
+          <button id="settings" onClick={() => {
+            this.routeLink('settings');
+          }}>seetings</button>
+          <button id="home" onClick={() => {
+            this.routeLink('');
+          }}>home></button>
+          <button id="search" onClick={() => {
+            this.routeLink('search');
+          }}>search</button>
+          <button id="about" onClick={() => {
+            this.routeLink('about');
+          }}>about</button>
+        </p>
+        {
+          (this.state.clickedLink === 'search') ? (<SearchScreen />) : 
+          (this.state.clickedLink === 'about') ? (<AboutScreen />) :
+          (this.state.clickedLink === '') ? (<MainScreen />) :
+          'NO ROUTE ERROR'
+        }
+        {
+          (this.state.clickedLink === 'settings') ? (<Settings />) : 
+          (this.state.clickedLink === '') ? (<Home />) : 
+          'NO ROUTE ERROR'
+        }
       </div>
     )
-    /*
-    return (
-      <div>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path='/' component={<Home />} />
-            <Route path='/settings' component={<Settings />} />
-          </Routes>
-        </Router>
-      </div>
-    )
-    */
   }
 }
