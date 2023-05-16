@@ -5,9 +5,9 @@
   "description": "electron based crypto wallet",
   "mainOld": "./dist/main.js",
   "scripts": {
-    "buildWalletReactApp": "rm -rf static/apps/reactWallet && parcel build --dist-dir static/apps/reactWallet/ apps/reactWallet/src/index.html && sed -i 's/ src=\"\\\// src=\".\\\//g' static/apps/reactWallet/index.html",
+    "buildWalletReactApp": "rm -rf static/apps/reactWallet && parcel build --dist-dir static/apps/reactWallet/ apps/reactWallet/src/index.html && sed -i 's/ src=\"\\// src=\".\\//g' static/apps/reactWallet/index.html",
     "buildExampleReactApp": "rm -rf static/apps/reactApp && parcel build --dist-dir static/apps/reactApp apps/reactApp/index.html && npm run reactAppIndexAppFix",
-    "reactAppIndexAppFix": "sed -i 's/\\\/index/.\\\/index/' static/apps/reactApp/index.html",
+    "reactAppIndexAppFix": "sed -i 's/\\/index/.\\/index/' static/apps/reactApp/index.html",
     "buildRunTmp": "npx tsc src/testing.ts && sed -i 's/bip39_light_1\\.default/bip39_light_1/g' src/testing.js && node src/testing.js",
     "serve": "webpack-dev-server",
     "efstart": "electron-forge start",
@@ -36,6 +36,7 @@
     "axios": "^1.4.0",
     "bip39-light": "^1.0.7",
     "bootstrap": "^5.2.3",
+    "electron-router-dom": "^1.0.5",
     "electron-squirrel-startup": "^1.0.0",
     "ethereumjs-util": "^7.1.5",
     "ethereumjs-wallet": "^1.0.2",
@@ -43,6 +44,7 @@
     "fs": "^0.0.1-security",
     "hello-wasm": "^6.6.6",
     "parcel": "^2.8.3",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
@@ -62,6 +64,7 @@
     "@types/node": "^14.11.2",
     "electron": "^24.2.0",
     "gts": "^3.1.1",
+    "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "typescript": "^5.0.4"
   }
