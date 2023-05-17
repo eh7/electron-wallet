@@ -13,8 +13,16 @@
 * https://pspdfkit.com/blog/2018/running-native-code-in-electron-and-the-case-for-webassembly/
 
 
+Links to help figure code for loading wallet waiting 
+
+* https://www.valentinog.com/blog/await-react/
+
+* https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html 
+
 TODOs
 
 * DEFINE walletAPI functions between render and main, see preloaded script
 * create abi contract interface based on this repo --->--> in ~/repos/dapp-dao-mono/apps/ui/nft-admin
 * create basic wallets smart contract - delploy goerli
+
+
