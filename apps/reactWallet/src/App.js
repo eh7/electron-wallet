@@ -38,6 +38,8 @@ export class App extends React.Component {
   componentDidMount() {
     console.log('this.state', this.state);
     console.log('this.wallet App', this.wallet);
+
+    this.app.getEthersFromApp(this.wallet);
   }
 
   routeLink = (data) => {
@@ -71,7 +73,7 @@ export class App extends React.Component {
           (this.state.clickedLink === 'settings') ? (<Settings />) : 
           (this.state.clickedLink === 'search') ? (<Search />) : 
           (this.state.clickedLink === 'about') ? (<About />) : 
-          (this.state.clickedLink === '') ? (<Home wallet={this.wallet} />) : 
+          (this.state.clickedLink === '') ? (<Home wallet={this.wallet} ref={app => {this.app = app;}}/>) : 
           'NO ROUTE ERROR'
         }
       </div>

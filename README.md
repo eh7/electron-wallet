@@ -15,6 +15,8 @@
 
 Links to help figure code for loading wallet waiting 
 
+* https://www.javascriptstuff.com/component-communication/#2-instance-methods
+
 * https://www.valentinog.com/blog/await-react/
 
 * https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html 
