@@ -1,4 +1,7 @@
 import * as React from 'react'
+import Wallet from '../services/wallet'; 
+import Format from '../services/format';
+const format = new Format();
 
 export default class Search extends React.Component {
   render() {

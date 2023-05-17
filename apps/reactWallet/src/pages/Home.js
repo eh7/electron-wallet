@@ -1,5 +1,7 @@
 import * as React from 'react'
 import Wallet from '../services/wallet'; 
+import Format from '../services/format';
+const format = new Format();
 
 export default class Home extends React.Component {
   
@@ -9,6 +11,28 @@ export default class Home extends React.Component {
       ethersData: null,
     };
     this.wallet = this.props.wallet;
+   
+    this.eventEmitter = this.props.eventEmitter;
+
+    this.eventEmitter.on('wallet provider setup done', async (wallet) => {
+      this.wallet = wallet;
+
+      let state = this.state;
+
+      const network = await this.wallet.getNetwork();
+
+      state.network = format.formatNetworkDataHtml(
+        network.chainId,
+        network.name,
+        network,
+      );
+      state.networkId = network.chainId;
+      state.networkName = network.name;
+      this.setState(state);
+
+      // console.log('eventEmitter.on \'wallet provider setup done\' (Home):', wallet, 'this.state:', this.state);
+    });
+    
     /*
     console.log(props.wallet);
     alert('this.wallet sent as props from App see console');
@@ -31,7 +55,11 @@ export default class Home extends React.Component {
     this.setState({
       ethersData: wallet.ethersData,
     });
-    //console.log(await this.wallet.getNetwork());
+    //this.wallet.getNetwork()
+    //  .then(network => {
+    //    console.log(network);
+    //  });
+    //console.log(this.wallet.getNetwork());
     //console.log('provider getNetwork:', this.wallet.ethersData.getNetwork);
     //this.getNetwork()
   }
@@ -58,7 +86,7 @@ export default class Home extends React.Component {
         <div>
           <h3>Wallet Home</h3>
           <h5>{this.getAddress()}</h5>
-          <h5>{this.getNetwork()}</h5>
+          <h5>{this.state.network}</h5>
           <ul>
             <li>
               <a href="../../index.html">root app</a>

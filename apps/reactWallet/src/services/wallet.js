@@ -2,11 +2,20 @@ import bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 import { ethers } from 'ethers';
 
+//const myEventHandler = function () {
+//  console.log('event emitted');
+//}
+//eventEmitter.on('scream', myEventHandler);
+
 const endPoint = 'https://mainnet.infura.io/v3/5ad16da394384a8ca868154e1ca744c0';
 
 export default class Wallet {
 
-  constructor(walletInitData) {
+  constructor(
+     eventEmitter,
+     walletInitData,
+  ) {
+    this.eventEmitter = eventEmitter;
     this.data = '';
     this.initData = walletInitData;
     this.setupWallet(walletInitData);
@@ -27,6 +36,9 @@ export default class Wallet {
       publicKey: zeroWallet.getPublicKeyString(),
     };
     this.ethersData = await this.setupEthers();
+    console.log('this wallet.js:', this.ethersData.provider);
+    this.eventEmitter.emit('wallet provider setup done', this);
+    //console.log('this wallet.js:', await this.getNetwork());
     // console.log('this.setupEthers', this.ethersData);
 
     /*
