@@ -7,9 +7,12 @@ export default class Home extends React.Component {
   
   constructor(props) {
     super(props);
+
     this.state = {
+      show: false,
       ethersData: null,
     };
+
     this.wallet = this.props.wallet;
    
     this.eventEmitter = this.props.eventEmitter;
@@ -75,11 +78,20 @@ export default class Home extends React.Component {
   }
 
   async componentDidMount() {
-    console.log('this.wallet.ethersData componentDidMount Home', this.wallet.ethersData);
+    let state = this.state;
+    state.ethersData = this.wallet.ethersData;
+    //state.network = await this.wallet.getNetwork();
+    this.setState(state);
+    console.log('*** this.wallet.ethersData componentDidMount Home', this.wallet.ethersData, this.state.ethersData, this.state.network);
+  }
+
+  async componentDidUpdate() {
+    console.log('this.wallet.ethersData componentDidUpdate Home', this.wallet.ethersData, this.state.ethersData);
   }
 
   render() {
     if (this.state.ethersData === null) {
+      //alert('check data render');
       return (<div>...loading...</div>);
     } else {
       return (

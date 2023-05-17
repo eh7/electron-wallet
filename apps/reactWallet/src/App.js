@@ -60,7 +60,7 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>reactWallet</h2>
+        <h2>React Wallet</h2>
         <p>
           <button id="home" onClick={() => {
             this.routeLink('');
