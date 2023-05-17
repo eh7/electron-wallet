@@ -31,6 +31,8 @@ export default class Home extends React.Component {
     this.setState({
       ethersData: wallet.ethersData,
     });
+    //console.log(await this.wallet.getNetwork());
+    //console.log('provider getNetwork:', this.wallet.ethersData.getNetwork);
     //this.getNetwork()
   }
 
