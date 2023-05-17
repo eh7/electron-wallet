@@ -8,12 +8,14 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-*/
 import {
   useNavigate,
 } from 'react-router-dom';
-
 import { Router, Route } from 'electron-router-dom';
+*/
+
+//import { Wallet } from 'services/wallet'; 
+import Wallet from './services/wallet'; 
 
 import Navbar from './components/Navbar';
 import Home from "./pages/Home";
@@ -26,10 +28,16 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { clickedLink:'' };
+
+    const phrase = 'huge mansion obscure weasel mix submit ripple attack then fade spoil picnic';
+    this.wallet = new Wallet(
+      phrase,
+    );
   }
 
   componentDidMount() {
     console.log('this.state', this.state);
+    console.log('this.wallet App', this.wallet);
   }
 
   routeLink = (data) => {
@@ -41,7 +49,7 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <h4>reactWallet:</h4>
+        <h2>reactWallet</h2>
         <p>
           <button id="home" onClick={() => {
             this.routeLink('');
@@ -63,7 +71,7 @@ export class App extends React.Component {
           (this.state.clickedLink === 'settings') ? (<Settings />) : 
           (this.state.clickedLink === 'search') ? (<Search />) : 
           (this.state.clickedLink === 'about') ? (<About />) : 
-          (this.state.clickedLink === '') ? (<Home />) : 
+          (this.state.clickedLink === '') ? (<Home wallet={this.wallet} />) : 
           'NO ROUTE ERROR'
         }
       </div>

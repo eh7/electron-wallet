@@ -8,7 +8,7 @@ import {
 } from "electron";
 import * as path from "path";
 
-import { createFileRoute, createURLRoute } from 'electron-router-dom';
+//import { createFileRoute, createURLRoute } from 'electron-router-dom';
 
 import bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
@@ -112,10 +112,10 @@ function createWindow() {
     width: 800,
   });
 
-  console.log(__dirname);
+  //console.log(__dirname);
   //const devServerURL = createURLRoute(process.env['ELECTRON_RENDERER_URL']!, id);
-  const devServerURL = createURLRoute(__dirname!, 'main');
-  mainWindow.loadURL(devServerURL)
+  //const devServerURL = createURLRoute(__dirname!, 'main');
+  //mainWindow.loadURL(devServerURL)
 
   // create bepoke menu options
   let defaultMenu = Menu.getApplicationMenu();
