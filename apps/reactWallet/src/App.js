@@ -79,8 +79,8 @@ export class App extends React.Component {
           }}>about</button>
         </p>
         {
-          (this.state.clickedLink === 'settings') ? (<Settings eventEmitter={eventEmitter} />) : 
-          (this.state.clickedLink === 'search') ? (<Search eventEmitter={eventEmitter} />) : 
+          (this.state.clickedLink === 'settings') ? (<Settings wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+          (this.state.clickedLink === 'search') ? (<Search wallet={this.wallet} eventEmitter={eventEmitter} />) : 
           (this.state.clickedLink === 'about') ? (<About wallet={this.wallet} eventEmitter={eventEmitter} />) : 
           (this.state.clickedLink === '') ? (<Home wallet={this.wallet} eventEmitter={eventEmitter} ref={app => {this.app = app;}} />) : 
           'NO ROUTE ERROR'
