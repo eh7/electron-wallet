@@ -25,21 +25,23 @@ export default class Home extends React.Component {
   }
 
   // called from App.js when wallet is completed initialization
-  getEthersFromApp = async  (wallet) => {
+  getEthersFromApp = async (wallet) => {
     this.wallet = wallet;
     console.log('getEthersFromApp in Home', this.wallet);
-    //this.setState({
-    //  ethersData: wallet.ethersData,
-    //});
+    this.setState({
+      ethersData: wallet.ethersData,
+    });
     //this.getNetwork()
   }
 
   getNetwork = () => {
+    /*
     this.setState({
       network: this.wallet.ethersData,
     });
     console.log('this.wallet.ethersData', this.wallet.ethersData);
     return 'getting network';
+    */
   }
 
   async componentDidMount() {
