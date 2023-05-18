@@ -33,7 +33,7 @@ export default class Home extends React.Component {
       state.networkName = network.name;
       this.setState(state);
 
-      // console.log('eventEmitter.on \'wallet provider setup done\' (Home):', wallet, 'this.state:', this.state);
+      //console.log('eventEmitter.on \'wallet provider setup done\' (Home):', wallet, 'this.state:', this.state);
     });
     
     /*
@@ -81,6 +81,23 @@ export default class Home extends React.Component {
     let state = this.state;
     state.ethersData = this.wallet.ethersData;
     //state.network = await this.wallet.getNetwork();
+    //this.setState(state);
+
+    try {
+      console.log('this.wallet home onMount', this.wallet);
+      const network = await this.wallet.getNetwork();
+      state.network = format.formatNetworkDataHtml(
+        network.chainId,
+        network.name,
+        network,
+      );
+      state.networkId = network.chainId;
+      state.networkName = network.name;
+    }
+    catch (err) {
+      console.log('error with getNetwork in home', err);
+    }
+
     this.setState(state);
   }
 
@@ -93,7 +110,7 @@ export default class Home extends React.Component {
     } else {
       return (
         <div>
-          <h3>Wallet Home</h3>
+          <h3>Home</h3>
           <h5>{this.getAddress()}</h5>
           <h5>{this.state.network}</h5>
           <ul>
