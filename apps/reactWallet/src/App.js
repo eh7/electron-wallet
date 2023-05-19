@@ -32,6 +32,8 @@ export class App extends React.Component {
     super(props);
     this.state = { clickedLink:'' };
 
+    // this.wallet.checkWalletSetup();
+
     const phrase = 'huge mansion obscure weasel mix submit ripple attack then fade spoil picnic';
     this.wallet = new Wallet(
       eventEmitter,

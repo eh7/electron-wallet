@@ -21,6 +21,14 @@ export default class Wallet {
     this.setupWallet(walletInitData);
   }
 
+  checkWalletSetup = (message) => {
+    if (this.data.address) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   setupWallet = async (message) => {
     const mnemonic = message || await bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
