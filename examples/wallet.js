@@ -11,7 +11,7 @@ console.log(hdkey);
 
 const ethers = require('ethers');
 const ethersWallet = ethers.Wallet.createRandom();
-//console.log('address:', ethersWallet.address);
+console.log('address:', ethersWallet.address);
 //console.log('mnemonic:', ethersWallet.mnemonic.phrase);
 //console.log('privateKey:', ethersWallet.privateKey);
 
@@ -32,6 +32,8 @@ async function toKeystore (_walletFromPrivateKey) {
 //  );
   const importedWallet = await Wallet.fromV3(keystore, 'password');
   console.log(importedWallet);
+  console.log(importedWallet.getAddressString());
+
   return keystore;
   /*
   console.log(
