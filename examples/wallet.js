@@ -11,9 +11,9 @@ console.log(hdkey);
 
 const ethers = require('ethers');
 const ethersWallet = ethers.Wallet.createRandom();
-console.log('address:', ethersWallet.address);
-console.log('mnemonic:', ethersWallet.mnemonic.phrase);
-console.log('privateKey:', ethersWallet.privateKey);
+//console.log('address:', ethersWallet.address);
+//console.log('mnemonic:', ethersWallet.mnemonic.phrase);
+//console.log('privateKey:', ethersWallet.privateKey);
 
 const Wallet = require('ethereumjs-wallet').default;
 const pkey = Buffer.from(
@@ -24,11 +24,39 @@ const walletFromPrivateKey = Wallet.fromPrivateKey(
 );
 
 async function toKeystore (_walletFromPrivateKey) {
+  const keystore = await  _walletFromPrivateKey.toV3String('password');
+  console.log(keystore);
+//  console.log(
+//    'keystore:',
+//    keystore,
+//  );
+  const importedWallet = await Wallet.fromV3(keystore, 'password');
+  console.log(importedWallet);
+  return keystore;
+  /*
   console.log(
     'v3 keystore:',
-    await  _walletFromPrivateKey.toV3('password'),
+    await  _walletFromPrivateKey.toV3String('password'),
+  );
+  */
+}
+
+const keystore = toKeystore(walletFromPrivateKey);
+
+/*
+async function fromKeystore (_walletFromPrivateKey, _keystoreJsonString) {
+  console.log(Wallet, _keystoreJsonString);
+  return keystore;
+
+  //const wallet = await _walletFromPrivateKey.fromV3(_keystoreJsonString);
+  //console.log(
+  //  wallet,
+  //);
+  console.log(
+    'v3 keystore:',
+    await  _walletFromPrivateKey.toV3String('password'),
   );
 }
- toKeystore(walletFromPrivateKey);
-
+fromKeystore(walletFromPrivateKey, keystore);
+*/
 
