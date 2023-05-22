@@ -30,9 +30,20 @@ async function toKeystore (_walletFromPrivateKey) {
 //    'keystore:',
 //    keystore,
 //  );
-  const importedWallet = await Wallet.fromV3(keystore, 'password');
-  console.log(importedWallet);
-  console.log(importedWallet.getAddressString());
+  try {
+    const importedWallet = await Wallet.fromV3(keystore, 'wrong_password');
+  }
+  catch (e) {
+    console.log('importedWallet wrong password error');
+  }
+  try {
+    const importedWallet = await Wallet.fromV3(keystore, 'password');
+    //console.log(importedWallet);
+    console.log(importedWallet.getChecksumAddressString());
+  }
+  catch (e) {
+    console.log('importedWallet error');
+  }
 
   return keystore;
   /*
