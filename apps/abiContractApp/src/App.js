@@ -20,10 +20,21 @@ const eventEmitter = new events.EventEmitter();
 //import * as Store from 'electron-store';
 //const Store = require('electron-store');
 //require('electron-store');
-import fs from 'fs';
-console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx', fs);
+//import * as fs from 'fs';
+//console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx', fs.openSync);
 //const appData = fs.openSync('/tmp/appData.elec.json');
 //import { ipcRenderer } from 'electron';
+/*
+try {
+    var isFileSaverSupported = !!new Blob;
+} catch (e) {console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', e)}
+import { saveAs } from 'file-saver';
+var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+saveAs(blob, "helloWorld.txt");
+const { app } = require('electron');
+console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', app);
+//console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', app.getPath('userData'));
+*/
 
 /*
 //import { Wallet } from 'services/wallet'; 
