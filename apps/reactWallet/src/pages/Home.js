@@ -117,9 +117,6 @@ export default class Home extends React.Component {
             <li>
               <a href="../../index.html">root app</a>
             </li>
-            <li>
-              <a href="/settings">settings</a>
-            </li>
           </ul>
         </div>
       )

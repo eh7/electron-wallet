@@ -20,7 +20,8 @@
     "devTake2": "npm run compile && electron ./dist/electron-app.js",
     "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc && cp src/*renderer.js dist/ && sed -i 's/\\.default//g' dist/main.js",
+    "compile": "tsc && cp src/*renderer.js dist/",
+    "_compile": "tsc && cp src/*renderer.js dist/ && sed -i 's/\\.default//g' dist/main.js",
     "start": "electron ./dist/main.js",
     "startjs": "electron ./js/src/main.js",
     "watch": "tsc -w",
@@ -39,6 +40,7 @@
     "bootstrap": "^5.2.3",
     "electron-router-dom": "^1.0.5",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.1.0",
     "ethereumjs-util": "^7.1.5",
     "ethereumjs-wallet": "^1.0.2",
     "ethers": "^5.5.3",
@@ -68,9 +70,11 @@
     "crypto-browserify": "^3.12.0",
     "electron": "^24.2.0",
     "gts": "^3.1.1",
+    "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "stream-browserify": "^3.0.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "util": "^0.12.5"
   }
 }

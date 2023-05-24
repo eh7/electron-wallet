@@ -17,6 +17,14 @@ import { Router, Route } from 'electron-router-dom';
 import events from 'events';
 const eventEmitter = new events.EventEmitter();
 
+//import * as Store from 'electron-store';
+//const Store = require('electron-store');
+//require('electron-store');
+import fs from 'fs';
+console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx', fs);
+//const appData = fs.openSync('/tmp/appData.elec.json');
+//import { ipcRenderer } from 'electron';
+
 /*
 //import { Wallet } from 'services/wallet'; 
 import Wallet from './services/wallet'; 

@@ -10,9 +10,14 @@ import * as path from "path";
 
 //import { createFileRoute, createURLRoute } from 'electron-router-dom';
 
-import bip39 from 'bip39-light';
+import * as bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 //import ethUtil from 'ethereumjs-util';
+import * as Store from 'electron-store';
+
+const store = new Store();
+store.set('appData', {});
+console.log('appData store:', store.get('appData')); 
 
 /*
 import { ethers } from 'ethers';
