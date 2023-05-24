@@ -34,7 +34,7 @@ async function toKeystore (_walletFromPrivateKey) {
     const importedWallet = await Wallet.fromV3(keystore, 'wrong_password');
   }
   catch (e) {
-    console.log('importedWallet wrong password error');
+    console.log('v3 keystore wallet wrong password error');
   }
   try {
     const importedWallet = await Wallet.fromV3(keystore, 'password');

@@ -5,6 +5,7 @@
   "description": "electron based crypto wallet",
   "mainOld": "./dist/main.js",
   "scripts": {
+    "buildAbiReactApp": "rm -rf static/apps/abiContract && parcel build --dist-dir static/apps/abiContract/ apps/abiContractApp/src/index.html && sed -i 's/ src=\"\\// src=\".\\//g' static/apps/abiContract/index.html",
     "buildWalletReactApp": "rm -rf static/apps/reactWallet && parcel build --dist-dir static/apps/reactWallet/ apps/reactWallet/src/index.html && sed -i 's/ src=\"\\// src=\".\\//g' static/apps/reactWallet/index.html",
     "buildExampleReactApp": "rm -rf static/apps/reactApp && parcel build --dist-dir static/apps/reactApp apps/reactApp/index.html && npm run reactAppIndexAppFix",
     "reactAppIndexAppFix": "sed -i 's/\\/index/.\\/index/' static/apps/reactApp/index.html",
