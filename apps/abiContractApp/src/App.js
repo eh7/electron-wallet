@@ -35,6 +35,13 @@ const { app } = require('electron');
 console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', app);
 //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', app.getPath('userData'));
 */
+//console.log('xxxxxxxxxxxxxxxxxxxxxx', window.myAPI);
+//window.electronAPI.setTitle('set in abiContract app title');
+window.electronAPI.setTitle('abiContract app page title');
+window.walletAPI.walletPhrase((event, phrase) => {
+  console.log('xxxxxxxxxxxxx handle walletPhrase callback:', phrase);
+});
+window.walletAPI.getPhrase();
 
 /*
 //import { Wallet } from 'services/wallet'; 

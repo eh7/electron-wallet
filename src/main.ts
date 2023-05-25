@@ -13,8 +13,13 @@ import * as path from "path";
 import * as bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 //import ethUtil from 'ethereumjs-util';
-import * as Store from 'electron-store';
 
+import * as dotenv from 'dotenv';
+dotenv.config()
+const endPoint = process.env.MAINNET_RPC_END_POINT || '';
+
+// testing electron store to persist app config data
+import * as Store from 'electron-store';
 const store = new Store();
 store.set('appData', {});
 console.log('appData store:', store.get('appData')); 
@@ -26,7 +31,6 @@ let ethers = {};
 let ethersData = {};
 let provider;
 let wallet;
-const endPoint = 'https://mainnet.infura.io/v3/5ad16da394384a8ca868154e1ca744c0';
 
 async function ethersGetBalance (ethers, address) {
   const balance = await ethers.provider.getBalance(address);
@@ -246,6 +250,16 @@ function createWindow() {
   })
 
   // console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
+
+  ipcMain.on('getPhrase', (event) => {
+    const webContents = event.sender
+    const win = BrowserWindow.fromWebContents(webContents)
+    //event.sender.send('walletPhrase', 'this is an example phrase returned from main')
+    event.sender.send('walletPhrase', {
+      name: 'name',
+      phrase: 'this is an example phrase returned from main',
+    });
+  });
 }
 
 // This method will be called when Electron has finished

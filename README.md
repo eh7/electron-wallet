@@ -1,5 +1,11 @@
 # electron-wallet
 
+You need to add a .env file for the reactWallet app and default express app to work. An example would be a file with the following line..
+
+MAINNET_RPC_END_POINT="https://mainnet.infura.io/v3/55555555566666666667778999abc12b"
+
+The url would need to be a valid rpc endpoint for the ethereum mainnet, for now. Could be other if the network is not mainnet.
+
 ## LINKS
 
 * https://github.com/electron/electron-quick-start-typescript

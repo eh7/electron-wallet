@@ -2,12 +2,15 @@ import bip39 from 'bip39-light';
 import { hdkey as etherHDkey } from 'ethereumjs-wallet';
 import { ethers } from 'ethers';
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 //const myEventHandler = function () {
 //  console.log('event emitted');
 //}
 //eventEmitter.on('scream', myEventHandler);
 
-const endPoint = 'https://mainnet.infura.io/v3/5ad16da394384a8ca868154e1ca744c0';
+const endPoint = process.env.MAINNET_RPC_END_POINT || '';
 
 export default class Wallet {
 
@@ -61,6 +64,11 @@ export default class Wallet {
   }
 
   setupEthers = async (data) => {
+    if (endPoint === '') {
+      throw({
+        error: 'no endPoint set',
+      });
+    }
     const provider = new ethers.providers.JsonRpcProvider(endPoint);
     const wallet = new ethers.Wallet(this.data.privateKey);
     //const currentBlock = await provider.getBlockNumber();

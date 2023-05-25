@@ -38,6 +38,7 @@
     "axios": "^1.4.0",
     "bip39-light": "^1.0.7",
     "bootstrap": "^5.2.3",
+    "dotenv": "^16.0.3",
     "electron-router-dom": "^1.0.5",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
