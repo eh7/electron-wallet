@@ -287,3 +287,78 @@ ipcMain.on('request-mainprocess-action', (event, arg) => {
     arg
   );
 });
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.002  000.002: --- VIM STARTING ---
+000.074  000.072: Allocated generic buffers
+000.112  000.038: locale set
+000.113  000.001: window checked
+000.337  000.224: inits 1
+000.352  000.015: parsing arguments
+000.353  000.001: expanding arguments
+000.361  000.008: shell init
+000.491  000.130: Termcap init
+000.501  000.010: inits 2
+000.591  000.090: init highlight
+000.786  000.141  000.141: sourcing /usr/share/vim/vim81/debian.vim
+000.823  000.212  000.071: sourcing $VIM/vimrc
+001.590  000.661  000.661: sourcing /usr/share/vim/vim81/syntax/syncolor.vim
+001.718  000.825  000.164: sourcing /usr/share/vim/vim81/syntax/synload.vim
+008.826  007.062  007.062: sourcing /usr/share/vim/vim81/filetype.vim
+008.869  008.015  000.128: sourcing /usr/share/vim/vim81/syntax/syntax.vim
+008.879  008.042  000.027: sourcing $HOME/.vimrc
+008.882  000.037: sourcing vimrc file(s)
+009.385  000.031  000.031: sourcing /var/lib/vim/addons/plugin/syntastic/autoloclist.vim
+009.417  000.013  000.013: sourcing /var/lib/vim/addons/plugin/syntastic/balloons.vim
+009.445  000.012  000.012: sourcing /var/lib/vim/addons/plugin/syntastic/checker.vim
+009.472  000.012  000.012: sourcing /var/lib/vim/addons/plugin/syntastic/cursor.vim
+009.498  000.011  000.011: sourcing /var/lib/vim/addons/plugin/syntastic/highlighting.vim
+009.524  000.011  000.011: sourcing /var/lib/vim/addons/plugin/syntastic/loclist.vim
+009.550  000.011  000.011: sourcing /var/lib/vim/addons/plugin/syntastic/modemap.vim
+009.576  000.011  000.011: sourcing /var/lib/vim/addons/plugin/syntastic/notifiers.vim
+009.601  000.011  000.011: sourcing /var/lib/vim/addons/plugin/syntastic/registry.vim
+009.628  000.012  000.012: sourcing /var/lib/vim/addons/plugin/syntastic/signs.vim
+010.363  000.552  000.552: sourcing /var/lib/vim/addons/autoload/syntastic/util.vim
+014.598  000.051  000.051: sourcing /var/lib/vim/addons/plugin/syntastic/autoloclist.vim
+014.657  000.044  000.044: sourcing /var/lib/vim/addons/plugin/syntastic/balloons.vim
+014.808  000.140  000.140: sourcing /var/lib/vim/addons/plugin/syntastic/checker.vim
+014.890  000.068  000.068: sourcing /var/lib/vim/addons/plugin/syntastic/cursor.vim
+014.958  000.057  000.057: sourcing /var/lib/vim/addons/plugin/syntastic/highlighting.vim
+015.182  000.211  000.211: sourcing /var/lib/vim/addons/plugin/syntastic/loclist.vim
+015.257  000.060  000.060: sourcing /var/lib/vim/addons/plugin/syntastic/modemap.vim
+015.337  000.062  000.062: sourcing /var/lib/vim/addons/plugin/syntastic/notifiers.vim
+015.585  000.234  000.234: sourcing /var/lib/vim/addons/plugin/syntastic/registry.vim
+015.662  000.064  000.064: sourcing /var/lib/vim/addons/plugin/syntastic/signs.vim
+016.641  006.995  005.452: sourcing /var/lib/vim/addons/plugin/syntastic.vim
+016.870  000.064  000.064: sourcing /usr/share/vim/vim81/plugin/getscriptPlugin.vim
+017.042  000.160  000.160: sourcing /usr/share/vim/vim81/plugin/gzip.vim
+017.260  000.207  000.207: sourcing /usr/share/vim/vim81/plugin/logiPat.vim
+017.296  000.024  000.024: sourcing /usr/share/vim/vim81/plugin/manpager.vim
+017.516  000.210  000.210: sourcing /usr/share/vim/vim81/plugin/matchparen.vim
+017.984  000.456  000.456: sourcing /usr/share/vim/vim81/plugin/netrwPlugin.vim
+018.014  000.011  000.011: sourcing /usr/share/vim/vim81/plugin/rrhelper.vim
+018.047  000.020  000.020: sourcing /usr/share/vim/vim81/plugin/spellfile.vim
+018.181  000.122  000.122: sourcing /usr/share/vim/vim81/plugin/tarPlugin.vim
+018.262  000.065  000.065: sourcing /usr/share/vim/vim81/plugin/tohtml.vim
+018.432  000.150  000.150: sourcing /usr/share/vim/vim81/plugin/vimballPlugin.vim
+018.591  000.133  000.133: sourcing /usr/share/vim/vim81/plugin/zipPlugin.vim
+018.595  000.961: loading plugins
+018.676  000.081: loading packages
+018.695  000.019: loading after plugins
+018.703  000.008: inits 3
+018.895  000.192: reading viminfo
+018.906  000.011: setting raw mode
+018.909  000.003: start termcap
+018.923  000.014: clearing screen
+019.724  000.140  000.140: sourcing /var/lib/vim/addons/autoload/syntastic/log.vim
+019.766  000.703: opening buffers
+019.953  000.187: BufEnter autocommands
+019.954  000.001: editing files in windows
+020.097  000.143: VimEnter autocommands
+020.098  000.001: before starting main loop
+020.288  000.190: first screen update
+020.289  000.001: --- VIM STARTED ---
