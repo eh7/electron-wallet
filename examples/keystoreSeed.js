@@ -44,12 +44,18 @@ const pkey = '50ad70e0aa973dceb27530bf2331e2c92ced29f29cc37789f6e23ca2c1bbb03f';
 async function pkeyV3 (_pkey, _name) {
   var key = Buffer.from(_pkey, 'hex');
   var wallet = Wallet.fromPrivateKey(key);
+  /*
   console.log(
     'v3Keystore:',
     await wallet.toV3String('password'),
     _name,
   );
+  */
+  return await wallet.toV3String('password');
 };
+
+async function saveSeedHex () {
+}
 
 pkeyV3(pkey, 'pkey');
 pkeyV3(pkeySeed0, 'seed0');
