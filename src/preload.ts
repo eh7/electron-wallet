@@ -49,6 +49,7 @@ contextBridge.exposeInMainWorld('walletAPI', {
   showDevTools: () => ipcRenderer.send('showDevTools'),
   getPhrase: () => ipcRenderer.send('getPhrase'),
   walletPhrase: (callback) => ipcRenderer.on('walletPhrase', callback),
+  saveKeystoreData: (data) => ipcRenderer.send('saveKeystoreData', data),
 });
 
 /*

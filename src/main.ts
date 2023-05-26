@@ -260,6 +260,10 @@ function createWindow() {
       phrase: 'this is an example phrase returned from main',
     });
   });
+
+  ipcMain.on('saveKeystoreData', (event, keystore) => {
+    console.log('xxxxxxxxxxxxxx saveKeystoreData main xxxxxxxxxxxxxxxxx', keystore);
+  });
 }
 
 // This method will be called when Electron has finished
