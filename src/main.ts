@@ -22,7 +22,7 @@ const endPoint = process.env.MAINNET_RPC_END_POINT || '';
 import * as Store from 'electron-store';
 const store = new Store();
 store.set('appData', {});
-console.log('appData store:', store.get('appData')); 
+//console.log('appData store:', store.get('appData')); 
 
 /*
 import { ethers } from 'ethers';
@@ -262,7 +262,10 @@ function createWindow() {
   });
 
   ipcMain.on('saveKeystoreData', (event, keystore) => {
-    console.log('xxxxxxxxxxxxxx saveKeystoreData main xxxxxxxxxxxxxxxxx', keystore);
+    store.set('keystore', keystore);
+    const savedKeystore = store.get('keystore');
+    //console.log('xxxxxxxxxxxxxx saveKeystoreData main xxxxxxxxxxxxxxxxx', keystore, savedKeystore);
+    console.log('xxxxx saveKeystoreData main store.set keystore xxxxx');
   });
 }
 
