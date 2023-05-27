@@ -21,7 +21,10 @@ const endPoint = process.env.MAINNET_RPC_END_POINT || '';
 // testing electron store to persist app config data
 import * as Store from 'electron-store';
 const store = new Store();
-store.set('appData', {});
+//store.set('keystore', []);
+//console.log(app.getPath('userData'));
+//console.log('keystore:', store.get('keystore'));
+let seedKeystore = store.get('keystore');
 //console.log('appData store:', store.get('appData')); 
 
 /*
@@ -251,6 +254,11 @@ function createWindow() {
 
   // console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
 
+  ipcMain.on('getKeystoreSeedHex', (event) => {
+    const keystore = store.get('keystore');
+    event.sender.send('keystoreSeedHex', keystore); 
+  });
+
   ipcMain.on('getPhrase', (event) => {
     const webContents = event.sender
     const win = BrowserWindow.fromWebContents(webContents)
@@ -308,3 +316,10 @@ ipcMain.on('request-mainprocess-action', (event, arg) => {
     arg
   );
 });
+
+if (Object.keys(seedKeystore).length !== 2) {
+  console.log('everything loaded :: keystore NOT created -> direct to keystore creation/import app');
+  //window.location.href = './apps/reactWallet/index.html';
+} else {
+  console.log('everything loaded :: keystore created procced to main app page');
+}

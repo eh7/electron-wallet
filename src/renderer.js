@@ -159,4 +159,16 @@ appWalletButton.addEventListener('click', async (event) => {
   console.log('appButton');
 });
 
+//console.log('sentWalletInit', window.walletAPI.walletInit(
+window.walletAPI.keystoreSeedHex((event, keystore) => {
+  if (Object.keys(keystore).length === 2) {
+    console.log('keystore set OKAY');
+  } else {
+    console.log('keystore NOT set redirect wallet setup app');
+    //window.location.href = './apps/reactWallet/index.html';
+    window.location.href = './apps/setupWallet/index.html';
+  }
+});
+console.log('request keystoreSeedHex', window.walletAPI.getKeystoreSeedHex());
+
 //# sourceMappingURL=renderer.js.map

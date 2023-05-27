@@ -22,6 +22,12 @@ export default class Wallet {
     this.eventEmitter = eventEmitter;
     this.data = '';
     this.initData = walletInitData;
+
+    // TODO move this into it's own function
+    window.walletAPI.keystoreSeedHex((event, keystore) => {
+      console.log('xxxxxxxxxxxxxxx keystore xxxxxxxxxxxx', keystore);
+    });
+
     this.setupWallet(walletInitData);
   }
 
