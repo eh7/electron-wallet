@@ -19,42 +19,11 @@ import Wallet from '../../services/wallet';
 import events from 'events';
 const eventEmitter = new events.EventEmitter();
 
-//import * as Store from 'electron-store';
-//const Store = require('electron-store');
-//require('electron-store');
-//import * as fs from 'fs';
-//console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx', fs.openSync);
-//const appData = fs.openSync('/tmp/appData.elec.json');
-//import { ipcRenderer } from 'electron';
-/*
-try {
-    var isFileSaverSupported = !!new Blob;
-} catch (e) {console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', e)}
-import { saveAs } from 'file-saver';
-var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-saveAs(blob, "helloWorld.txt");
-const { app } = require('electron');
-console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', app);
-//console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx', app.getPath('userData'));
-*/
-//console.log('xxxxxxxxxxxxxxxxxxxxxx', window.myAPI);
-//window.electronAPI.setTitle('set in abiContract app title');
 window.electronAPI.setTitle('Setup Wallet App');
 window.walletAPI.walletPhrase((event, phrase) => {
   console.log('xxxxxxxxxxxxx handle walletPhrase callback:', phrase);
 });
 window.walletAPI.getPhrase();
-
-/*
-//import { Wallet } from 'services/wallet'; 
-import Wallet from './services/wallet'; 
-
-import Navbar from './components/Navbar';
-import Home from "./pages/Home";
-import Settings from "./pages/Settings";
-import Search from "./pages/Search";
-import About from "./pages/About";
-*/
 
 const HomePageLink = () => {
   return (
@@ -75,13 +44,46 @@ const Home = () => {
   );
 }
 
-const NewWalletForm = () => {
-  return (
-    <div>
-      <h5>New Wallet Form</h5>
-      <HomePageLink/>
-    </div>
-  );
+export class NewWalletForm extends React.Component {
+//const NewWalletForm = (props) => {
+//
+  constructor (props) {
+    super(props);
+    console.log(props);
+    this.state = {
+      password: '',
+    }
+  }
+
+  onChangeInput = (event) => {
+    //console.log('name', event.target.name);
+    //console.log('value', event.target.value);
+    this.state[event.target.name] = event.target.value;
+    //console.log('state value', this.state[event.target.name]);
+  }
+
+  onSubmitForm = (event) => {
+    event.preventDefault();
+    console.log('onSubmit', event.target.name);
+    alert(this.state.password);
+  }
+
+  componentDidMount() {
+  }
+
+  render () {
+    return (
+      <div>
+        <h5>New Wallet Form</h5>
+        <form onSubmit={this.onSubmitForm}>
+          Password:<br/>
+          <input name='password' type='password' required onChange={this.onChangeInput}/><br/>
+          <button type='submit'>create</button>
+        </form>
+        <HomePageLink/>
+      </div>
+    );
+  }
 }
 
 const ImportWalletForm = () => {
@@ -174,7 +176,7 @@ export class App extends React.Component {
           }}>settings</button>
         </p>
         {
-          (this.state.clickedLink === 'new') ? (<NewWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+          (this.state.clickedLink === 'new') ? (<NewWalletForm app={this} wallet={this.wallet} eventEmitter={eventEmitter} />) : 
           (this.state.clickedLink === 'import') ? (<ImportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
           (this.state.clickedLink === 'export') ? (<ExportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
           (this.state.clickedLink === 'settings') ? (<Settings wallet={this.wallet} eventEmitter={eventEmitter} />) : 
