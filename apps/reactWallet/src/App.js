@@ -16,7 +16,8 @@ import { Router, Route } from 'electron-router-dom';
 
 //import { Wallet } from 'services/wallet'; 
 import events from 'events';
-import Wallet from './services/wallet'; 
+
+import Wallet from '../../services/wallet'; 
 
 import Navbar from './components/Navbar';
 import Home from "./pages/Home";

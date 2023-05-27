@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Wallet from '../services/wallet'; 
-import Format from '../services/format';
+import Wallet from '../../../services/wallet'; 
+import Format from '../../../services/format';
 const format = new Format();
 
 export default class Home extends React.Component {
