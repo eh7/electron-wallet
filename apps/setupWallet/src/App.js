@@ -66,6 +66,18 @@ export class NewWalletForm extends React.Component {
     event.preventDefault();
     console.log('onSubmit', event.target.name);
     alert(this.state.password);
+
+    eventEmitter.on('wallet provider setup done', (wallet) => {
+      console.log('setupWallet NewWalletFrom -- eventEmitter.on \'wallet provider setup done\':', wallet);
+    });
+
+    const phrase = '';
+    this.wallet = new Wallet(
+      eventEmitter,
+      phrase,
+    );
+
+    this.wallet.setupWallet();
   }
 
   componentDidMount() {
