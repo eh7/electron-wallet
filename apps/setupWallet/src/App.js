@@ -197,10 +197,17 @@ export class App extends React.Component {
           'NO ROUTE ERROR'
         }
         <p>
-          <button onClick={
-            alert('test')
-            //window.walletAPI.saveKeystoreData([])
-          }>clear keystore</button>
+          <button onClick={() => {
+            alert('clear keystore')
+            window.walletAPI.saveKeystoreData([])
+          }}>clear keystore</button>
+
+          <button onClick={() => {
+            window.walletAPI.keystoreSeedHex((event, keystore) => {
+              console.log('keystore in storage:', JSON.stringify(keystore));
+            });
+            console.log('request keystore', window.walletAPI.getKeystoreSeedHex());
+          }}>show keystore</button>
         </p>
       </div>
     )
