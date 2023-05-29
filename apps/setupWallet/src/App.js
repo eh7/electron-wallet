@@ -62,10 +62,10 @@ export class NewWalletForm extends React.Component {
     //console.log('state value', this.state[event.target.name]);
   }
 
-  onSubmitForm = (event) => {
+  onSubmitForm = async (event) => {
     event.preventDefault();
     console.log('onSubmit', event.target.name);
-    alert(this.state.password);
+    //alert(this.state.password);
 
     eventEmitter.on('wallet provider setup done', (wallet) => {
       console.log('setupWallet NewWalletFrom -- eventEmitter.on \'wallet provider setup done\':', wallet);
@@ -77,7 +77,8 @@ export class NewWalletForm extends React.Component {
       phrase,
     );
 
-    this.wallet.setupWallet();
+    await this.wallet.setupWallet();
+    await this.wallet.setupWalletKeystore(this.state.password);
   }
 
   componentDidMount() {

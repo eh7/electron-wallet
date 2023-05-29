@@ -39,6 +39,17 @@ export default class Wallet {
     }
   }
 
+  setupWalletKeystore = async (_password) => {
+    const mnemonic = this.data.mnemonic;
+    const seedHex = bip39.mnemonicToSeedHex(mnemonic);
+    const keystore = await this.seedHexToKeystore(seedHex, _password);
+    console.log('after seedHexToKeystore', mnemonic, seedHex);
+    //console.log('keystore:', keystore);
+    //this.data.keystore = keystore;
+    console.log('save data walletKeystore', this.data);
+    this.eventEmitter.emit('wallet provider setup done', this);
+  }
+
   setupWallet = async (message) => {
     const mnemonic = message || await bip39.generateMnemonic();
     const seedHex = bip39.mnemonicToSeedHex(mnemonic);
@@ -60,7 +71,8 @@ export default class Wallet {
 
     this.ethersData = await this.setupEthers();
     console.log('this wallet.js:', this.ethersData.provider);
-    this.eventEmitter.emit('wallet provider setup done', this);
+
+    //this.eventEmitter.emit('wallet provider setup done', this);
     //console.log('this wallet.js:', await this.getNetwork());
     // console.log('this.setupEthers', this.ethersData);
 
