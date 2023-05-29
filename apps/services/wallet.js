@@ -143,7 +143,7 @@ export default class Wallet {
         keystore1,
       ];
       this.data.keystore = keystore;
-console.log('xxxxxxxxxxxxxxxxxxxxxx', window.walletAPI.saveKeystoreData);
+//console.log('xxxxxxxxxxxxxxxxxxxxxx', window.walletAPI.saveKeystoreData);
       window.walletAPI.saveKeystoreData(this.data.keystore);
     }
     catch (err) {

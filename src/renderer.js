@@ -167,7 +167,7 @@ window.walletAPI.keystoreSeedHex((event, keystore) => {
   } else {
     console.log('keystore NOT set redirect wallet setup app');
     //window.location.href = './apps/reactWallet/index.html';
-//    window.location.href = './apps/setupWallet/index.html';
+    window.location.href = './apps/setupWallet/index.html';
   }
 });
 console.log('request keystoreSeedHex', window.walletAPI.getKeystoreSeedHex());

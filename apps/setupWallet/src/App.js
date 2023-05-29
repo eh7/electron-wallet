@@ -196,6 +196,12 @@ export class App extends React.Component {
           (this.state.clickedLink === '') ? (<Home wallet={this.wallet} eventEmitter={eventEmitter} ref={app => {this.app = app;}} />) : 
           'NO ROUTE ERROR'
         }
+        <p>
+          <button onClick={
+            alert('test')
+            //window.walletAPI.saveKeystoreData([])
+          }>clear keystore</button>
+        </p>
       </div>
     )
   }
