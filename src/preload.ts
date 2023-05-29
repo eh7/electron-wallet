@@ -52,6 +52,8 @@ contextBridge.exposeInMainWorld('walletAPI', {
   saveKeystoreData: (data) => ipcRenderer.send('saveKeystoreData', data),
   getKeystoreSeedHex: () => ipcRenderer.send('getKeystoreSeedHex'),
   keystoreSeedHex: (callback) => ipcRenderer.on('keystoreSeedHex', callback),
+  getWalletData: () => ipcRenderer.send('getWalletData'),
+  walletData: (callback) => ipcRenderer.on('walletData', callback),
 });
 
 /*

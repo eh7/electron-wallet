@@ -207,6 +207,11 @@ export class App extends React.Component {
               console.log('keystore in storage:', JSON.stringify(keystore));
             });
             console.log('request keystore', window.walletAPI.getKeystoreSeedHex());
+
+            window.walletAPI.walletData((event, data) => {
+              console.log('walletData in storage:', data);
+            });
+            console.log('request keystore', window.walletAPI.getWalletData());
           }}>show keystore</button>
         </p>
       </div>

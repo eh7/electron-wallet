@@ -259,6 +259,11 @@ function createWindow() {
     event.sender.send('keystoreSeedHex', keystore); 
   });
 
+  ipcMain.on('getWalletData', (event) => {
+    const data = store.get('data');
+    event.sender.send('walletData', data); 
+  });
+
   ipcMain.on('getPhrase', (event) => {
     const webContents = event.sender
     const win = BrowserWindow.fromWebContents(webContents)
