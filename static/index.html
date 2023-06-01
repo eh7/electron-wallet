@@ -2,24 +2,104 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>This is a test title</title>
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!--
+    //-->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src 'self'; script-src 'self' 'unsafe-eval'
+        'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
+        "
+    />
+    <!--
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' app: 'unsafe-eval'; default-src 'self'; ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' app: 'unsafe-eval'; object-src 'self' app:;">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'
+        'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
+	'sha256-lXzIe2rgd/kOxs/X84W9nLtHgCEa5ZR05VYlJHR6K/8='
+	'sha256-YfBu6lPCzLsxx4lH1LR0Z0D8xCs9OHbcWTZ4RL8Ig58='
+	'sha256-d/afrbVyBi0SHqoOnAikyOZ7tIbfTZRZ6SkhTTevvtg='
+	'sha256-iUuhESvdMkCqkeS/Qi/Xrzx1uyQFSpxNF2YS3MCXkBw='
+	'sha256-Mwxna25RBhzEABV+9EeO8wS3UV19RgQQNSOcElrHAFg='
+	'sha256-Sa6fQ0cN0NXKbOPEnms+Pe4AgwDC7QJ9yg9HpsD6FFA='
+	'sha256-xfs3wFDMsuI2n0lKyMq9cctXibydXlGu6UBCeVVyGTg='
+	"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    //-->
+    <!--
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src
+        'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
+	'sha256-YfBu6lPCzLsxx4lH1LR0Z0D8xCs9OHbcWTZ4RL8Ig58='
+	'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='"
+    />
+    //-->
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h3>Index App</h3>
+    <p>
+      <button id="showDevTools" type="button">toggleDevTools</button> |
+      <button id="greet" type="button">greet</button> |
+      <button id="greet2" type="button">greet2</button>
+      <button id="blockNumber" type="button">blockNumber</button>
+      <button id="balance" type="button">balance</button>
+      <button id="appIndex" type="button">index app</button>
+      <button id="appWallet" type="button">wallet app</button>
+      <br/>
+      <a href="./apps/setupWallet/index.html">setupWallet</a>
+      <a href="./apps/reactWallet/index.html">reactWallet</a>
+      <a href="./apps/abiContract/index.html">abiContract</a>
+      <a href="./apps/reactApp/index.html">reactApp</a>
+      <a href="./apps/nftAdmin/nftAdmin.html">nftAdminApp</a>
+    </p>
+    <div id="walletAddress"></div>
+    <div id="blockNumber"></div>
+
     We are using Node.js <span id="node-version"></span>, Chromium
     <span id="chrome-version"></span>, and Electron
     <span id="electron-version"></span>.
 
     <!-- You can also require other files to run in this process -->
-    <script src="./dist/renderer.js"></script>
+    <div id="app"></div>
+
+    <p>
+    Title: <input id="title"/>
+      <button id="btn" type="button">Set</button>
+    </p>
+
+    <p>
+      <button id="hwa" type="button">call hello wasm alert</button>
+    </p>
+
+    <p>
+      message: <input id="message"/>
+      <button type="button" id="btn2">Open a File</button>
+      File path: <strong id="filePath"></strong>
+    </p>
+
+    <script type="module" src="../dist/renderer.js"></script>
+
+    <a onclick="ping();">click</a>
+    <!--
+    <script>alert('1');</script>
+    <script>alert('2');</script>
+    //-->
+    <!--
+    <script type="module">
+      import init, { greet, greet2 } from "./pkg/hello_wasm.js";
+      init().then(() => {
+        greet("WebAssembly GAV");
+        greet2("WebAssembly");
+      });
+    </script>
+    //-->
   </body>
 </html>

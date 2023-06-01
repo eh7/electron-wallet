@@ -13,6 +13,10 @@ logs
 results
 tmp
 
+# wasm example ignores
+pkg
+target
+
 # Build
 public/css/main.css
 

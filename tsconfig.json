@@ -3,12 +3,17 @@
     "outDir": "./dist",
     "target": "es2016",
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false
   },
-  "exclude": [ "node_modules", "dist" ] 
+  "exclude": [
+    "node_modules",
+    "dist",
+    "out",
+    "tmp",
+  ]
 }
