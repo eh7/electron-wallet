@@ -31,6 +31,11 @@ Links to help figure code for loading wallet waiting
 
 * https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html 
 
+
+typescript render  ipc events
+
+https://www.jsgarden.co/blog/how-to-handle-electron-ipc-events-with-typescript
+
 TODOs
 
 * DEFINE walletAPI functions between render and main, see preloaded script
