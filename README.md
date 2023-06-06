@@ -22,6 +22,8 @@ The url would need to be a valid rpc endpoint for the ethereum mainnet, for now.
 
 * https://pspdfkit.com/blog/2018/running-native-code-in-electron-and-the-case-for-webassembly/
 
+* https://www.jsgarden.co/blog/how-to-handle-electron-ipc-events-with-typescript
+
 
 Links to help figure code for loading wallet waiting 
 

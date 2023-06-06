@@ -16,7 +16,10 @@ const ping = () => __awaiter(this, void 0, void 0, function* () {
 });
 ping();
 
-console.log(window.myAPI);
+//window.walletAPI.testing('this is the data');
+console.log(window);
+console.log('xxxxxxxxxxxxxxxxxxxx window.myAPI :', window.myAPI);
+
 const setButton = document.getElementById('btn');
 const titleInput = document.getElementById('title');
 setButton.addEventListener('click', () => {
