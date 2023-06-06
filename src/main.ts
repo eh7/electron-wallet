@@ -8,6 +8,11 @@ import {
 } from "electron";
 import * as path from "path";
 
+import {
+  test,
+} from './services/p2p';
+test();
+
 //import { createFileRoute, createURLRoute } from 'electron-router-dom';
 
 import * as bip39 from 'bip39-light';
