@@ -10,7 +10,7 @@ import * as path from "path";
 
 import {
   test,
-} from './services/p2p';
+} from './services/p2p.js';
 test();
 
 //import { createFileRoute, createURLRoute } from 'electron-router-dom';
@@ -25,6 +25,7 @@ const endPoint = process.env.MAINNET_RPC_END_POINT || '';
 
 // testing electron store to persist app config data
 import * as Store from 'electron-store';
+//import Store from 'electron-store';
 const store = new Store();
 //store.set('keystore', []);
 //console.log(app.getPath('userData'));

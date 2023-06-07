@@ -1,6 +1,6 @@
 {
   "moduels": "node16",
-  "type": "module",
+  "_type": "module",
   "name": "electron-wallet",
   "version": "0.0.1",
   "description": "electron based crypto wallet",
