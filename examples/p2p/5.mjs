@@ -15,6 +15,7 @@ import DHT from 'libp2p-kad-dht'
 
 const createDHTNode = async (bootstrappers) => {
   //const node = await Libp2p.create({
+  console.log(bootstrappers);
   const node = await createLibp2p({
     addresses: {
       listen: ['/ip4/0.0.0.0/tcp/0']
