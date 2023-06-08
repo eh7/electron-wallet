@@ -19,7 +19,6 @@ import peerJSONData from './relay.mjs'
 
   const relay = await createLibp2p({
     peerId: peer,
-    port: 12345,
     addresses: {
       listen: [
         //'/ip4/0.0.0.0/tcp/0'
