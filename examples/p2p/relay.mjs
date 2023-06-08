@@ -1,53 +1,5 @@
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { mplex } from '@libp2p/mplex'
-import { yamux } from '@chainsafe/libp2p-yamux'
-import { noise } from '@chainsafe/libp2p-noise'
-import { gossipsub } from '@chainsafe/libp2p-gossipsub'
-import { floodsub } from '@libp2p/floodsub'
-import { bootstrap } from '@libp2p/bootstrap'
-import { pubsubPeerDiscovery } from '@libp2p/pubsub-peer-discovery'
-import { circuitRelayTransport, circuitRelayServer } from 'libp2p/circuit-relay'
-import { identifyService } from 'libp2p/identify'
-import { peerIdFromString } from '@libp2p/peer-id'
-//import PeerId from '@libp2p/peer-id'
-
-;(async () => {
-  //const peer = peerIdFromString('k51qzi5uqu5dkwkqm42v9j9kqcam2jiuvloi16g72i4i4amoo2m8u3ol3mqu6s')
-  const peer = peerIdFromString('12D3KooWDGvCcpLjj5Rticmt6xGFREfNjJufnz8dTEDs1SXVHAb5')
-  console.log('privateKey:', peer.privateKey);
-
-  const relay = await createLibp2p({
-    // peerId: peer,
-    // privateKey: peerID.toJSON().privKey
-    addresses: {
-      listen: [
-        '/ip4/0.0.0.0/tcp/0'
-      ]
-    },
-    transports: [tcp(), circuitRelayTransport()],
-    streamMuxers: [yamux(), mplex()],
-    connectionEncryption: [noise()],
-    peerDiscovery: [
-      pubsubPeerDiscovery({
-        interval: 1000
-      })
-    ],
-    services: {
-      relay: circuitRelayServer(),
-      identify: identifyService(),
-      pubsub: floodsub()
-    }
-  })
-  console.log(`libp2p relay started with id: ${relay.peerId.toString()}`)
-  //console.log(relay.peerId.privKey)
-
-  const relayMultiaddrs = relay.getMultiaddrs().map((m) => m.toString())
-
-  console.log(relayMultiaddrs);
-
-  relay.addEventListener('peer:discovery', (evt) => {
-    const peer = evt.detail
-    console.log(`discovered: ${peer.id.toString()}`)
-  })
-})()
+export default {
+  id: 'QmT5aZWgoigftGvKEL6mGDLdQFre5RnToHPqLcHRLcWSwW',
+  privKey: 'CAASqAkwggSkAgEAAoIBAQC02mBnU7sHg+XItxy/8qMH9hbOYXdjR9Nfnjiyz+OBiwKay6ZU6GeeF579xqCI+ZGCNubayF3fLYvTbHNj2BzZ91OKvNDOuoa/Zh1d4X6z+ZLUtVjKqEabwjFqukjJshMJXv2iDl+1XtZRTmiUlss2N+yBcYVdTufP6E2uFB4NNgiO4od/RaNZbXj9lmwmcrcSMWLkAe4fMTXYULorgNxApI46kPHFvXK31UcPqVC27jP6fIENHTPd4vHmRv+iucxXCCGH9EH/5+LDRk/V5PRMjyY2NyQzIavwN9CYcRsW7x4V0AXrEmArY4IiWW4aYFaVodMhMKBt2qps9pLBV9i5AgMBAAECggEBAI9uQdawyTwEl1DAKMTyoenGef/jvNO4OyMyULU/uqcaoE40BQ6B4uu2wBl0Vg1MIOKsuBn7nrdJYAOllz4wP3F+fXsilFfgBs31JoU2OU5zOMgJqwnOu3D8akTCyMdtuztLYswLqkwlksOY88gkb7XoVGG0rph548835aORwOOoCJxJnQ0hoOdM04nzIRby2K0kt/dgPd+vCR1ETmIIKy7htlrAK7MMW9Y0pJFbw6NYOo6/P8qS0aD0vRfVrEBytkNsw9XRUI8JlrMEWmvmtT+p38IcG6yPFDal1sBWuIxxyBLvtN/fKjpQjRz+N+voUdG2+tu99y6g5oxK6mabd6ECgYEA53PWaoO7lQxQ8IuZ8KdOCb1eYNMKmjjoeCAi39AzL3Z6zTzlnlOumgz1Qw2b2ETzOhQBnjsXa18Tq+Pqi5OW7Lh9U3L91QOwzI1Cg6v9Y62alhH2TgJ/+zDAJylRa0WHNruxrwPYBcFo2D0It/sJhJXfgfDgjbVeMXVk0Z6hQD8CgYEAyAi2zK+TwjW3pdiE1y0+r00xZFspG2Vzw9hYMWfXNFcLHLLZwAYYEnVxR7Y9cED70F/zMKHH3FX0/dcVT6kCX19TQC3/VriMzItiu0I15Fwh6yR4e/5hJROA5RlRIgf3n3VEo9HP9IzqbrmPz3zDEi0blNR19tcaDuiWze8bKQcCgYEAne1uirNkVWlX+SpoWcru9rpeIZcfDuhxxzW2Vh1ML8CaPlylGQlkg/z/hUdN5Z32kNSB3iPX8Q2o8IrNyXtlahTgfwZhqO2hv5FLp2i9tzwH1QpglA4koZM8KfyJb7a7cl9T+GWZCyRTk+jhgBgtAGj7X0CrGEZ/BSRjLJ0eziUCgYAoXzHdr9YHjWXqT//Hmfcb1F2Snp92SwyJS2HJXubdRnAUs7gk/FXha9iYG5zcyhDIpoTjnNNEkginLsC7WiYDb67StjXhn8+y/LLJjnxoAXxLBApZJCchH4WVN33be3YrtbRLx+3LsqEiBcuTmd+ZDIeTiynfztwQhDrjh02ZAwKBgCOh8R+tLEpHKcPbTGfSHI7rEcrY9hIx5t+fUKKhFqUt5sVyWqNkWbn1QwCiY3EOAdHtNT2ldq83A2Jp2EHTmyjrOldM5APOjhYDYUhKNiDp+BwhMeRUqmut8p9cnHXoW7Bw3lbCWRFY7waDg5tDBZeG9OSfMoO6lppYzPaEcz2F',
+  pubKey: 'CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC02mBnU7sHg+XItxy/8qMH9hbOYXdjR9Nfnjiyz+OBiwKay6ZU6GeeF579xqCI+ZGCNubayF3fLYvTbHNj2BzZ91OKvNDOuoa/Zh1d4X6z+ZLUtVjKqEabwjFqukjJshMJXv2iDl+1XtZRTmiUlss2N+yBcYVdTufP6E2uFB4NNgiO4od/RaNZbXj9lmwmcrcSMWLkAe4fMTXYULorgNxApI46kPHFvXK31UcPqVC27jP6fIENHTPd4vHmRv+iucxXCCGH9EH/5+LDRk/V5PRMjyY2NyQzIavwN9CYcRsW7x4V0AXrEmArY4IiWW4aYFaVodMhMKBt2qps9pLBV9i5AgMBAAE='
+}

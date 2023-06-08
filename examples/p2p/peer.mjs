@@ -55,7 +55,7 @@ const createDHTNode = async (bootstrappers) => {
  //  const relayMultiaddrs = relay.getMultiaddrs().map((m) => m.toString())
 
   const relayMultiaddrs = [
-    '/ip4/127.0.0.1/tcp/46393/p2p/12D3KooWDGvCcpLjj5Rticmt6xGFREfNjJufnz8dTEDs1SXVHAb5'
+    '/ip4/127.0.0.1/tcp/10333/p2p/QmT5aZWgoigftGvKEL6mGDLdQFre5RnToHPqLcHRLcWSwW',
   ]
 
   const [node1, node2] = await Promise.all([
