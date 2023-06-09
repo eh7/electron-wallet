@@ -11,7 +11,9 @@ import { identifyService } from 'libp2p/identify'
 import {
   createFromJSON,
 } from '@libp2p/peer-id-factory'
-import peerJSONData from './relay.mjs'
+//import peerJSONData from './relay.mjs'
+//import peerJSONData from './peer-config.mjs'
+import { relayPeer as peerJSONData } from './peer-config.mjs'
 
 ;(async () => {
   const peer = await createFromJSON(peerJSONData);
