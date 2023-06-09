@@ -13,6 +13,10 @@ import { identifyService } from 'libp2p/identify'
 
 import DHT from 'libp2p-kad-dht'
 
+import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string'
+import { toString as uint8ArrayToString } from 'uint8arrays/to-string'
+import { stdinToStream, streamToConsole } from './stream.mjs'
+
 const createDHTNode = async (bootstrappers) => {
   //const node = await Libp2p.create({
   const node = await createLibp2p({
@@ -31,7 +35,10 @@ const createDHTNode = async (bootstrappers) => {
       })
     ],
     services: {
-      pubsub: floodsub(),
+      pubsub: floodsub({
+        //allowPublishToZeroPeers: true,
+        emitSelf: true,
+      }),
       identify: identifyService()
     },
     dht: DHT,
@@ -65,6 +72,25 @@ const createDHTNode = async (bootstrappers) => {
     createDHTNode(relayMultiaddrs),
   ])
 
+  const topic = 'tests';
+
+  node1.services.pubsub.subscribe(topic);
+  node1.services.pubsub.addEventListener('message', (evt) => {
+    if (evt.detail.topic === topic) {
+      //console.log(
+      //  uint8ArrayToString(evt.detail.data)
+      //)
+      console.log(`node1 received: ${uint8ArrayToString(evt.detail.data)} on topic ${evt.detail.topic}`)
+    }
+  })
+
+  node2.services.pubsub.subscribe(topic)
+  node2.services.pubsub.addEventListener('message', (evt) => {
+    if (evt.detail.topic === topic) {
+      console.log(`node2 received: ${uint8ArrayToString(evt.detail.data)} on topic ${evt.detail.topic}`)
+    }
+  })
+
   node1.addEventListener('peer:discovery', (evt) => {
     const peer = evt.detail
     console.log(`Peer ${node1.peerId.toString()} discovered: ${peer.id.toString()}`)
@@ -73,4 +99,30 @@ const createDHTNode = async (bootstrappers) => {
     const peer = evt.detail
     console.log(`Peer ${node2.peerId.toString()} discovered: ${peer.id.toString()}`)
   })
+
+  setInterval(() => {
+    node2.services.pubsub.publish(topic, uint8ArrayFromString('Bird bird bird, bird is the word!')).catch(err => {
+      console.error(err)
+    })
+  }, 10000)
+
+  await node1.handle('/chat/1.0.0', async ({ stream }) => {
+    console.log('node1.handle');
+    // Send stdin to the stream
+    stdinToStream(stream)
+    // Read the stream and output to console
+    streamToConsole(stream)
+  })
+
+  //const node1Ma = node1.getMultiaddrs().forEach((ma) => {
+  //  console.log(ma.toString());
+  //})
+  const node1Ma = node1.getMultiaddrs()[0];
+  console.log(node1Ma);
+  const stream = await node2.dialProtocol(
+    node1Ma,
+    '/chat/1.0.0',
+  )
+  stdinToStream(stream)
+  streamToConsole(stream)
 })()
