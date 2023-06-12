@@ -62,7 +62,7 @@ const createDHTNode = async (bootstrappers) => {
  //  const relayMultiaddrs = relay.getMultiaddrs().map((m) => m.toString())
 
   const relayMultiaddrs = [
-    '/ip4/127.0.0.1/tcp/10333/p2p/QmT5aZWgoigftGvKEL6mGDLdQFre5RnToHPqLcHRLcWSwW',
+    '/ip4/127.0.0.1/tcp/10443/p2p/QmT5aZWgoigftGvKEL6mGDLdQFre5RnToHPqLcHRLcWSwW',
   ]
 
   const [node1, node2] = await Promise.all([
@@ -109,9 +109,17 @@ const createDHTNode = async (bootstrappers) => {
   await node1.handle('/chat/1.0.0', async ({ stream }) => {
     console.log('node1.handle');
     // Send stdin to the stream
-    stdinToStream(stream)
+    //stdinToStream(stream)
     // Read the stream and output to console
-    streamToConsole(stream)
+    streamToConsole('node1', stream)
+  })
+
+  await node2.handle('/chat/1.0.0', async ({ stream }) => {
+    console.log('node1.handle');
+    // Send stdin to the stream
+    //stdinToStream(stream)
+    // Read the stream and output to console
+    streamToConsole('node2', stream)
   })
 
   //const node1Ma = node1.getMultiaddrs().forEach((ma) => {
@@ -124,5 +132,5 @@ const createDHTNode = async (bootstrappers) => {
     '/chat/1.0.0',
   )
   stdinToStream(stream)
-  streamToConsole(stream)
+  //streamToConsole('node1', stream)
 })()

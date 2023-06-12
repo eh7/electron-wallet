@@ -24,7 +24,7 @@ import { relayPeer as peerJSONData } from './peer-config.mjs'
     addresses: {
       listen: [
         //'/ip4/0.0.0.0/tcp/0'
-        '/ip4/127.0.0.1/tcp/10333'
+        '/ip4/127.0.0.1/tcp/10443'
       ]
     },
     transports: [tcp(), circuitRelayTransport()],

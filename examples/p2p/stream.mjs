@@ -21,7 +21,7 @@ export function stdinToStream(stream) {
   )
 }
 
-export function streamToConsole(stream) {
+export function streamToConsole(node, stream) {
   pipe(
     // Read from the stream (the source)
     stream.source,
@@ -34,7 +34,7 @@ export function streamToConsole(stream) {
       // For each chunk of data
       for await (const msg of source) {
         // Output the data as a utf8 string
-        console.log('> ' + msg.toString().replace('\n', ''))
+        console.log(node + '> ' + msg.toString().replace('\n', ''))
       }
     }
   )
