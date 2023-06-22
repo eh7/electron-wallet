@@ -112,6 +112,10 @@ export class SetupPasswordPage extends React.Component {
         <h2>Setup Your Electron Application Password</h2>
         <h5>{ JSON.stringify(this.state) }</h5>
         <h5>{ JSON.stringify(this.state.input) }</h5>
+        <ul>  
+          { Object.entries(this.state.input).map((t,k) => <option key={k} value={t[0]}>{t[1]}</option>) }          
+        </ul>
+        { Object.keys(this.state.input) }
         <form onSubmit={this.onSubmitForm}>
           Electron Application Password:<br/>
           <input name='password' type='password' required onChange={this.onChangeInput}/><br/>
