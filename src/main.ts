@@ -59,8 +59,8 @@ let wallet;
 import Auth from './services/auth';
 const auth = new Auth(store, ethers);
  
-//store.set('password', null);
 /*
+store.set('password', null);
 auth.setupAuthData({
   password: '123456',
 });
@@ -215,6 +215,15 @@ function createWindow() {
     //}).catch((error) => {
     //  console.log('then', error);
     //});
+  });
+
+  ipcMain.on('setElectronPassword', async (event, password) => {
+    //console.log('setElectronPassword:', event);
+    auth.setElectronPassword(password);
+    event.sender.send(
+      'authStatusMessage',
+      'setElectronPassword',
+    );
   });
 
   ipcMain.on('checkPasswordSet', async (event) => {

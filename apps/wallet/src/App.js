@@ -17,7 +17,6 @@ import { Router, Route } from 'electron-router-dom';
 import eventBus from "./services/EventBus";
 import Wallet from './services/wallet';
 
-
 import events from 'events';
 const eventEmitter = new events.EventEmitter();
 
@@ -30,12 +29,99 @@ window.walletAPI.getPhrase();
 export class SetupPasswordPage extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {
+      errors: {},
+      input: {},
+    };
+    //window.walletAPI.authStatusMessage((event, authStatus) => {
+    //  console.log('authStatusMessage callback');
+    //});
+  }
+
+  onChangeInput = (event) => {
+    let input = this.state.input;
+    input[event.target.name] = event.target.value;
+    this.setState({
+      input
+    });
+  }
+
+  onSubmitForm = async (event) => {
+    try {
+      event.preventDefault();
+      if (this.validate()) {
+        console.log(
+          'onLoginFormSubmit',
+          event.target.name,
+          this.state.input.password,
+          this.state.input.passwordCheck,
+        );
+        window.authAPI.setElectronPassword(this.state.input.password);
+      } else {
+        alert('validation failed');
+      }
+    }
+    catch (e) {
+      console.warn('onSubmitForm error:', e.error);
+    }
+  }
+
+  validate() {
+
+    let isValid = true;   
+    let input = this.state.input;
+    let errors = {};
+
+    if (!input["password"]) {
+      isValid = false;
+      errors["password"] = "Please enter your password.";
+    }
+
+    if (!input["passwordCheck"]) {
+      isValid = false;
+      errors["passwordCheck"] = "Please enter your password check.";
+    }
+
+    if (input["password"].length < 6) {
+      isValid = false;
+      errors["password"] = "Please add at least 6 charachter.";
+    }
+
+    if (
+      typeof input["password"] !== "undefined" &&
+      typeof input["passwordCheck"] !== "undefined"
+    ) {
+      if (input["password"] != input["passwordCheck"]) {
+        isValid = false;
+        errors["passwordCheck"] = "Passwords don't match.";
+      }
+    }
+
+    this.setState({
+      errors: errors
+    });
+
+    //alert('validate :: ' + isValid);
+    return isValid;
   }
 
   render () {
     return (
       <div>
         class SetupPasswordPage
+        <h2>Setup Your Electron Application Password</h2>
+        <h5>{ JSON.stringify(this.state) }</h5>
+        <h5>{ JSON.stringify(this.state.input) }</h5>
+        <form onSubmit={this.onSubmitForm}>
+          Electron Application Password:<br/>
+          <input name='password' type='password' required onChange={this.onChangeInput}/><br/>
+          <input name='passwordCheck' type='password' required onChange={this.onChangeInput}/><br/>
+          <button
+            type='submit'
+            value='submit'
+            class='btn btn-success submit_btn'
+          >submit</button>
+        </form>
       </div>
     );
   }
@@ -88,7 +174,7 @@ export class LoginPage extends React.Component {
     }
     catch (e) {
       console.warn('onSubmitForm error:', e.error);
-    
+
     }
   }
 
@@ -167,7 +253,7 @@ export class NewWalletForm extends React.Component {
     }
     catch (e) {
       console.warn('onSubmitForm error:', e.error);
-    
+
     }
   }
 
@@ -269,7 +355,7 @@ export class App extends React.Component {
     window.authAPI.checkPasswordSetResult((event, status) => {
       console.log('window.authAPI.checkPasswordSetResult:', status);
       if (status) {
-        alert('password set, now login');
+        //alert('password set, now login');
         this.setState({ passwordSet: true });
         //eventBus.dispatch("passwordSetupDoAuth", { message: "doAuth" });
       } else {
@@ -280,7 +366,10 @@ export class App extends React.Component {
   }
 
   render() {
-    this.checkPasswordSet();
+    if (!this.statusChecked) {
+      this.statusChecked = true;
+      this.checkPasswordSet();
+    }
     if (!this.state.passwordSet) {
       return (
         <div>
@@ -298,19 +387,19 @@ export class App extends React.Component {
                 <button id="home" onClick={() => {
                   this.routeLink('');
                 }}>home</button>
-    
+
                 <button id="new" onClick={() => {
                   this.routeLink('new');
                 }}>new</button>
-      
+    
                 <button id="import" onClick={() => {
                   this.routeLink('import');
                 }}>import</button>
-      
+    
                 <button id="export" onClick={() => {
                   this.routeLink('export');
                 }}>export</button>
-      
+  
                 <button id="settings" onClick={() => {
                   this.routeLink('settings');
                 }}>settings</button>
@@ -328,19 +417,19 @@ export class App extends React.Component {
                   alert('clear keystore')
                   window.walletAPI.saveKeystoreData([])
                 }}>clear keystore</button>
-      
+
                 <button onClick={() => {
                   window.walletAPI.keystoreSeedHex((event, keystore) => {
                     console.log('keystore in storage:', JSON.stringify(keystore));
                   });
                   console.log('request keystore', window.walletAPI.getKeystoreSeedHex());
-      
+
                   window.walletAPI.walletData((event, data) => {
                     console.log('walletData in storage:', data);
                   });
                   console.log('request keystore', window.walletAPI.getWalletData());
                 }}>show keystore</button>
-      
+
                 <button onClick={() => {
                   console.log('wallet data', window.walletAPI.getWalletData());
                 }}>show wallet</button>

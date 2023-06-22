@@ -24,6 +24,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
 });
 
 contextBridge.exposeInMainWorld('authAPI', {
+  authStatusMessage: (callback: Callback) => ipcRenderer.on('authStatusMessage', callback),
+  setElectronPassword: (password) => ipcRenderer.send(
+    'setElectronPassword',
+    password,
+  ),
   checkPasswordSet: () => ipcRenderer.send('checkPasswordSet'),
   checkPasswordSetResult: (callback: Callback) => ipcRenderer.on('checkPasswordSetResult', callback),
   auth: (password: string) => ipcRenderer.send('auth', password),

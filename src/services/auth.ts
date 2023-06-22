@@ -17,6 +17,22 @@ export default class Auth {
     //console.log('Auth constructor', pass);
   }
 
+  setElectronPassword = (_password: string) => {
+    try {
+      this.store.set('password', 
+        this.ethers.keccak256(
+          Buffer.from(_password)
+        ),
+      );
+      console.log(
+        'info setElectronPassword StoredPassword:', this.store.get('password')
+      );
+    }
+    catch (e) {
+      console.log('error setElectronPassword function:', e);
+    }
+  };
+
   setupAuthData = async (data: any) => {
     console.log('setupAuthData');
     console.log(
