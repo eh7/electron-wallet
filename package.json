@@ -24,13 +24,17 @@
     "clean": "gts clean",
     "compile": "tsc && cp src/*renderer.js dist/",
     "_compile": "tsc && cp src/*renderer.js dist/ && sed -i 's/\\.default//g' dist/main.js",
-    "start": "electron ./dist/main.js",
+    "_start": "electron ./dist/main.js",
     "startjs": "electron ./js/src/main.js",
     "watch": "tsc -w",
     "fix": "gts fix",
     "prepare": "npm run compile",
     "pretest": "npm run compile",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "build": "tsc",
+    "start": "npm run buildWalletApp && npm run build && electron ./dist/main.js",
+    "buildWalletApp": "rm -rf static/apps/Wallet && parcel build --dist-dir static/apps/Wallet/ apps/wallet/src/index.html && sed -i 's/ src=\"\\// src=\".\\//g' static/apps/Wallet/index.html"
+
   },
   "author": "Gavin Francis <gav@eh7.co.uk>",
   "license": "ISC",
@@ -54,7 +58,7 @@
     "electron-store": "^8.1.0",
     "ethereumjs-util": "^7.1.5",
     "ethereumjs-wallet": "^1.0.2",
-    "ethers": "^5.5.3",
+    "ethers": "^6.6.0",
     "file-saver": "^2.0.5",
     "fs": "^0.0.1-security",
     "hello-wasm": "^6.6.6",

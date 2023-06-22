@@ -15,50 +15,39 @@ window.addEventListener("DOMContentLoaded", () => {
 
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('versions', {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
-  ping: () => ipcRenderer.invoke('ping'),
-  // we can also expose variables, not just functions
-})
+interface Callback {
+  (): void;
+}
 
-contextBridge.exposeInMainWorld('myAPI', {
-  desktop: true,
-})
-
-//import { remote } from 'electron';
-
-// IPC 1 way example - setTitle, wasmHelloAlert
-// IPC 2 way example - openFile
 contextBridge.exposeInMainWorld('electronAPI', {
-  setTitle: (title) => ipcRenderer.send('set-title', title),
-  wasmHelloAlert: (title) => ipcRenderer.send('call-hello-alert-wasm'),
-  openFile: () => ipcRenderer.invoke('dialog:openFile'),
-  sendMessageToMain: (message) => ipcRenderer.invoke('messageFromUser', message),
+  setTitle: (title: string) => ipcRenderer.send('set-title', title),
+});
+
+contextBridge.exposeInMainWorld('authAPI', {
+  checkPasswordSet: () => ipcRenderer.send('checkPasswordSet'),
+  checkPasswordSetResult: (callback: Callback) => ipcRenderer.on('checkPasswordSetResult', callback),
+  auth: (password: string) => ipcRenderer.send('auth', password),
+  handleAuthResult: (callback: Callback) => ipcRenderer.on('authResult', callback),
 });
 
 contextBridge.exposeInMainWorld('walletAPI', {
-  walletInit: (data) => ipcRenderer.send('walletInitMain', data),
-  walletUpdate: (data) => ipcRenderer.invoke('walletData:update', data),
-  handleWalletData: (callback) => ipcRenderer.on('walletData', callback),
-  walletBalance: (address) => ipcRenderer.send('walletBalance', address),
+  auth: (password: string) => ipcRenderer.send('auth', password),
+  handleAuthResult: (callback: Callback) => ipcRenderer.on('authResult', callback),
+  getWalletData: () => ipcRenderer.send('getWalletData'),
+  walletInit: (data: object) => ipcRenderer.send('walletInitMain', data),
+  walletUpdate: (data: object) => ipcRenderer.invoke('walletData:update', data),
+  handleWalletData: (callback: Callback) => ipcRenderer.on('walletData', callback),
+  walletBalance: (address: string) => ipcRenderer.send('walletBalance', address),
   walletBlockNumber: () => ipcRenderer.send('walletBlockNumber'),
-  handleWalletBlockNumber: (callback) => ipcRenderer.on('walletBlockNumber', callback),
-  handleWalletBalance: (callback) => ipcRenderer.on('walletBalance', callback),
+  handleWalletBlockNumber: (callback: Callback) => ipcRenderer.on('walletBlockNumber', callback),
+  handleWalletBalance: (callback: Callback) => ipcRenderer.on('walletBalance', callback),
   showDevTools: () => ipcRenderer.send('showDevTools'),
   getPhrase: () => ipcRenderer.send('getPhrase'),
-  walletPhrase: (callback) => ipcRenderer.on('walletPhrase', callback),
-  saveKeystoreData: (data) => ipcRenderer.send('saveKeystoreData', data),
+  walletPhrase: (callback: Callback) => ipcRenderer.on('walletPhrase', callback),
+  saveWalletData: (data: object) => ipcRenderer.send('saveWalletData', data),
+  saveKeystoreData: (data: object) => ipcRenderer.send('saveKeystoreData', data),
   getKeystoreSeedHex: () => ipcRenderer.send('getKeystoreSeedHex'),
-  keystoreSeedHex: (callback) => ipcRenderer.on('keystoreSeedHex', callback),
-  getWalletData: () => ipcRenderer.send('getWalletData'),
-  walletData: (callback) => ipcRenderer.on('walletData', callback),
-  testing: (data) => alert('data: ' + data),
+  keystoreSeedHex: (callback: Callback) => ipcRenderer.on('keystoreSeedHex', callback),
+  walletData: (callback: Callback) => ipcRenderer.on('walletData', callback),
+  testing: (data: string) => alert('data: ' + data),
 });
-
-/*
-contextBridge.exposeInMainWorld('electronAPI', {
-  openFile: () => ipcRenderer.invoke('dialog:openFile')
-})
-*/
