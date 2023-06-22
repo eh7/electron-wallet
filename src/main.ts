@@ -8,10 +8,10 @@ import {
 } from "electron";
 import * as path from "path";
 
-import {
-  test,
-} from './services/p2p.js';
-test();
+//import {
+//  test,
+//} from './services/p2p.js';
+//test();
 
 //import { createFileRoute, createURLRoute } from 'electron-router-dom';
 
@@ -125,7 +125,7 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
-      //contextIsolation: false,
+      //contextIsolation: false
     },
     width: 800,
   });

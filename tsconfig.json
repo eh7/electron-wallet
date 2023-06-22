@@ -15,5 +15,6 @@
     "dist",
     "out",
     "tmp",
+    "electron-quick-start-typescript",
   ]
 }
