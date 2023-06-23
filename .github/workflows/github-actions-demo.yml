@@ -5,7 +5,7 @@ env:
   HOOK_URL_WALLETS: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL_WALLETS }}
   GITHUB_URL: ${GITHUB_SERVER_URL}
   GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-  BRANCH: "${GITHUB_REF}"
+  BRANCH: ${{ github.ref }}
   _BRANCH: ${GITHUB_REF/refs\/heads\//}
 jobs:
   Explore-GitHub-Actions:
