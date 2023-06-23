@@ -10,5 +10,5 @@ jobs:
       - run: sh ./discordWebHookTest.sh    
       - run: |
           echo ${{ github }}
-          echo ${{ GITHUB_ACTION }}
+          echo "GITHUB_ACTION = $env:GITHUB_ACTION"
           echo "all done..."
