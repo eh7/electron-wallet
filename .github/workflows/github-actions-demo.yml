@@ -13,6 +13,7 @@ jobs:
       - run: echo "GITHUB_REF = $GITHUB_REF"
         #- run: sh ./discordWebHookTest.sh    
       - run: echo "$secrets.DISCORD_NOTIFICATION_WEBHOOK_URL"
+      - run: echo ${{secrets.DISCORD_NOTIFICATION_WEBHOOK_URL} | sed 's/./& /g'
       - run: sh ./discordWebHookNotification.sh "$GITHUB_REPOSITORY" "$GITHUB_EVENT_NAME" "$GITHUB_ACTOR" "$GITHUB_SHA" "$GITHUB_REF"
       - run: echo "all done..."
           #      - run: sh ./discordWebHookTest.sh    
