@@ -11,7 +11,7 @@ jobs:
           echo "$GITHUB_REPOSITORY"
           echo "$GITHUB_EVENT_NAME"
       - run: echo "GITHUB_REF = $GITHUB_REF"
-      - run: sh ./discordWebHookTest.sh    
-        #- run: sh ./discordWebHookNotification.sh ${{GITHUB_REPOSITORY}} ${{GITHUB_EVENT_NAME}}
+        #- run: sh ./discordWebHookTest.sh    
+      - run: sh ./discordWebHookNotification.sh "$GITHUB_REPOSITORY" "$GITHUB_EVENT_NAME"
       - run: echo "all done..."
           #      - run: sh ./discordWebHookTest.sh    
