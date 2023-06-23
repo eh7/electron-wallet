@@ -7,8 +7,8 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "test echo 2"
       - run: pwd    
-      - run: sh ./discordWebHookTest.sh    
       - run: |
           echo ${{ github }}
-          echo "GITHUB_ACTION = $GITHUB_ACTION"
+          echo "GITHUB_REF = $GITHUB_REF"
           echo "all done..."
+          #      - run: sh ./discordWebHookTest.sh    
