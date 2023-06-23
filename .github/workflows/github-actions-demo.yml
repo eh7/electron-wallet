@@ -2,6 +2,7 @@ name: GitHub Actions Demo
 on: [push]
 env:
   HOOK_URL: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL }}
+  HOOK_URL_WALLETS: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL_WALLETS }}
 jobs:
   Explore-GitHub-Actions:
     runs-on: self-hosted
