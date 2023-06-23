@@ -10,4 +10,4 @@ jobs:
       - run: sh ./discordWebHookTest.sh    
       - run: |
           echo ${{ github }}
-      - run: echo "all done..."
+          echo "all done..."
