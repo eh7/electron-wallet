@@ -7,7 +7,7 @@ jobs:
       - run: echo "triggered by a ${{ github.event_name }} event."
       - run: pwd    
       - run: |
-          echo ${{ github }}
+          echo "${{ github }}"
           echo "$GITHUB_REPOSITORY"
           echo "$GITHUB_EVENT_NAME"
       - run: echo "GITHUB_REF = $GITHUB_REF"
