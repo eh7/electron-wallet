@@ -6,16 +6,15 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: self-hosted
     steps:
-      - run: echo "triggered by a ${{ github.event_name }} event."
-      - run: pwd    
-      - run: |
-          #cat ${{ github }}
-          echo "$GITHUB_REPOSITORY"
-          echo "$GITHUB_EVENT_NAME"
-      - run: echo "GITHUB_REF = $GITHUB_REF"
+      - name: "Send Discord Notification"
+        run: sh ./discordWebHookNotification.sh "$GITHUB_REPOSITORY" "$GITHUB_EVENT_NAME" "$GITHUB_ACTOR" "$GITHUB_SHA" "$GITHUB_REF" ""
+        #- run: echo "triggered by a ${{ github.event_name }} event."
+        #- run: pwd    
+        #- run: |
+        #  #cat ${{ github }}
+        #  echo "$GITHUB_REPOSITORY"
+        #  echo "$GITHUB_EVENT_NAME"
+        #- run: echo "GITHUB_REF = $GITHUB_REF"
         #- run: sh ./discordWebHookTest.sh    
-      - run: echo "$secrets.DISCORD_NOTIFICATION_WEBHOOK_URL"
-      - run: echo ${{secrets.DISCORD_NOTIFICATION_WEBHOOK_URL}} | sed 's/./& /g'
-      - run: sh ./discordWebHookNotification.sh "$GITHUB_REPOSITORY" "$GITHUB_EVENT_NAME" "$GITHUB_ACTOR" "$GITHUB_SHA" "$GITHUB_REF" ""
-      - run: echo "all done..."
+        #- run: echo "all done..."
           #      - run: sh ./discordWebHookTest.sh    
