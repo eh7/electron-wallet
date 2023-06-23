@@ -3,7 +3,7 @@ on: [push]
 env:
   HOOK_URL: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL }}
   HOOK_URL_WALLETS: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL_WALLETS }}
-  GITHUB_URL: "$GITHUB_SERVER_URL"
+  GITHUB_URL: ${GITHUB_SERVER_URL}
 jobs:
   Explore-GitHub-Actions:
     runs-on: self-hosted
