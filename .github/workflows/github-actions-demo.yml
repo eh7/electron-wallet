@@ -6,3 +6,6 @@ jobs:
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "test echo 2"
+      - run: pwd    
+      - run: sh ./scripts/discordWebHookTest.sh    
+
