@@ -4,11 +4,12 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: self-hosted
     steps:
-      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "test echo 2"
+      - run: echo "triggered by a ${{ github.event_name }} event."
       - run: pwd    
       - run: |
           echo ${{ github }}
+          echo "$GITHUB_REPOSITORY"
+          echo "$GITHUB_EVENT_NAME"
           echo "GITHUB_REF = $GITHUB_REF"
           echo "all done..."
           #      - run: sh ./discordWebHookTest.sh    
