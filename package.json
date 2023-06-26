@@ -34,7 +34,6 @@
     "build": "tsc",
     "start": "npm run buildWalletApp && npm run build && electron ./dist/main.js",
     "buildWalletApp": "rm -rf static/apps/Wallet && parcel build --dist-dir static/apps/Wallet/ apps/wallet/src/index.html && sed -i 's/ src=\"\\// src=\".\\//g' static/apps/Wallet/index.html"
-
   },
   "author": "Gavin Francis <gav@eh7.co.uk>",
   "license": "ISC",
@@ -68,7 +67,7 @@
     "libp2p": "^0.45.5",
     "libp2p-kad-dht": "^0.28.6",
     "os": "^0.1.2",
-    "parcel": "^2.8.3",
+    "parcel": "^2.9.3",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -89,7 +88,7 @@
     "@types/node": "^14.11.2",
     "assert": "^2.0.0",
     "crypto-browserify": "^3.12.0",
-    "electron": "^24.2.0",
+    "electron": "^25.1.1",
     "gts": "^3.1.1",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
