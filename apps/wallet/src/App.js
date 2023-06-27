@@ -312,6 +312,11 @@ export class App extends React.Component {
       passwordSet: false,
     };
 
+    window.authAPI.authStatusMessage((event, authStatus) => {
+      this.setState({ passwordSet: true });
+      console.log('authStatusMessage callback', authStatus, this.state.passwordSet);
+    });
+
     /*
     // this.wallet.checkWalletSetup();
 
