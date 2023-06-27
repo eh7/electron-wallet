@@ -36,6 +36,8 @@ export class SetupPasswordPage extends React.Component {
     };
   }
 
+  pubSub = {};
+
   onChangeInput = (event) => {
     let input = this.state.input;
     input[event.target.name] = event.target.value;
@@ -145,12 +147,12 @@ export class LoginPage extends React.Component {
       if (authStatus) {
         alert('auth okay');
         eventBus.dispatch("authOkay", { message: "authOkay" });
-        //PubSub.dispatch("authOkay", { message: "authOkay" });
+        //this.pubSub.dispatch("authOkay", { message: "authOkay" });
         return;
       } else {
         alert('auth failed');
         eventBus.dispatch("authFailed", { message: "authFailed" });
-        //PubSub.dispatch("authFailed", { message: "authFailed" });
+        //this.pubSub.dispatch("authFailed", { message: "authFailed" });
         return;
       }
       //alert(this.state.authed);
@@ -315,6 +317,8 @@ export class App extends React.Component {
       passwordSet: false,
     };
 
+    this.pubSub = new PubSub();
+
     window.authAPI.authStatusMessage((event, authStatusMessage, authStatus) => {
       this.setState({ passwordSet: authStatus });
       //this.setState({ passwordSet: true });
@@ -351,7 +355,10 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
-    //PubSub.on("authOkay", (data) =>
+    console.log('this.PubSub', this.PubSub);
+    //this.PubSub.on("authOkay", (msg, data) => {
+    //  console.log('pubSub.on("authOkay")');
+    //}); 
     eventBus.on("authOkay", (data) =>
       this.setState({ authed: true })
     );
@@ -361,7 +368,7 @@ export class App extends React.Component {
 
   componentWillUnmount() {
     eventBus.remove("authOkay");
-    //PubSub.remove("authOkay");
+    //this.pubSub.remove("authOkay");
   }
 
   routeLink = (data) => {
