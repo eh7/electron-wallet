@@ -15,6 +15,7 @@ import { Router, Route } from 'electron-router-dom';
 */
 
 import eventBus from "./services/EventBus";
+import PubSub from "./services/PubSub";
 import Wallet from './services/wallet';
 
 import events from 'events';
@@ -144,10 +145,12 @@ export class LoginPage extends React.Component {
       if (authStatus) {
         alert('auth okay');
         eventBus.dispatch("authOkay", { message: "authOkay" });
+        //PubSub.dispatch("authOkay", { message: "authOkay" });
         return;
       } else {
         alert('auth failed');
         eventBus.dispatch("authFailed", { message: "authFailed" });
+        //PubSub.dispatch("authFailed", { message: "authFailed" });
         return;
       }
       //alert(this.state.authed);
@@ -348,6 +351,7 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
+    //PubSub.on("authOkay", (data) =>
     eventBus.on("authOkay", (data) =>
       this.setState({ authed: true })
     );
@@ -357,6 +361,7 @@ export class App extends React.Component {
 
   componentWillUnmount() {
     eventBus.remove("authOkay");
+    //PubSub.remove("authOkay");
   }
 
   routeLink = (data) => {
