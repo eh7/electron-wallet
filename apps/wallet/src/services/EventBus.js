@@ -2,14 +2,10 @@ const eventBus = {
   on(event, callback) {
     document.addEventListener(
       event,
-/*
-      null,
-      {
-        once: true,
-      },
-*/
       (e) => callback(e.detail)
-    );
+    , { capture: true });
+    //);
+    //, { once: true });
   },
   dispatch(event, data) {
     console.log('eventBus - dispatch - event:', data);
