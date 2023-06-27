@@ -218,11 +218,18 @@ function createWindow() {
   });
 
   ipcMain.on('setElectronPassword', async (event, password) => {
+    let status = true;
     //console.log('setElectronPassword:', event);
-    auth.setElectronPassword(password);
+    if (password === '') {
+      status = false;
+      auth.setElectronPasswordNull();
+    } else {
+      auth.setElectronPassword(password);
+    }
     event.sender.send(
       'authStatusMessage',
       'setElectronPassword',
+      status,
     );
   });
 

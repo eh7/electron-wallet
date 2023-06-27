@@ -33,9 +33,6 @@ export class SetupPasswordPage extends React.Component {
       errors: {},
       input: {},
     };
-    //window.walletAPI.authStatusMessage((event, authStatus) => {
-    //  console.log('authStatusMessage callback');
-    //});
   }
 
   onChangeInput = (event) => {
@@ -143,12 +140,15 @@ export class LoginPage extends React.Component {
     window.walletAPI.handleAuthResult((event, authStatus) => {
       console.log('handleAuthResult authStatus:', authStatus);
       this.setState({ authed: authStatus });
+      console.log(authStatus);
       if (authStatus) {
         alert('auth okay');
         eventBus.dispatch("authOkay", { message: "authOkay" });
+        return;
       } else {
         alert('auth failed');
         eventBus.dispatch("authFailed", { message: "authFailed" });
+        return;
       }
       //alert(this.state.authed);
     });
@@ -312,9 +312,14 @@ export class App extends React.Component {
       passwordSet: false,
     };
 
-    window.authAPI.authStatusMessage((event, authStatus) => {
-      this.setState({ passwordSet: true });
-      console.log('authStatusMessage callback', authStatus, this.state.passwordSet);
+    window.authAPI.authStatusMessage((event, authStatusMessage, authStatus) => {
+      this.setState({ passwordSet: authStatus });
+      //this.setState({ passwordSet: true });
+      console.log('**** authStatusMessage callback:',
+        authStatusMessage,
+        authStatus,
+        this.state.passwordSet,
+      );
     });
 
     /*
@@ -422,6 +427,17 @@ export class App extends React.Component {
                 'NO ROUTE ERROR'
               }
               <p>
+                <button onClick={() => {
+                  alert('logout')
+                  this.setState({ authed: false })
+                }}>logout</button>
+
+                <button onClick={() => {
+                  alert('clear electron password')
+                  window.authAPI.setElectronPassword('');
+                  this.setState({ authed: false })
+                }}>clear electron password</button>
+
                 <button onClick={() => {
                   alert('clear keystore')
                   window.walletAPI.saveKeystoreData([])

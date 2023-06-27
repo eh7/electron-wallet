@@ -17,6 +17,10 @@ export default class Auth {
     //console.log('Auth constructor', pass);
   }
 
+  setElectronPasswordNull = () => {
+    this.store.set('password', null);
+  }
+
   setElectronPassword = (_password: string) => {
     try {
       this.store.set('password', 
