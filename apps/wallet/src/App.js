@@ -140,6 +140,9 @@ export class LoginPage extends React.Component {
       password: '',
     }
 
+    //console.log('LoginPage props:', props);
+    this.pubSub = props.pubSub;
+
     window.walletAPI.handleAuthResult((event, authStatus) => {
       console.log('handleAuthResult authStatus:', authStatus);
       this.setState({ authed: authStatus });
@@ -147,12 +150,18 @@ export class LoginPage extends React.Component {
       if (authStatus) {
         alert('auth okay');
         eventBus.dispatch("authOkay", { message: "authOkay" });
-        //this.pubSub.dispatch("authOkay", { message: "authOkay" });
+        /*
+        this.pubSub.dispatch("authOkay", "authOkay");
+        this.pubSub.dispatch("authOkay", { message: "authOkay" });
+        */
         return;
       } else {
         alert('auth failed');
         eventBus.dispatch("authFailed", { message: "authFailed" });
-        //this.pubSub.dispatch("authFailed", { message: "authFailed" });
+        /*
+        this.pubSub.dispatch("authFailed", "authFailed");
+        this.pubSub.dispatch("authFailed", { message: "authFailed" });
+        */
         return;
       }
       //alert(this.state.authed);
@@ -344,6 +353,8 @@ export class App extends React.Component {
     */
   }
 
+  pubSub = {};
+
   componentDidMount() {
     console.log('this.state', this.state);
     /*
@@ -355,10 +366,18 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('this.PubSub', this.PubSub);
-    //this.PubSub.on("authOkay", (msg, data) => {
-    //  console.log('pubSub.on("authOkay")');
-    //}); 
+    console.log('this.pubSub', this.pubSub);
+
+    /*
+    this.pubSub.on("authOkay", (msg, data) => {
+      console.log('PubSub.on("authOkay")', msg, data);
+      this.setState({ authed: true })
+    });
+    this.pubSub.dispatch("authOkay", 'testing pubSub');
+    this.PubSub.on("authOkay", (msg, data) => {
+      console.log('pubSub.on("authOkay")', msg, data);
+    }); 
+    */
     eventBus.on("authOkay", (data) =>
       this.setState({ authed: true })
     );
@@ -368,7 +387,9 @@ export class App extends React.Component {
 
   componentWillUnmount() {
     eventBus.remove("authOkay");
-    //this.pubSub.remove("authOkay");
+    /*
+    this.pubSub.remove("authOkay");
+    */
   }
 
   routeLink = (data) => {
@@ -406,7 +427,7 @@ export class App extends React.Component {
       return (
         <div>
           {
-            (!this.state.authed) ? (<LoginPage />) : 
+            (!this.state.authed) ? (<LoginPage pubSub={this.pubSub} />) : 
             <div>
               <h2>Wallet Setup Application</h2>
               <p>
