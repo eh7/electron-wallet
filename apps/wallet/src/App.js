@@ -15,7 +15,7 @@ import { Router, Route } from 'electron-router-dom';
 */
 
 import eventBus from "./services/EventBus";
-import PubSub from "./services/PubSub";
+//import PubSub from "./services/PubSub";
 import Wallet from './services/wallet';
 
 import events from 'events';
@@ -143,30 +143,47 @@ export class LoginPage extends React.Component {
     //console.log('LoginPage props:', props);
     this.pubSub = props.pubSub;
 
+    console.log(
+      '------------------------ eventBus----------------------',
+      document.querySelectorAll('*'),
+      document.querySelectorAll('*').length,
+      eventBus.listAllEventListeners(),
+      '------------>>>>', eventBus.listEventInfo()
+      //document.listAllEventListeners()
+    );
+
     window.walletAPI.handleAuthResult((event, authStatus) => {
       console.log('handleAuthResult authStatus:', authStatus);
       this.setState({ authed: authStatus });
       console.log(authStatus);
       if (authStatus) {
-        alert('auth okay');
-        eventBus.dispatch("authOkay", { message: "authOkay" });
+        //if (!this.state.authed) {
+          alert('auth okay');
+          eventBus.dispatch("authOkay", { message: "authOkay" });
+        //  this.setState({ authed: true })
+        //}
         /*
         this.pubSub.dispatch("authOkay", "authOkay");
         this.pubSub.dispatch("authOkay", { message: "authOkay" });
         */
-        return;
       } else {
-        alert('auth failed');
-        eventBus.dispatch("authFailed", { message: "authFailed" });
+        //if (this.state.authed) {
+          alert('auth failed');
+          eventBus.dispatch("authFailed", { message: "authFailed" });
+        //  this.setState({ authed: false })
+        //}
         /*
         this.pubSub.dispatch("authFailed", "authFailed");
         this.pubSub.dispatch("authFailed", { message: "authFailed" });
         */
-        return;
       }
       //alert(this.state.authed);
     });
-    console.log('Listening for handleAuthResult event');
+    console.log(
+      'Listening for handleAuthResult event',
+      eventBus.listAllEventListeners()
+      //document.listAllEventListeners()
+    );
   }
 
   onChangeInput = (event) => {
@@ -326,7 +343,7 @@ export class App extends React.Component {
       passwordSet: false,
     };
 
-    this.pubSub = new PubSub();
+    //this.pubSub = new PubSub();
 
     window.authAPI.authStatusMessage((event, authStatusMessage, authStatus) => {
       this.setState({ passwordSet: authStatus });
@@ -378,10 +395,12 @@ export class App extends React.Component {
       console.log('pubSub.on("authOkay")', msg, data);
     }); 
     */
-    eventBus.on("authOkay", (data) =>
-      this.setState({ authed: true })
-    );
-    console.log('App this.state:', this.state);
+    //if (!this.state.authed) {
+      eventBus.on("authOkay", (data) =>
+        this.setState({ authed: true })
+      );
+      console.log('App this.state:', this.state);
+    //}
     //alert('componentDidMount run');
   }
 
@@ -460,12 +479,12 @@ export class App extends React.Component {
                 'NO ROUTE ERROR'
               }
               <p>
-                <button onClick={() => {
+                <button id='logout' onClick={() => {
                   alert('logout')
                   this.setState({ authed: false })
                 }}>logout</button>
 
-                <button onClick={() => {
+                <button id='clearElectronPasword' onClick={() => {
                   alert('clear electron password')
                   window.authAPI.setElectronPassword('');
                   this.setState({ authed: false })
