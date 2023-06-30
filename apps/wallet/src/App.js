@@ -156,6 +156,8 @@ export class LoginPage extends React.Component {
       console.log('handleAuthResult authStatus:', authStatus,
         '------------>>>> in handleAuthResult:', eventBus.listEventInfo()
       );
+      // this stops the event being triggered again if the event
+      // is already triggereed
       if (eventBus.listEventInfo('logout')) {
         return;
       }
