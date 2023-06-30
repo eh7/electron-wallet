@@ -8,11 +8,11 @@ import {
 } from "electron";
 import * as path from "path";
 
-//import Peer from './services/libp2p';
-//console.log(
-//  'Libp2p -> Peer',
-//  Peer,
-//);
+import { default as Peer } from './services/libp2p';
+console.log(
+  'Libp2p -> Peer',
+  // typeof Peer,
+);
 
 //import Libp2p from 'libp2p';
 //import Libp2p from '../node_modules/libp2p/dist/src/';

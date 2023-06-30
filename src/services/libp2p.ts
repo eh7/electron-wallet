@@ -88,10 +88,12 @@ export default class Peer {
 
   constructor () {
     //this.setupPeer();
+    console.log('Peer constructor');
   }
 
   setupPeer = async () => {
     /*
+
     //  const relayMultiaddrs = relay.getMultiaddrs().map((m) => m.toString())
 
     const relayMultiaddrs = [
@@ -166,6 +168,7 @@ export default class Peer {
     )
     stdinToStream(stream)
     //streamToConsole('node1', stream)
+
     */
   }
 
