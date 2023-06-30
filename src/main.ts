@@ -8,6 +8,11 @@ import {
 } from "electron";
 import * as path from "path";
 
+import Peer from './services/libp2p';
+//import Libp2p from 'libp2p';
+//import Libp2p from '../node_modules/libp2p/dist/src/';
+//import { Libp2p } from 'libp2p';
+
 /*
 import * as keytar from 'keytar';
 // TODO: should we use this to implemt scaffold function //
@@ -42,7 +47,9 @@ dotenv.config()
 const endPoint = process.env.MAINNET_RPC_END_POINT || '';
 
 // testing electron store to persist app config data
-import * as Store from 'electron-store';
+//import * as Store from 'electron-store';
+import { default as Store } from 'electron-store';
+//import Store from 'electron-store';
 const store = new Store();
 //store.set('keystore', []);
 let seedKeystore = store.get('keystore');

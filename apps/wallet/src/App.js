@@ -14,6 +14,9 @@ import {
 import { Router, Route } from 'electron-router-dom';
 */
 
+//import Peer from "./services/peer";
+//import Libp2p from "libp2p";
+
 import eventBus from "./services/EventBus";
 //import PubSub from "./services/PubSub";
 import Wallet from './services/wallet';
