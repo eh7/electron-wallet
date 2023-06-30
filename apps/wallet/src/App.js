@@ -153,7 +153,12 @@ export class LoginPage extends React.Component {
     );
 
     window.walletAPI.handleAuthResult((event, authStatus) => {
-      console.log('handleAuthResult authStatus:', authStatus);
+      console.log('handleAuthResult authStatus:', authStatus,
+        '------------>>>> in handleAuthResult:', eventBus.listEventInfo()
+      );
+      if (eventBus.listEventInfo('logout')) {
+        return;
+      }
       this.setState({ authed: authStatus });
       console.log(authStatus);
       if (authStatus) {
