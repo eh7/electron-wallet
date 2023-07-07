@@ -171,8 +171,5 @@
     "uint8-varint": "/node_modules/uint8-varint/dist/src/index.js",
     "wherearewe": "/node_modules/wherearewe/dist/src/index.js",
     "datastore-core/memory": "/node_modules/datastore-core/memory/dist/src/index.js"
-  },
-  "alias": {
-    "libp2p": "/node_modules/libp2p/dist/src/index.js"
   }
 }

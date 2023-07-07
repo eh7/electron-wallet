@@ -19,6 +19,8 @@ import { stdinToStream, streamToConsole } from './stream'
 
 const createDHTNode = async (bootstrappers: any) => {
   //const node = await Libp2p.create({
+//console.log('createDHTNode', bootstrappers);
+
   const node = await createLibp2p({
     addresses: {
       listen: ['/ip4/0.0.0.0/tcp/0']
@@ -84,11 +86,12 @@ const createDHTNode = async (bootstrappers: any) => {
   return node
 }
 
-export default class Peer {
+export default class PeerOld {
 
   constructor () {
     //this.setupPeer();
     console.log('Peer constructor');
+    console.log('createDHTNode:', createDHTNode);
   }
 
   setupPeer = async () => {
