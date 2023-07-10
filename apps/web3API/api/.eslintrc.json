@@ -1,0 +1,15 @@
+{
+  "extends": "./node_modules/gts/",
+  "rules": {
+    "node/no-extraneous-require": ["error", {
+      "allowModules": [
+        "debug"
+       ]
+    }],
+    "node/no-unpublished-import": ["error", {
+      "allowModules": [
+        "supertest"
+       ]
+    }]
+  }
+}
