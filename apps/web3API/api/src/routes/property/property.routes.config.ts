@@ -59,7 +59,6 @@ export class PropertyRoutes extends CommonRoutesConfig {
       .route('/property')
       // 'GET /property' testing only
       .get((req: express.Request, res: express.Response) => {
-
         // console.log('------------------------------------', req.headers.token);
         if (req.headers.token) {
           console.log('---------------> TODO header token:', req.headers.token);

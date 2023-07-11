@@ -124,9 +124,9 @@ function getRequestWithHeader() {
   console.log('-------------------------> setup headers');
   const config = {
     headers: {
-      token: 'xyxTokenCodeHere'
-    }
-  }
+      token: 'xyxTokenCodeHere',
+    },
+  };
   http
     .get('http://localhost:3000/property', config, res => {
       const data: Buffer[] = [];
