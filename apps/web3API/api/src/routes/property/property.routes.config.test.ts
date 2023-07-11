@@ -120,6 +120,40 @@ async function postRequestWithData(property: object) {
   await axios.post('http://localhost:3000/property', property);
 }
 
+function getRequestWithHeader() {
+  console.log('-------------------------> setup headers');
+  const config = {
+    headers: {
+      token: 'xyxTokenCodeHere'
+    }
+  }
+  http
+    .get('http://localhost:3000/property', config, res => {
+      const data: Buffer[] = [];
+      const headerDate =
+        res.headers && res.headers.date ? res.headers.date : 'no response date';
+      //console.log('Status Code:', res.statusCode);
+      //console.log('Date in Response header:', headerDate);
+
+      res.on('data', chunk => {
+        data.push(chunk);
+      });
+
+      res.on('end', () => {
+        //console.log('Response ended: ');
+        //console.log('data:', '\n\nGet property endpoint: GET /property -- testing route\n\n', Buffer.concat(data).toString());
+        expect(
+          Buffer.concat(data).toString() ===
+            '\n\nGet property endpoint: GET /property -- testing route\n\n'
+        ).toBeTruthy();
+        // const users = JSON.parse(Buffer.concat(data).toString());
+      });
+    })
+    .on('error', err => {
+      console.log('Error: ', err.message);
+    });
+}
+
 function getRequest() {
   //https
   //  .get('https://localhost:3000/property', res => {
@@ -191,6 +225,10 @@ afterAll(async () => {
 });
 
 describe('test property routes', () => {
+  test('test property route `GET /property` (with header and no body JSON DATA)', () => {
+    getRequestWithHeader();
+  });
+
   test('test property route `GET /property` (no body JSON DATA)', () => {
     // curl --request POST 'localhost:3000/users/12' -H "Content-Type: application/json" --data '{"a":"a"}'
     getRequest();

@@ -1,4 +1,5 @@
 {
+  "root": true,
   "extends": "./node_modules/gts/",
   "rules": {
     "node/no-extraneous-require": ["error", {

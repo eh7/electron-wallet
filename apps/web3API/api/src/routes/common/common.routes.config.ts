@@ -1,4 +1,5 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 
 export interface ICommonRoutesConfig {
   app: express.Application;
