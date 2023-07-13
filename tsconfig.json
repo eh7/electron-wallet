@@ -17,5 +17,6 @@
     "out",
     "tmp",
     "electron-quick-start-typescript",
+    "apps/web3API/api",
   ]
 }
