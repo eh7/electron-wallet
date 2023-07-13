@@ -1,25 +1,41 @@
 //console.log(window.ethereum);
 // provider = new ethers.providers.JsonRpcProvider()
 //
-async function sendTx() {
+
+import conf from './conf.js';
+
+let provider = null;
+let signer = null;
+let address = null;
+
+//subscribeAddress = '0x6b1527F6E2248A862061963b8c1BD013AcaCa5A6';
+
+export async function sendTx() {
   console.log(address);
   if (!address) {
     alert('metamask not initialized');
   } else {
-    to = $("#txTo").val();
-    amount = $("#txAmount").val();
-    alert(`isendTx -> in index.js, ${to} -> ${amount}`);
-    alert(`isendTx -> in index.js, ${address} ${amount} -> ${to}`);
+    const to = $("#txTo").val();
+    const amount = $("#txAmount").val();
+    //alert(`isendTx -> in index.js, ${to} -> ${amount}`);
+    //alert(`sendTx -> in index.js to subscribe to content, ${address} ${amount} -> ${to}`);
 
     const params = [{
         from: address,
         to: to,
-        value: ethers.utils.parseUnits(amount, 'ether').toHexString()
+        value: ethers.utils.parseUnits(amount, 'ether').toHexString(),
+        //data: ethers.utils.hexlify(ethers.utils.toUtf8Bytes('newsFeed00'))
+        data: ethers.utils.hexlify(ethers.utils.toUtf8Bytes(conf.subscribeData))
     }];
     console.log(params);
 
     const transactionHash = await provider.send('eth_sendTransaction', params)
     console.log('transactionHash is ' + transactionHash);
+
+    // TODO listen for tx result
+    const result = await provider.waitForTransaction(transactionHash);
+    console.log('tx ' + transactionHash + ':', result);
+    //alert('tx ' + transactionHash + ' completed');
   }
 }
 
@@ -28,6 +44,11 @@ async function setup() {
   await provider.send("eth_requestAccounts", []);
   signer = provider.getSigner()
   address = await signer.getAddress();
+  $("#txFrom").val(address);
+  //$("#txTo").val('0x6b1527F6E2248A862061963b8c1BD013AcaCa5A6');
+  $("#txTo").val(conf.subscribeAddress);
+  //$("#txAmount").val('0.001');
+  $("#txAmount").val(conf.amount);
   console.log (
     provider,
     signer,

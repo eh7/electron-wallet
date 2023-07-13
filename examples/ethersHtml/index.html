@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>Hello World DApp</title>
+ <title>Simple Content Subscribe DApp</title>
  <link href='https://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
 </head>
 <body class="container">
- <h1>A Simple Hello World Example to send tx</h1>
+ <h1>Simple Example to send tx to subscribe to a news feed</h1>
+ From:<br/>
+ <input id="txFrom" disabled/><br/>
  To:<br/>
- <input id="txTo"/><br/>
+ <input id="txTo" disabled/><br/>
  Amount:<br/>
- <input id="txAmount"/><br/>
+ <input id="txAmount" disabled/><br/>
  <a href="#" onclick="sendTx()" class="btn btn-primary">sendTx</a>
 
+ <p><a href="publisher.html">publisher view</a></p>
+
+ <!--
  <h1>A Simple Hello World Voting Application</h1>
  <div class="table-responsive">
   <table class="table table-bordered">
@@ -40,10 +45,15 @@
  </div>
  <input type="text" id="candidate" />
  <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
+ //-->
+
 </body>
 
 <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
         type="application/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-<script src="./index.js"></script>
+<script type="module">
+  import { sendTx } from './index.js';
+  window.sendTx = sendTx;
+</script>
 </html>
