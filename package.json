@@ -66,6 +66,7 @@
     "it-to-buffer": "^4.0.2",
     "libp2p": "^0.45.5",
     "libp2p-kad-dht": "^0.28.6",
+    "node-json-db": "^2.2.0",
     "os": "^0.1.2",
     "parcel": "^2.9.3",
     "path": "^0.12.7",

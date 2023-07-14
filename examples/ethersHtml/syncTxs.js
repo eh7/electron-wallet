@@ -7,6 +7,9 @@ const subscribeData = 'newsFeed00';
 
 const rpcURL = 'https://polygon-mumbai.gateway.tenderly.co';
 
+const { JsonDB, Config } = require('node-json-db');
+var db = new JsonDB(new Config("myDataBase", true, false, '/'));
+
 //const provider = new ethers.providers.JsonRpcProvider();
 const provider = new ethers.JsonRpcProvider(rpcURL);
 
@@ -16,11 +19,15 @@ function sleep(ms) {
 
 const run = async () => {
   const myAddr = subscribeAddress;
-  //let currentBlock =  37925391 ;
-  let currentBlock =  await provider.getBlockNumber(); 
+  //let currentBlock =  37925391;
+  //let currentBlock =  37925263;
+  const currentBlock = await db.getData("/lastBlock");
+  //let currentBlock =  await provider.getBlockNumber(); 
   let n = await provider.getTransactionCount(subscribeAddress);
   let bal = (await provider.getBalance(subscribeAddress)).toString();
   //console.log('run', myAddr, currentBlock, n, bal);
+  const lastBlock = 37884552;
+  //const lastBlock =  37925381;
 
   let found = 0;
 
@@ -30,7 +37,7 @@ const run = async () => {
       console.log(i, block.transactions.length);
       let txCount = 0;
       for (const txs of block) {
-        const tx = await provider.getTransaction(txs);
+        let tx = await provider.getTransaction(txs);
         /*
         console.log(
           txCount,
@@ -40,9 +47,19 @@ const run = async () => {
         */
         if (myAddr == tx.to) {
           found++;
+          //tx.timestamp = block.timestamp;
+          //console.log(tx)
+          await db.push(
+            "/" + tx.hash,
+            {
+              timestamp: block.timestamp,
+              tx: tx,
+            }
+          );
           console.log(
             '(myAddr == tx.to) :: \n',
             i,
+            '\nhash:', tx.hash,
             '\nfrom:', tx.from,
             '\nto:', tx.to,
             '\nvalue:', tx.value.toString(10),
@@ -54,7 +71,12 @@ const run = async () => {
         }
         txCount++;
       }
-      await sleep(2000);
+      await db.push(
+        "/lastBlock",
+        i,
+      );
+      await sleep(200);
+      if (i === lastBlock) process.exit();
       //if (i === currentBlock - 100) process.exit();
     } catch (e) {
       console.error("Error in block " + i, e);
