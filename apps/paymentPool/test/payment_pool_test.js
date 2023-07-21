@@ -39,6 +39,14 @@ contract("PaymentPool", async (accounts) => {
     return assert.isTrue(poolTotal === 10);
   });
 
+  it("getPoolUserTotal function test getPoolUserTotal()", async function () {
+    let poolUserTotal = (await paymentPool.getPoolUserTotal.call()).toNumber();
+    console.log(poolUserTotal);
+    await paymentPool.fund(5);
+    poolUserTotal = (await paymentPool.getPoolUserTotal.call()).toNumber();
+    console.log(poolUserTotal);
+  });
+
 });
 
 /*
