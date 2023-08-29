@@ -42,14 +42,14 @@ async function calculateProof() {
           voter: 92007038543093028355208827160531269262238806247549818178164101363807072428775,
           vote: 2
         },
-        "../circom/vote/vote_js/vote.wasm",
-        "../circom/vote/vote_0001.zkey"
+        "../vote_js/vote.wasm",
+        "../vote_0001.zkey"
       );
 
     proofComponent.innerHTML = JSON.stringify(proof, null, 1);
 
 
-    const vkey = await fetch("../circom/vote/verification_key.json").then( function(res) {
+    const vkey = await fetch("../verification_key.json").then( function(res) {
         return res.json();
     });
 
