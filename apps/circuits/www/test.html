@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
 <head>
-  <meta name="Access-Control-Allow-Origin" content="*">
-  <meta
+  <!--meta name="Access-Control-Allow-Origin" content="null"//-->
+  <!--meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval'
       'sha256-EjVhz22CrLnrY69c3dAwQhcjKhj92NZNEbcnS0HYdVw='
       'sha256-TGjULfMxNJ4s3VqUCOsutt6MGIGhtfgPZv1TJAm3P10='
       "
-  />
+  /-->
   <title>Snarkjs client example</title>
 </head>
 <body>
@@ -49,7 +49,7 @@ async function calculateProof() {
     proofComponent.innerHTML = JSON.stringify(proof, null, 1);
 
 
-    const vkey = await fetch("verification_key.json").then( function(res) {
+    const vkey = await fetch("../circom/vote/verification_key.json").then( function(res) {
         return res.json();
     });
 
