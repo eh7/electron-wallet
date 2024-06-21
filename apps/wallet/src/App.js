@@ -21,6 +21,10 @@ import eventBus from "./services/EventBus";
 //import PubSub from "./services/PubSub";
 import Wallet from './services/wallet';
 
+import { NewStorageForm } from './form/NewStorageForm';
+import { NewUserForm } from './form/NewUserForm';
+import { RecoverForm } from './form/RecoverForm';
+
 import events from 'events';
 const eventEmitter = new events.EventEmitter();
 
@@ -319,6 +323,35 @@ export class NewWalletForm extends React.Component {
   }
 }
 
+/*
+const NewStorageForm = () => {
+  return (
+    <div>
+      <h5>New Storage Form</h5>
+      <p>create/retrive key for the user if they have one?</p>
+    </div>
+  );
+}
+
+const NewUserForm = () => {
+  return (
+    <div>
+      <h5>New User Form</h5>
+      <p>generate a key for the user if they have one?</p>
+    </div>
+  );
+}
+
+const RecoverForm = () => {
+  return (
+    <div>
+      <h5>Recover Form</h5>
+      <p>set key node cluster nodes (min 2 + 1) and key recovery functionality</p>
+    </div>
+  );
+}
+*/
+
 const ImportWalletForm = () => {
   return (
     <div>
@@ -460,6 +493,17 @@ export class App extends React.Component {
             <div>
               <h2>Wallet Setup Application</h2>
               <p>
+                <button id="NewUserForm" onClick={() => {
+                  this.routeLink('NewUserForm');
+                }}>new user</button>
+                <button id="NewStorageForm" onClick={() => {
+                  this.routeLink('NewStorageForm');
+                }}>new storage</button>
+                <button id="RecoverForm" onClick={() => {
+                  this.routeLink('RecoverForm');
+                }}>recover</button>
+              </p>
+              <p>
                 <button id="home" onClick={() => {
                   this.routeLink('');
                 }}>home</button>
@@ -481,6 +525,9 @@ export class App extends React.Component {
                 }}>settings</button>
               </p>
               {
+                (this.state.clickedLink === 'NewStorageForm') ? (<NewStorageForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+                (this.state.clickedLink === 'NewUserForm') ? (<NewUserForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+                (this.state.clickedLink === 'RecoverForm') ? (<RecoverForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'new') ? (<NewWalletForm app={this} wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'import') ? (<ImportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'export') ? (<ExportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 

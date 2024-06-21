@@ -82,7 +82,7 @@ auth.setupAuthData({
 });
 auth.testAuthData({
   password: '123456',
-});
+})
 */
 
 async function ethersGetBalance (ethers: any, address: string) {
