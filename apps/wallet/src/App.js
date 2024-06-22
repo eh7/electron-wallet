@@ -22,7 +22,7 @@ import eventBus from "./services/EventBus";
 import Wallet from './services/wallet';
 
 import { NewStorageForm } from './form/NewStorageForm';
-import { NewUserForm } from './form/NewUserForm';
+import { NewUserForm as NewUserForm } from './form/NewUserForm';
 import { RecoverForm } from './form/RecoverForm';
 
 import events from 'events';
@@ -333,20 +333,19 @@ const NewStorageForm = () => {
   );
 }
 
-const NewUserForm = () => {
-  return (
-    <div>
-      <h5>New User Form</h5>
-      <p>generate a key for the user if they have one?</p>
-    </div>
-  );
-}
-
 const RecoverForm = () => {
   return (
     <div>
       <h5>Recover Form</h5>
       <p>set key node cluster nodes (min 2 + 1) and key recovery functionality</p>
+    </div>
+  );
+}
+const NewUserForm1 = () => {
+  return (
+    <div>
+      <h5>New User Form</h5>
+      <p>generate a key for the user if they have one?</p>
     </div>
   );
 }
@@ -526,6 +525,7 @@ export class App extends React.Component {
               </p>
               {
                 (this.state.clickedLink === 'NewStorageForm') ? (<NewStorageForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+                (this.state.clickedLink === 'NewUserForm1') ? (<NewUserForm1 wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'NewUserForm') ? (<NewUserForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'RecoverForm') ? (<RecoverForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'new') ? (<NewWalletForm app={this} wallet={this.wallet} eventEmitter={eventEmitter} />) : 
