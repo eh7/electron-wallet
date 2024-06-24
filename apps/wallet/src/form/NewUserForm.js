@@ -20,6 +20,9 @@ export {
 */
 import bip39 from 'bip39-light'
 import EthjsWallet, { hdkey as etherHDkey } from 'ethereumjs-wallet'
+//import { default as Store } from 'electron-store';
+
+//const store = new Store();
 
 const NewUserForm = () => {
   const mnemonic = bip39.generateMnemonic()
@@ -30,6 +33,9 @@ const NewUserForm = () => {
   const key = zeroWallet.getPrivateKey().toString('hex');
   const address = zeroWallet.getAddressString();
   const addressCheckSum = zeroWallet.getChecksumAddressString();
+
+
+  //store.set('WalletPhrase', keystore);
 
   return (
     <div>

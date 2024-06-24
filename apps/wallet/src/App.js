@@ -172,7 +172,7 @@ export class LoginPage extends React.Component {
       console.log(authStatus);
       if (authStatus) {
         //if (!this.state.authed) {
-          alert('auth okay');
+          //alert('auth okay');
           eventBus.dispatch("authOkay", { message: "authOkay" });
         //  this.setState({ authed: true })
         //}
@@ -537,7 +537,7 @@ export class App extends React.Component {
               }
               <p>
                 <button id='logout' onClick={() => {
-                  alert('logout')
+                  //alert('logout')
                   this.setState({ authed: false })
                 }}>logout</button>
 
