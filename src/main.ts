@@ -344,17 +344,14 @@ function createWindow() {
   // console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
 
   ipcMain.on('setUserPhrase', (event, phrase) => {
-    console.log('setUserPhrase', phrase);
-    store.get('userPhrase', phrase);
+    //console.log('setUserPhrase :: ', phrase);
+    store.set('userPhrase', phrase);
   });
 
   ipcMain.on('getUserPhrase', (event) => {
-    //const webContents = event.sender
-    //const win = BrowserWindow.fromWebContents(webContents)
-    store.set('userPhrase', 'this is a phrase')
     const phrase = store.get('userPhrase');
-    console.log('>>>>>>>>> getUserPhrase >>>>>>>>>>>>>>>------', phrase)
-    event.sender.send('UserPharse', phrase);
+    //console.log('>>>>>>>>> getUserPhrase >>>>>>>>>>>>>>>------', phrase)
+    event.sender.send('getUserPhraseResult', phrase);
   });
 
   ipcMain.on('getKeystoreSeedHex', (event) => {
