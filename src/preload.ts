@@ -42,7 +42,7 @@ contextBridge.exposeInMainWorld('walletAPI', {
   setUserPhrase: (data: object) => ipcRenderer.send('setUserPhrase', data),
   //setUserPhrase: (callback: Callback) => ipcRenderer.on('setUserPhrase', callback),
   getUserPhrase: () => ipcRenderer.send('getUserPhrase'),
-  getUserPhraseResult: (callback: Callback) => ipcRenderer.on('getUserPhraseResult', callback),
+  getUserPhraseResult: (callback: Callback) => ipcRenderer.once('getUserPhraseResult', callback),
   getWalletData: () => ipcRenderer.send('getWalletData'),
   walletInit: (data: object) => ipcRenderer.send('walletInitMain', data),
   walletUpdate: (data: object) => ipcRenderer.invoke('walletData:update', data),

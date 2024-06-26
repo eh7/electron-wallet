@@ -349,6 +349,7 @@ function createWindow() {
   });
 
   ipcMain.on('getUserPhrase', (event) => {
+    //store.set('userPhrase', '');
     const phrase = store.get('userPhrase');
     //console.log('>>>>>>>>> getUserPhrase >>>>>>>>>>>>>>>------', phrase)
     event.sender.send('getUserPhraseResult', phrase);

@@ -234,10 +234,11 @@ export class LoginPage extends React.Component {
   render () {
     return (
       <div>
+        <script>document.getElementById("Password").focus()</script>
         <h2>Wallet Login Form</h2>
         <form onSubmit={this.onSubmitForm}>
           Enter Wallet Password:<br/>
-          <input name='password' type='password' required onChange={this.onChangeInput}/><br/>
+          <input name='password' type='password' required onChange={this.onChangeInput} /><br/>
           <button type='submit'>authenticate</button>
         </form>
       </div>
