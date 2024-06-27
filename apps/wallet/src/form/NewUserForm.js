@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import buffer from 'buffer';
-import crypto from 'crypto';
+import buffer from 'buffer'
+//import crypto from 'crypto'
+import keccak256 from 'keccak256'
+
+import {
+  aes256gcm,
+  randomBytes,
+} from '../services/cryptLib'
 
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-
+/*
 // Demo implementation of using `aes-256-gcm` with node.js's `crypto` lib.
 const aes256gcm = (key) => {
   const ALGO = 'aes-256-gcm';
+  //const ALGO = 'aes-256-cbc';
 
   // encrypt returns base64-encoded ciphertext
   const encrypt = (str) => {
@@ -42,13 +49,17 @@ const aes256gcm = (key) => {
     decrypt,
   };
 };
+*/
 
+const KEY = process.env.key;
+const aes = aes256gcm(KEY)
+
+/*
 //console.log('KEY', process.env.KEY)
 //console.log('KEY', KEY.toString('hex'))
 //const KEY = new Buffer(crypto.randomBytes(32), 'utf8');
 //console.log('KEY', KEY.toString('hex'))
-const KEY = process.env.key;
-const aes = aes256gcm(KEY)
+//console.log('KEY', process.env.key)
 const testString = "this is the test string"
 const encrypted = aes.encrypt(testString) 
 const decrypted = aes.decrypt(
@@ -61,6 +72,7 @@ console.log(
   decrypted,
   testString
 )
+*/
 
 /*
 //import bip39 from 'bip39-light'
@@ -117,20 +129,46 @@ const NewUserForm = () => {
 
 
   const [phrase, setPhrase] = useState('')
+  const [address, setAddress] = useState('')
   const [walletData, setWalletData] = useState({})
 //  const [listenHandled, setListenHandled] = useState(false)
 
   useEffect(() => {
+    console.log("useEffect triggered")
     //setListenHandled(true)
     window.walletAPI.getUserPhraseResult((event, _phrase) => {
-      if (_phrase === '') {
-        const mnemonic = bip39.generateMnemonic();
-        window.walletAPI.setUserPhrase(mnemonic)
-        console.log('no getUserPhraseResult -> generate new one', mnemonic)
-      } else {
+      const mnemonicStore = aes.decrypt(
+        _phrase[0],
+        Buffer.from(_phrase[1], 'hex'),
+        Buffer.from(_phrase[2], 'hex'),
+      )
+      const seedHex = bip39.mnemonicToSeedHex(mnemonicStore);
+      const HDwallet = etherHDkey.fromMasterSeed(seedHex);
+      const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+      const key = zeroWallet.getPrivateKey().toString('hex');
+      const address = zeroWallet.getAddressString();
+      setPhrase(mnemonicStore)
+      setAddress(address)
+      //setWalletData({
+      //  address,
+      //  seedHex,
+      //  key,
+      //  phrase: mnemonicStore,
+      //})
+
+//      if (mnemonicStore === '') {
+//        const mnemonic = bip39.generateMnemonic();
+//        window.walletAPI.setUserPhrase(
+//          aes.encrypt(mnemonic)
+//        )
+//        console.log('no getUserPhraseResult -> generate new one', mnemonic)
+//      } else {
         try {
-          setPhrase(_phrase)
-          const seedHex = bip39.mnemonicToSeedHex(_phrase);
+
+/*
+          setPhrase(mnemonicStore)
+      
+          const seedHex = bip39.mnemonicToSeedHex(mnemonicStore);
           const HDwallet = etherHDkey.fromMasterSeed(seedHex);
           const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
           const key = zeroWallet.getPrivateKey().toString('hex');
@@ -139,12 +177,13 @@ const NewUserForm = () => {
             address,
             seedHex,
             key,
-            phrase: _phrase,
+            phrase: mnemonicStore,
           })
+*/
         } catch (e) {
             console.log('EERROORROORR :: ', e)
         }
-      }
+//      }
     })
   })
 
@@ -153,29 +192,24 @@ const NewUserForm = () => {
   return (
     <div>
       <h5>New User Form</h5>
-      <h6>phrase: {phrase}</h6>
-      { (walletData) && <>
-          <h6>address: {walletData.address}</h6>
-          <h6>key: {walletData.key}</h6>
-        </>
-      }
+      <h6>phrase: { (phrase) && phrase}</h6>
+      <h6>address: { (address) && address}</h6>
       <button onClick={(e) => {
         console.log(e)
-        const mnemonic = bip39.generateMnemonic();
-        window.walletAPI.setUserPhrase(mnemonic)
-        const seedHex = bip39.mnemonicToSeedHex(mnemonic);
-        const HDwallet = etherHDkey.fromMasterSeed(seedHex);
-        const zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-        const key = zeroWallet.getPrivateKey().toString('hex');
-        const address = zeroWallet.getAddressString();
-        //setPhrase(mnemonic)
-        setWalletData({
-          address,
-          seedHex,
-          key,
-          phrase: mnemonic,
-        })
-        alert('new phrase CLICKED')
+        //const mnemonic = bip39.generateMnemonic();
+        const mnemonic = bip39.entropyToMnemonic(
+          keccak256(randomBytes(512))
+        )
+        const _phrase = aes.encrypt(mnemonic)
+        window.walletAPI.setUserPhrase(
+          [
+            _phrase[0],
+            _phrase[1].toString('hex'),
+            _phrase[2].toString('hex')
+          ]
+        )
+        setPhrase(mnemonic)
+        //alert('new phrase CLICKED')
       }}>new phrase</button>
     </div>
   )

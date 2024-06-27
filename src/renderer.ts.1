@@ -1,0 +1,27 @@
+// This file is required by the index.html file and will
+// be executed in the renderer process for that window.
+// No Node.js APIs are available in this process unless
+// nodeIntegration is set to true in webPreferences.
+// Use preload.js to selectively enable features
+// needed in the renderer process.
+
+console.log(window);
+window.location.href = './apps/Wallet/index.html';
+/*
+import init, { greet, greet2 } from "../static/pkg/hello_wasm.js";
+const greetButton = document.getElementById('greet');
+const greet2Button = document.getElementById('greet2');
+
+async function initHelloWasm () { 
+  await init('../static/pkg/hello_wasm_bg.wasm');
+}
+initHelloWasm();
+
+greetButton.addEventListener('click', () => {
+  greet('xyz greet');
+});
+
+greet2Button.addEventListener('click', () => {
+  greet2('abc greet2');
+});
+*/

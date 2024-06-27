@@ -24,6 +24,8 @@ import Wallet from './services/wallet';
 import { NewStorageForm } from './form/NewStorageForm';
 import { NewUserForm as NewUserForm } from './form/NewUserForm';
 import { RecoverForm } from './form/RecoverForm';
+import SetupSSSGenerator from './pages/SetupSSSGenerator';
+//import { SetupSSS } from './pages/SetupSSS';
 
 import events from 'events';
 const eventEmitter = new events.EventEmitter();
@@ -502,6 +504,9 @@ export class App extends React.Component {
                 <button id="RecoverForm" onClick={() => {
                   this.routeLink('RecoverForm');
                 }}>recover</button>
+                <button id="SetupSSSGenerator" onClick={() => {
+                  this.routeLink('SetupSSSGenerator');
+                }}>SetupSSSGenerator</button>
               </p>
               <p>
                 <button id="home" onClick={() => {
@@ -529,6 +534,7 @@ export class App extends React.Component {
                 (this.state.clickedLink === 'NewUserForm1') ? (<NewUserForm1 wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'NewUserForm') ? (<NewUserForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'RecoverForm') ? (<RecoverForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+                (this.state.clickedLink === 'SetupSSSGenerator') ? (<SetupSSSGenerator wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'new') ? (<NewWalletForm app={this} wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'import') ? (<ImportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'export') ? (<ExportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
