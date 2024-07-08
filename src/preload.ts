@@ -35,6 +35,10 @@ contextBridge.exposeInMainWorld('authAPI', {
   handleAuthResult: (callback: Callback) => ipcRenderer.on('authResult', callback),
 });
 
+contextBridge.exposeInMainWorld('libp2pAPI', {
+  startDhtNode: () => ipcRenderer.send('DhtNode'),
+});
+
 contextBridge.exposeInMainWorld('walletAPI', {
   auth: (password: string) => ipcRenderer.send('auth', password),
   handleAuthResult: (callback: Callback) => ipcRenderer.on('authResult', callback),

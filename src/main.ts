@@ -8,6 +8,8 @@ import {
 } from "electron";
 import * as path from "path";
 
+//import { DhtNode } from './services/dhtNode.0.0.1';
+
 //import { default as Peer } from './services/peer';
 //console.log('sssssssssssssssssssssssssssssssssss:', Peer);
 //import { default as Peer } from './services/libp2p';
@@ -402,6 +404,10 @@ function createWindow() {
     console.log(
       arg
     );
+  });
+
+  ipcMain.on('DhtNode', async (event, arg) => {
+//    console.log('DhtNode :: ', await DhtNode())
   });
 
   if (typeof seedKeystore !== 'undefined' && seedKeystore) {

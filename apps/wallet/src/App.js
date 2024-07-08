@@ -20,12 +20,14 @@ import { Router, Route } from 'electron-router-dom';
 import eventBus from "./services/EventBus";
 //import PubSub from "./services/PubSub";
 import Wallet from './services/wallet';
+//import { DhtNode } from './services/dhtNode.0.0.1';
 
 import { NewStorageForm } from './form/NewStorageForm';
 import { NewUserForm as NewUserForm } from './form/NewUserForm';
 import { RecoverForm } from './form/RecoverForm';
 import SetupSSSGenerator from './pages/SetupSSSGenerator';
-//import { SetupSSS } from './pages/SetupSSS';
+import SetupSSS from './pages/SetupSSS';
+import TestAPI from './pages/TestAPI';
 
 import events from 'events';
 const eventEmitter = new events.EventEmitter();
@@ -35,6 +37,9 @@ window.walletAPI.walletPhrase((event, phrase) => {
   console.log('xxxxxxxxxxxxx handle walletPhrase callback:', phrase);
 });
 window.walletAPI.getPhrase();
+
+//window.libp2pAPI.startDhtNode(); 
+import { DhtNode } from './services/dhtNode/dhtNode.0.0.1'
 
 export class SetupPasswordPage extends React.Component {
   constructor (props) {
@@ -243,6 +248,7 @@ export class LoginPage extends React.Component {
           <input name='password' type='password' required onChange={this.onChangeInput} /><br/>
           <button type='submit'>authenticate</button>
         </form>
+        <a href="../../index.html">App Store</a>
       </div>
     );
   }
@@ -429,6 +435,10 @@ export class App extends React.Component {
 
   componentDidMount() {
     console.log('this.pubSub', this.pubSub);
+    console.log(
+      'DhtNode',
+      DhtNode()
+    )
 
     /*
     this.pubSub.on("authOkay", (msg, data) => {
@@ -507,6 +517,12 @@ export class App extends React.Component {
                 <button id="SetupSSSGenerator" onClick={() => {
                   this.routeLink('SetupSSSGenerator');
                 }}>SetupSSSGenerator</button>
+                <button id="SetupSSS" onClick={() => {
+                  this.routeLink('SetupSSS');
+                }}>SetupSSS</button>
+                <button id="TestAPI" onClick={() => {
+                  this.routeLink('TestAPI');
+                }}>Test API</button>
               </p>
               <p>
                 <button id="home" onClick={() => {
@@ -535,6 +551,8 @@ export class App extends React.Component {
                 (this.state.clickedLink === 'NewUserForm') ? (<NewUserForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'RecoverForm') ? (<RecoverForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'SetupSSSGenerator') ? (<SetupSSSGenerator wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+                (this.state.clickedLink === 'SetupSSS') ? (<SetupSSS wallet={this.wallet} eventEmitter={eventEmitter} />) : 
+                (this.state.clickedLink === 'TestAPI') ? (<TestAPI wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'new') ? (<NewWalletForm app={this} wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'import') ? (<ImportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
                 (this.state.clickedLink === 'export') ? (<ExportWalletForm wallet={this.wallet} eventEmitter={eventEmitter} />) : 
