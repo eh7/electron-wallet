@@ -8,6 +8,45 @@ import {
 } from "electron";
 import * as path from "path";
 
+//import { DhtNode } from './services/dhtNode.0.0.1';
+
+//import { default as Peer } from './services/peer';
+//console.log('sssssssssssssssssssssssssssssssssss:', Peer);
+//import { default as Peer } from './services/libp2p';
+//console.log(new Peer());
+//const peer = new Peer();
+//console.log(
+//  'Libp2p -> Peer',
+  // typeof Peer,
+//);
+
+//import Libp2p from 'libp2p';
+//import Libp2p from '../node_modules/libp2p/dist/src/';
+//import { Libp2p } from 'libp2p';
+
+/*
+import * as keytar from 'keytar';
+// TODO: should we use this to implemt scaffold function //
+async function testKeyta () {
+  const service = 'service';
+  const account = 'account';
+  const password = 'qwerty';
+  console.log(keytar);
+  console.log(
+    await keytar.setPassword(service, account, password)
+  );
+  console.log(
+    await keytar.getPassword(service, account)
+  );
+}
+testKeyta();
+*/
+
+//import {
+//  test,
+//} from './services/p2p.js';
+//test();
+
 //import { createFileRoute, createURLRoute } from 'electron-router-dom';
 
 import * as bip39 from 'bip39-light';
@@ -19,23 +58,36 @@ dotenv.config()
 const endPoint = process.env.MAINNET_RPC_END_POINT || '';
 
 // testing electron store to persist app config data
-import * as Store from 'electron-store';
+//import * as Store from 'electron-store';
+import { default as Store } from 'electron-store';
+//import Store from 'electron-store';
 const store = new Store();
 //store.set('keystore', []);
-//console.log(app.getPath('userData'));
-//console.log('keystore:', store.get('keystore'));
 let seedKeystore = store.get('keystore');
 //console.log('appData store:', store.get('appData')); 
 
-/*
 import { ethers } from 'ethers';
-*/
+/*
 let ethers = {};
+*/
 let ethersData = {};
 let provider;
 let wallet;
 
-async function ethersGetBalance (ethers, address) {
+import Auth from './services/auth';
+const auth = new Auth(store, ethers);
+ 
+/*
+store.set('password', null);
+auth.setupAuthData({
+  password: '123456',
+});
+auth.testAuthData({
+  password: '123456',
+})
+*/
+
+async function ethersGetBalance (ethers: any, address: string) {
   const balance = await ethers.provider.getBalance(address);
   console.log('provider.getBalance:', balance.toString())
   let formatedBalance = 0;
@@ -53,12 +105,13 @@ async function ethersGetBalance (ethers, address) {
   //);
 }
 
-async function ethersGetBlockNo (ethers) {
+async function ethersGetBlockNo (ethers: any) {
    return await ethers.provider.getBlockNumber();
 }
 
-async function importEthers (data) {
-  const { ethers } = await import('ethers');
+/*
+async function importEthers (data: any) {
+  //const { ethers } = await import('ethers');
   const provider = new ethers.providers.JsonRpcProvider(endPoint);
   //console.log(provider);
   //console.log(data);
@@ -73,6 +126,7 @@ async function importEthers (data) {
     wallet,
   };
 }
+*/
 
 const menu = new Menu();
 
@@ -93,21 +147,21 @@ async function handleFileOpen () {
   }
 }
 
-async function handleWalletData (event, data) {
+async function handleWalletData (event: any, data: object) {
   console.log('handleWalletData', data);
 }
 
-function openDevTools (mainWindow) {
+function openDevTools (mainWindow: any) {
   mainWindow.webContents.openDevTools();
   devTools = true;
 }
 
-function closeDevTools (mainWindow) {
+function closeDevTools (mainWindow: any) {
   mainWindow.webContents.closeDevTools();
   devTools = false;
 }
 
-function toggleDevTools (mainWindow) {
+function toggleDevTools (mainWindow: any) {
   mainWindow.webContents.toggleDevTools();
   (devTools) ? devTools = false : devTools = true;
 }
@@ -181,6 +235,41 @@ function createWindow() {
     //});
   });
 
+  ipcMain.on('setElectronPassword', async (event, password) => {
+    let status = true;
+    //console.log('setElectronPassword:', event);
+    if (password === '') {
+      status = false;
+      auth.setElectronPasswordNull();
+    } else {
+      auth.setElectronPassword(password);
+    }
+    event.sender.send(
+      'authStatusMessage',
+      'setElectronPassword',
+      status,
+    );
+  });
+
+  ipcMain.on('checkPasswordSet', async (event) => {
+    console.log('checkPasswordSet:');
+    //console.log('auth.checkPasswordSet():', await auth.checkPasswordSet());
+    const password = await auth.checkPasswordSet();
+    event.sender.send(
+      'checkPasswordSetResult',
+      password,
+    );
+  });
+
+  // TODO creat auth request and return json web token t access api
+  ipcMain.on('auth', async (event, _password) => {
+    // console.log('auth', _password);
+    event.sender.send(
+      'authResult',
+      await auth.checkLoginAuth(_password),
+    );
+  });
+
   ipcMain.on('walletBalance', async (event, address) => {
     console.log('getting walletBalance:', address);
     const balance = await ethersGetBalance(
@@ -200,6 +289,7 @@ function createWindow() {
   });
 
   //ipcMain.on('walletInitMain', (event, message) => {
+  /*
   ipcMain.on('walletInitMain', async (event, message) => {
     //console.log('walletInitMain recieved:', event, message);
     //console.log('walletInitMain recieved:', message);
@@ -228,6 +318,7 @@ function createWindow() {
     //);
     //const blockNo = await ethersGetBlockNo();
   });
+  */
 
   ipcMain.on('showDevTools', async (event, message) => {
     //console.log('showDevTools', devTools);
@@ -254,13 +345,29 @@ function createWindow() {
 
   // console.log(mainWindow.webContents.send('walletPubKey', { pubkey: 'newPubKey' }));
 
+  ipcMain.on('setUserPhrase', (event, phrase) => {
+    //console.log('setUserPhrase :: ', phrase);
+    store.set('userPhrase', phrase);
+  });
+
+  ipcMain.on('getUserPhrase', (event) => {
+    //store.set('userPhrase', '');
+    const phrase = store.get('userPhrase');
+    //console.log('>>>>>>>>> getUserPhrase >>>>>>>>>>>>>>>------', phrase)
+    event.sender.send('getUserPhraseResult', phrase);
+  });
+
   ipcMain.on('getKeystoreSeedHex', (event) => {
     const keystore = store.get('keystore');
-    event.sender.send('keystoreSeedHex', keystore); 
+    event.sender.send(
+      'keystoreSeedHex',
+      keystore,
+    ); 
   });
 
   ipcMain.on('getWalletData', (event) => {
-    const data = store.get('data');
+    //const data = store.get('data');
+    const data = store.get('wallet');
     event.sender.send('walletData', data); 
   });
 
@@ -272,6 +379,12 @@ function createWindow() {
       name: 'name',
       phrase: 'this is an example phrase returned from main',
     });
+  });
+
+  ipcMain.on('saveWalletData', (event, wallet) => {
+    store.set('wallet', wallet);
+    // const savedWallet = store.get('wallet');
+    console.log('xxxxx saveWalletData main store.set wallet xxxxx');
   });
 
   ipcMain.on('saveKeystoreData', (event, keystore) => {
@@ -291,6 +404,10 @@ function createWindow() {
     console.log(
       arg
     );
+  });
+
+  ipcMain.on('DhtNode', async (event, arg) => {
+//    console.log('DhtNode :: ', await DhtNode())
   });
 
   if (typeof seedKeystore !== 'undefined' && seedKeystore) {

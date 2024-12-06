@@ -1,19 +1,22 @@
 { 
   "compilerOptions": {
-    "outDir": "./dist",
-    "target": "es2016",
+    //"target": "es2020",
+    //"module": "es2020",
+    //"moduleResolution": "nodenext",
+    "target": "es6",
     "module": "commonjs",
-    "moduleResolution": "node16",
+    "noImplicitAny": true,
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
   },
   "exclude": [
     "node_modules",
     "dist",
     "out",
     "tmp",
+    "electron-quick-start-typescript",
+    "apps/web3API/api",
   ]
 }

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Glas Mael Lodge",
+    "name": "Glas Mael Lodge",
+    "description": "1 bedroom wooden lodge",
+    "location": "Spittal-of-Glenshee"
+  },
+  {
+    "name": "Cairnwell Lodge",
+    "description": "2 bedroom wooden lodge",
+    "location": "Spittal-of-Glenshee",
+    "currentRate": "75"
+  },
+  {
+    "name": "Straloch Lodge",
+    "description": "3 bedroom wooden lodge",
+    "location": "Spittal-of-Glenshee",
+    "currentRate": "85",
+    "bookings": [
+     {
+        "from": "2023-04-13",
+        "to": "2023-04-16",
+        "baseRate": 85,
+        "rate": 1
+      },
+      {
+        "from": "2023-04-17",
+        "to": "2023-04-20",
+        "baseRate": 85,
+        "rate": 1.1
+      }
+    ]
+  }
+]

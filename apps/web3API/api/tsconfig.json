@@ -1,0 +1,16 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    //"module": "es6",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true//,
+    //"inlineSourceMap": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ]
+}

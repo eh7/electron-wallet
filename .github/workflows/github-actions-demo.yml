@@ -1,0 +1,26 @@
+name: GitHub Actions Demo
+on: [push]
+env:
+  HOOK_URL: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL }}
+  HOOK_URL_WALLETS: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_URL_WALLETS }}
+  GITHUB_URL: ${GITHUB_SERVER_URL}
+  GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+  BRANCH: "$GITHUB_BASE_REF"
+  __BRANCH: ${{ github.ref }}
+  _BRANCH: ${GITHUB_REF/refs\/heads\//}
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: self-hosted
+    steps:
+      - name: "Send Discord Notification"
+        run: sh ./discordWebHookNotification.sh "$GITHUB_REPOSITORY" "$GITHUB_EVENT_NAME" "$GITHUB_ACTOR" "$GITHUB_SHA" "$GITHUB_REF" ""
+        #- run: echo "triggered by a ${{ github.event_name }} event."
+        #- run: pwd    
+        #- run: |
+        #  #cat ${{ github }}
+        #  echo "$GITHUB_REPOSITORY"
+        #  echo "$GITHUB_EVENT_NAME"
+        #- run: echo "GITHUB_REF = $GITHUB_REF"
+        #- run: sh ./discordWebHookTest.sh    
+        #- run: echo "all done..."
+          #      - run: sh ./discordWebHookTest.sh    

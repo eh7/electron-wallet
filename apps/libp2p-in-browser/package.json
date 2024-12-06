@@ -1,0 +1,37 @@
+{
+  "name": "libp2p-in-browser",
+  "version": "6.1.7",
+  "description": "A libp2p node running in the browser",
+  "main": "index.js",
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bb": "yarn babel src/index.js -d lib",
+    "bbm": "yarn babel src/index.js --source-type module -d lib",
+    "cc": "yarn browserify lib/index.js -o bundle.js",
+    "ccm": "yarn browserify lib/index.js -o bundle.js",
+    "build": "deno bundle --unstable index.js > bundle.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "6.26.0",
+    "buffer": "5.6.1",
+    "buffer-alloc": "1.2.0",
+    "libp2p": "0.29.2",
+    "libp2p-bootstrap": "^0.12.1",
+    "libp2p-gossipsub": "^0.6.4",
+    "libp2p-mplex": "^0.10.1",
+    "libp2p-noise": "^2.0.1",
+    "libp2p-webrtc-star": "^0.20.1",
+    "libp2p-websockets": "^0.14.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.12.1",
+    "@babel/core": "7.12.3"
+  },
+  "gitHead": "b6f87becc4963a3ce985a60bf79fcd47eb4b8adf"
+}

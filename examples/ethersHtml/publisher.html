@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Publisher Subscriptions DApp (newsFeed00)</title>
+ <link href='https://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="container">
+ <h1>Publisher subscribed addresses for newsFeed00</h1>
+ <div id="txAmount"/>
+ <a href="#" onclick="listSubscriptions()" class="btn btn-primary">listSubscriptions</a>
+ <a href="#" onclick="accountSubscriptions()" class="btn btn-primary">accountSubscriptions</a>
+
+ <p><a href="index.html">subscriber view</a></p>
+
+ <!--
+ <h1>A Simple Hello World Voting Application</h1>
+ <div class="table-responsive">
+  <table class="table table-bordered">
+   <thead>
+    <tr>
+     <th>Candidate</th>
+     <th>Votes</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>Rama</td>
+     <td id="candidate-1"></td>
+    </tr>
+    <tr>
+     <td>Nick</td>
+     <td id="candidate-2"></td>
+    </tr>
+    <tr>
+     <td>Jose</td>
+     <td id="candidate-3"></td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+ <input type="text" id="candidate" />
+ <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
+ //-->
+
+</body>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+        type="application/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<!--script type="module" src="./publisher.js"></script//-->
+<script type="module">
+  import { 
+    listSubscriptions,
+    accountSubscriptions,
+   } from './publisher.js';
+  window.listSubscriptions = listSubscriptions;
+  window.accountSubscriptions = accountSubscriptions;
+  listSubscriptions();
+</script>
+</html>

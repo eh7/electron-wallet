@@ -22,6 +22,8 @@ The url would need to be a valid rpc endpoint for the ethereum mainnet, for now.
 
 * https://pspdfkit.com/blog/2018/running-native-code-in-electron-and-the-case-for-webassembly/
 
+* https://www.jsgarden.co/blog/how-to-handle-electron-ipc-events-with-typescript
+
 
 Links to help figure code for loading wallet waiting 
 
@@ -31,10 +33,15 @@ Links to help figure code for loading wallet waiting
 
 * https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html 
 
+
+typescript render  ipc events
+
+https://www.jsgarden.co/blog/how-to-handle-electron-ipc-events-with-typescript
+
 TODOs
 
 * DEFINE walletAPI functions between render and main, see preloaded script
 * create abi contract interface based on this repo --->--> in ~/repos/dapp-dao-mono/apps/ui/nft-admin
 * create basic wallets smart contract - delploy goerli
 
-
+test
